@@ -9,14 +9,12 @@
 #ifndef Bridging_Header_h
 #define Bridging_Header_h
 
-#import <AWSCore/AWSCore.h>
-#import <AWSS3/AWSS3.h>
-#import <AWSDynamoDB/AWSDynamoDB.h>
-#import <AWSSQS/AWSSQS.h>
-#import <AWSSNS/AWSSNS.h>
-#import <AWSCognito/AWSCognito.h>
+
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <AWSCore/AWSCore.h>
+#import <AWSCognito/AWSCognito.h>
+#import <AWSMobileAnalytics/AWSMobileAnalytics.h>
 
 
 #endif /* Bridging_Header_h */

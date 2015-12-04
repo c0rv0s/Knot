@@ -46,7 +46,7 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
         print("User Logged In")
         
         let token = FBSDKAccessToken.currentAccessToken().tokenString
-         appDelegate.credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
+        appDelegate.credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
         
         self.Continue.hidden = false
         if let resultController = storyboard!.instantiateViewControllerWithIdentifier("FeedViewController") as? UIViewController {
@@ -69,7 +69,6 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
                 // Do work
             }
         }
-        //self.performSegueWithIdentifier("LoggedInSegue", sender: nil)
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
@@ -96,13 +95,5 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
             }
         })
     }
-    
-    /*
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        if (segue!.identifier == "LoggedInSegue") {
-            let viewController:FeedViewController = segue!.destinationViewController as! FeedViewController
-        }
-    }
-*/
 
 }

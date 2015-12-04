@@ -8,24 +8,28 @@
 
 import UIKit
 import CoreData
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
+    
+        var window: UIWindow?
     var credentialsProvider = AWSCognitoCredentialsProvider()
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
         
-        //AWS stuff
+        // Initialize the Amazon Cognito credentials provider
+        
         credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
             identityPoolId:"us-east-1:1b7b2f73-458f-4535-a782-fd977da5f12b")
         
         let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
         
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+        
+            // Retrieve your Amazon Cognito ID.
+        NSString *cognitoId = credentialsProvider.identityId;
 
+        //return facebook data
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
