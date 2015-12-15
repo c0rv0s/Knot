@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
         
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-        //var myTransferManager:AWSS3TransferManager = AWSS3TransferManager.defaultS3TransferManager()
         
             // Retrieve your Amazon Cognito ID.
         cognitoId = credentialsProvider.identityId;

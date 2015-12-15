@@ -12,7 +12,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    var tableData: [String] = ["AstroCoffee", "Lambo", "Dog"]
+    var tableData: [String] = []
     
     var refreshControl = UIRefreshControl()
     
@@ -29,6 +29,35 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        //download data
+        let downloadingFilePath1 = NSTemporaryDirectory().stringByAppendingPathComponent("temp-download")
+        let downloadingFileURL1 = NSURL(fileURLWithPath: downloadingFilePath1 )
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        
+        
+        let readRequest1 : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
+        readRequest1.bucket = "knotcomplex-userfiles-mobilehub-1874622474/public"
+        readRequest1.key =  "bingo"
+        readRequest1.downloadingFileURL = downloadingFileURL1
+        
+        let task = transferManager.download(readRequest1)
+        task.continueWithBlock {(task: AWSTask!) -> AnyObject! in
+            print(task.error)
+            if task.error != nil {
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue()
+                    , { (); Void; in
+                        self.selectedImage.image = UIImage(contentsOfFile: downloadingFilePath1)
+                        self.selectedImage.setNeedsDisplay()
+                        self.selectedImage.reloadInputViews()
+                        
+                })
+                print("Fetched image")
+            }
+            return nil
+        }
     }
     
     override func viewDidLayoutSubviews() {

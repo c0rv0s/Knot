@@ -176,6 +176,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
             self.presentViewController(alert, animated: true, completion: nil)
         }
         else {
+            
         let syncClient = AWSCognito.defaultCognito()
         // Create a record in a dataset and synchronize with the server
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
