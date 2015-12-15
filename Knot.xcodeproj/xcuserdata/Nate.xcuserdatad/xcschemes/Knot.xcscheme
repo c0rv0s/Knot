@@ -20,6 +20,34 @@
                ReferencedContainer = "container:Knot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "431853581BF9892F000C6ED4"
+               BuildableName = "KnotTests.xctest"
+               BlueprintName = "KnotTests"
+               ReferencedContainer = "container:Knot.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "431853631BF9892F000C6ED4"
+               BuildableName = "KnotUITests.xctest"
+               BlueprintName = "KnotUITests"
+               ReferencedContainer = "container:Knot.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,26 +56,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "431853581BF9892F000C6ED4"
-               BuildableName = "KnotTests.xctest"
-               BlueprintName = "KnotTests"
-               ReferencedContainer = "container:Knot.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "431853631BF9892F000C6ED4"
-               BuildableName = "KnotUITests.xctest"
-               BlueprintName = "KnotUITests"
-               ReferencedContainer = "container:Knot.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

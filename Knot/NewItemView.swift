@@ -2,27 +2,49 @@
 //  NewItemView.swift
 //  Knot
 //
-//  Created by Nathan Mueller on 11/17/15.
+//  Created by Nathan Mueller on 11/23/15.
 //  Copyright © 2015 Knot App. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
 
-class NewItemView: UIViewController {
+class NewItemView: UIViewController, UITextFieldDelegate  {
     
+    var picView: UIImageView!
+    var pic : UIImage = UIImage()
+    
+    @IBOutlet weak var retakeButton: UIButton!
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var nameField: UITextField!
+    
+    @IBOutlet weak var priceField: UITextField!
+    
+    //camera 
     @IBOutlet weak var previewView: UIView!
-    
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCaptureStillImageOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
-    var image : UIImage = UIImage()
+    //end camera
+    
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.nameField.delegate = self;
+        self.retakeButton.hidden = true
+        
+        priceField.delegate = self
+        priceField.keyboardType = UIKeyboardType.NumbersAndPunctuation
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+
     }
     
+    //Camera
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
@@ -57,8 +79,8 @@ class NewItemView: UIViewController {
                 captureSession!.startRunning()
             }
         }
-
-
+        
+        
         
     }
     
@@ -66,16 +88,16 @@ class NewItemView: UIViewController {
         super.viewDidAppear(animated)
         previewLayer!.frame = previewView.bounds
     }
-    
+    /*
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
         if (segue!.identifier == "AddDetailsSegue") {
-            let viewController:AddDetailsView = segue!.destinationViewController as! AddDetailsView
+            let viewController:NewItemView = segue!.destinationViewController as! NewItemView
             viewController.pic = image
             
         }
         
     }
-    
+*/
     @IBAction func didPressTakePhoto(sender: UIButton) {
         
         if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
@@ -86,13 +108,19 @@ class NewItemView: UIViewController {
                     let dataProvider = CGDataProviderCreateWithCFData(imageData)
                     let cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
                     
-                    self.image = self.RBSquareImage(UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right))
-                    self.performSegueWithIdentifier("AddDetailsSegue", sender: nil)
+                    self.pic = self.RBSquareImage(UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right))
+                    self.previewView.hidden = true
+                    self.picView = UIImageView(frame:CGRectMake(0, 64, 375, 375))
+                    self.picView.image = self.pic
+                    self.view.addSubview(self.picView)
+                    self.view.sendSubviewToBack(self.picView)
+                    self.cameraButton.hidden = true
+                    self.retakeButton.hidden = false
                 }
             })
         }
     }
-    
+
     func RBSquareImage(image: UIImage) -> UIImage {
         var originalWidth  = image.size.width
         var originalHeight = image.size.height
@@ -103,12 +131,75 @@ class NewItemView: UIViewController {
         return UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
     }
 
+    @IBAction func retakePhoto(sender: AnyObject) {
+        self.cameraButton.hidden = false
+        self.retakeButton.hidden = true
+        self.picView.image = nil
+        self.picView.removeFromSuperview()
+        self.picView = nil
+        self.previewView.hidden = false
+        
+        
+    }
+    //end camera
     
-    @IBAction func didPressTakeAnother(sender: AnyObject) {
-        captureSession!.startRunning()
+    //keyboard
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+        
     }
     
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y += keyboardSize.height
+        }
+    }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
+    @IBAction func userTappedBackground(sender: AnyObject) {
+        view.endEditing(true)
+    }
+//end keyboard
+    
+    //uplaod and submission
+    @IBAction func submitNewItem(sender: UIBarButtonItem) {
+        if (self.nameField.text == "") {
+            let alert = UIAlertController(title: "Attention", message: "Please enter the missing values.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else {
+        let syncClient = AWSCognito.defaultCognito()
+        // Create a record in a dataset and synchronize with the server
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+        let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
+        
+        let data = UIImageJPEGRepresentation(pic, 0.5)
+        data!.writeToURL(testFileURL1, atomically: true)
+        uploadRequest1.bucket = "knotcomplex-userfiles-mobilehub-1874622474/public"
+        uploadRequest1.key =  self.nameField.text
+        uploadRequest1.body = testFileURL1
+        
+        let task = transferManager.upload(uploadRequest1)
+        task.continueWithBlock {(task: AWSTask!) -> AnyObject! in
+            if task.error != nil {
+                print("Error: \(task.error)")
+            } else {
+                print("Upload successful")
+            }
+            return nil
+        }
+        }
+
+    }
+    //end upload and submissions
+
 }
-
-

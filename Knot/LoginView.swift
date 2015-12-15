@@ -13,22 +13,19 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var loginButton: FBSDKLoginButton!
     
-    @IBOutlet weak var Continue: UIButton!
-    
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.Continue.hidden = true
-        
         if (FBSDKAccessToken.currentAccessToken() != nil)
         {
             // User is already logged in, do work such as go to next view controller.
-            self.Continue.hidden = false
-            if let resultController = storyboard!.instantiateViewControllerWithIdentifier("FeedViewController") as? UIViewController {
-                presentViewController(resultController, animated: false, completion: nil)
-            }
+            let token = FBSDKAccessToken.currentAccessToken().tokenString
+            appDelegate.credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
+            
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
+            self.presentViewController(vc, animated: true, completion: nil)
         }
         else
         {
@@ -47,11 +44,9 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
         
         let token = FBSDKAccessToken.currentAccessToken().tokenString
         appDelegate.credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
-        
-        self.Continue.hidden = false
-        if let resultController = storyboard!.instantiateViewControllerWithIdentifier("FeedViewController") as? UIViewController {
-            presentViewController(resultController, animated: false, completion: nil)
-        }
+
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
+        self.presentViewController(vc, animated: true, completion: nil)
         
         //error handling
         if ((error) != nil)

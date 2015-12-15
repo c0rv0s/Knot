@@ -14,10 +14,16 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var tableData: [String] = ["AstroCoffee", "Lambo", "Dog"]
     
+    var refreshControl = UIRefreshControl()
+    
     // 1
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set up the refresh control
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView?.addSubview(refreshControl)
         
         // Register custom cell
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
@@ -68,6 +74,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     // 5
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 380
+    }
+    
+    func refresh(sender:AnyObject) {
+        let nib = UINib(nibName: "vwTableCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     @IBAction func unwindToViewOtherController(segue:UIStoryboardSegue) {

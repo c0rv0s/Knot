@@ -15,6 +15,7 @@
 #import <AWSCore/AWSCore.h>
 #import <AWSCognito/AWSCognito.h>
 #import <AWSMobileAnalytics/AWSMobileAnalytics.h>
+#import <AWSS3/AWSS3.h>
 
 
 #endif /* Bridging_Header_h */

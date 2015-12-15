@@ -11,7 +11,6 @@
 		430DF90A1BFAFF3500839F37 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 430DF9071BFAFF3500839F37 /* libsqlite3.tbd */; };
 		430DF90B1BFAFF3500839F37 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 430DF9081BFAFF3500839F37 /* libz.tbd */; };
 		430DF90C1BFAFF3500839F37 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430DF9091BFAFF3500839F37 /* SystemConfiguration.framework */; };
-		430DF90F1BFC055B00839F37 /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430DF90E1BFC055B00839F37 /* NewItemView.swift */; };
 		431853461BF9892F000C6ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431853451BF9892F000C6ED4 /* AppDelegate.swift */; };
 		431853481BF9892F000C6ED4 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431853471BF9892F000C6ED4 /* FeedViewController.swift */; };
 		4318534E1BF9892F000C6ED4 /* Knot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4318534C1BF9892F000C6ED4 /* Knot.xcdatamodeld */; };
@@ -27,11 +26,10 @@
 		431F1A4E1C1127A800EDB1A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A4D1C1127A800EDB1A8 /* CoreLocation.framework */; };
 		431F1A501C1127B000EDB1A8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A4F1C1127B000EDB1A8 /* QuartzCore.framework */; };
 		431F1A521C1127B700EDB1A8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A511C1127B700EDB1A8 /* Security.framework */; };
-		431F1A541C1127BF00EDB1A8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A531C1127BF00EDB1A8 /* StoreKit.framework */; };
 		431F1A561C1127F600EDB1A8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A551C1127F600EDB1A8 /* Accounts.framework */; };
 		431F1A581C1127FB00EDB1A8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A571C1127FB00EDB1A8 /* Social.framework */; };
 		434BE01D1C0CD628007479AB /* string-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BE01C1C0CD628007479AB /* string-extension.swift */; };
-		43869C5B1C03CE36008E6056 /* AddDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C5A1C03CE36008E6056 /* AddDetailsView.swift */; };
+		43869C5B1C03CE36008E6056 /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C5A1C03CE36008E6056 /* NewItemView.swift */; };
 		43869C611C052E07008E6056 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C601C052E07008E6056 /* LoginView.swift */; };
 		43869C621C052E07008E6056 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C601C052E07008E6056 /* LoginView.swift */; };
 		43869C631C052E07008E6056 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C601C052E07008E6056 /* LoginView.swift */; };
@@ -54,8 +52,11 @@
 		43869C7E1C05DF2C008E6056 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43869C701C05DF2C008E6056 /* FBSDKShareKit.framework */; };
 		43869C7F1C05DF2C008E6056 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43869C701C05DF2C008E6056 /* FBSDKShareKit.framework */; };
 		43A4FC391BF996F00003748E /* ItemDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A4FC381BF996F00003748E /* ItemDetail.swift */; };
+		43C777F71C1A53BB005A7641 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C777F61C1A53BB005A7641 /* Foundation.framework */; };
+		43C777F91C1A53CA005A7641 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C777F81C1A53CA005A7641 /* UIKit.framework */; };
 		43C924971C084BA40006E181 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43C924951C084BA40006E181 /* Main.storyboard */; };
-		7000638B72CF521FEF6F68AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC89A87CD630965E91D813C /* libPods.a */; };
+		43D8A1051C1A6F3B002F43BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D8A1041C1A6F3B002F43BE /* libPods.a */; };
+		43D8A1091C1B8EB3002F43BE /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,12 +77,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0DC89A87CD630965E91D813C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		430DF8E31BFAA6B300839F37 /* QrView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QrView.swift; path = ../QrView.swift; sourceTree = "<group>"; };
 		430DF9071BFAFF3500839F37 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		430DF9081BFAFF3500839F37 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		430DF9091BFAFF3500839F37 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		430DF90E1BFC055B00839F37 /* NewItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
 		431853421BF9892F000C6ED4 /* Knot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Knot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		431853451BF9892F000C6ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		431853471BF9892F000C6ED4 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -103,11 +102,10 @@
 		431F1A4D1C1127A800EDB1A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		431F1A4F1C1127B000EDB1A8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		431F1A511C1127B700EDB1A8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		431F1A531C1127BF00EDB1A8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		431F1A551C1127F600EDB1A8 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		431F1A571C1127FB00EDB1A8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		434BE01C1C0CD628007479AB /* string-extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "string-extension.swift"; sourceTree = "<group>"; };
-		43869C5A1C03CE36008E6056 /* AddDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDetailsView.swift; sourceTree = "<group>"; };
+		43869C5A1C03CE36008E6056 /* NewItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
 		43869C601C052E07008E6056 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		43869C641C05DF01008E6056 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		43869C681C05DF11008E6056 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -116,8 +114,12 @@
 		43869C6F1C05DF2C008E6056 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		43869C701C05DF2C008E6056 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		43A4FC381BF996F00003748E /* ItemDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetail.swift; sourceTree = "<group>"; };
+		43C777F61C1A53BB005A7641 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		43C777F81C1A53CA005A7641 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		43C924941C0818220006E181 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "../Bridging-Header.h"; sourceTree = "<group>"; };
 		43C924961C084BA40006E181 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		43D8A1041C1A6F3B002F43BE /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		7E1EE80F15CFA3842F849A93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E8D0205F3E15E8345F83F768 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,10 +129,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43D8A1051C1A6F3B002F43BE /* libPods.a in Frameworks */,
+				43C777F91C1A53CA005A7641 /* UIKit.framework in Frameworks */,
+				430DF90C1BFAFF3500839F37 /* SystemConfiguration.framework in Frameworks */,
+				43C777F71C1A53BB005A7641 /* Foundation.framework in Frameworks */,
 				431F1A581C1127FB00EDB1A8 /* Social.framework in Frameworks */,
 				431F1A561C1127F600EDB1A8 /* Accounts.framework in Frameworks */,
-				430DF90C1BFAFF3500839F37 /* SystemConfiguration.framework in Frameworks */,
-				431F1A541C1127BF00EDB1A8 /* StoreKit.framework in Frameworks */,
 				431F1A521C1127B700EDB1A8 /* Security.framework in Frameworks */,
 				431F1A501C1127B000EDB1A8 /* QuartzCore.framework in Frameworks */,
 				431F1A4E1C1127A800EDB1A8 /* CoreLocation.framework in Frameworks */,
@@ -143,7 +147,6 @@
 				43869C691C05DF11008E6056 /* FBSDKLoginKit.framework in Frameworks */,
 				430DF90B1BFAFF3500839F37 /* libz.tbd in Frameworks */,
 				43869C7A1C05DF2C008E6056 /* FBSDKMessengerShareKit.framework in Frameworks */,
-				7000638B72CF521FEF6F68AE /* libPods.a in Frameworks */,
 				43869C771C05DF2C008E6056 /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,9 +181,11 @@
 		085B8A7EEC2DC4D5536681F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43D8A1041C1A6F3B002F43BE /* libPods.a */,
+				43C777F81C1A53CA005A7641 /* UIKit.framework */,
+				43C777F61C1A53BB005A7641 /* Foundation.framework */,
 				431F1A571C1127FB00EDB1A8 /* Social.framework */,
 				431F1A551C1127F600EDB1A8 /* Accounts.framework */,
-				431F1A531C1127BF00EDB1A8 /* StoreKit.framework */,
 				431F1A511C1127B700EDB1A8 /* Security.framework */,
 				431F1A4F1C1127B000EDB1A8 /* QuartzCore.framework */,
 				431F1A4D1C1127A800EDB1A8 /* CoreLocation.framework */,
@@ -196,7 +201,6 @@
 				430DF9071BFAFF3500839F37 /* libsqlite3.tbd */,
 				430DF9081BFAFF3500839F37 /* libz.tbd */,
 				430DF9091BFAFF3500839F37 /* SystemConfiguration.framework */,
-				0DC89A87CD630965E91D813C /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -244,12 +248,12 @@
 				43869C601C052E07008E6056 /* LoginView.swift */,
 				4318534F1BF9892F000C6ED4 /* Assets.xcassets */,
 				43C924951C084BA40006E181 /* Main.storyboard */,
+				43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */,
 				431853511BF9892F000C6ED4 /* LaunchScreen.storyboard */,
 				431853541BF9892F000C6ED4 /* Info.plist */,
 				4318534C1BF9892F000C6ED4 /* Knot.xcdatamodeld */,
 				43A4FC381BF996F00003748E /* ItemDetail.swift */,
-				430DF90E1BFC055B00839F37 /* NewItemView.swift */,
-				43869C5A1C03CE36008E6056 /* AddDetailsView.swift */,
+				43869C5A1C03CE36008E6056 /* NewItemView.swift */,
 				434BE01C1C0CD628007479AB /* string-extension.swift */,
 			);
 			path = Knot;
@@ -345,6 +349,14 @@
 					431853411BF9892F000C6ED4 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = JBMX4N8785;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					431853581BF9892F000C6ED4 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -464,9 +476,9 @@
 			files = (
 				434BE01D1C0CD628007479AB /* string-extension.swift in Sources */,
 				4318537A1BF989AE000C6ED4 /* TableCell.swift in Sources */,
-				43869C5B1C03CE36008E6056 /* AddDetailsView.swift in Sources */,
+				43D8A1091C1B8EB3002F43BE /* HomeTabBarController.swift in Sources */,
+				43869C5B1C03CE36008E6056 /* NewItemView.swift in Sources */,
 				4318534E1BF9892F000C6ED4 /* Knot.xcdatamodeld in Sources */,
-				430DF90F1BFC055B00839F37 /* NewItemView.swift in Sources */,
 				431853481BF9892F000C6ED4 /* FeedViewController.swift in Sources */,
 				43A4FC391BF996F00003748E /* ItemDetail.swift in Sources */,
 				431853461BF9892F000C6ED4 /* AppDelegate.swift in Sources */,
@@ -655,14 +667,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Knot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.KnotComplex.Knot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Nate/Library/Mobile Documents/com~apple~CloudDocs/Knot/Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -674,14 +693,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Knot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.KnotComplex.Knot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Nate/Library/Mobile Documents/com~apple~CloudDocs/Knot/Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
