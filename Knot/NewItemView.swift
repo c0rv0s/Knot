@@ -208,7 +208,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
                 return nil
             }
 
-            //upload image
+            //TODO: upload image
             print("submission code completed")
         }
         //notification handling

@@ -14,7 +14,7 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate  {
     
     var window: UIWindow?
-   // var credentialsProvider = AWSCognitoCredentialsProvider()
+    var credentialsProvider = AWSCognitoCredentialsProvider()
     var cognitoId: NSString?
     var transferManager: AWSS3TransferManager?
     
