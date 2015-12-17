@@ -19,6 +19,8 @@ class ItemDetail: UIViewController {
     var pic : UIImage = UIImage()
     var name : String = "Text"
     var price : String = "Text"
+    var time: String = "Time"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

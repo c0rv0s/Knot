@@ -12,10 +12,10 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <AWSCore/AWSCore.h>
-#import <AWSCognito/AWSCognito.h>
+#import "AWSCore.h"
+#import "AWSCognito.h"
 #import <AWSMobileAnalytics/AWSMobileAnalytics.h>
 #import <AWSS3/AWSS3.h>
-
+#import <AWSDynamoDB/AWSDynamoDB.h>
 
 #endif /* Bridging_Header_h */

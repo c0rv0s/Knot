@@ -11,6 +11,9 @@ import UIKit
 
 class HomeTabBarController: UITabBarController {
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,8 +24,14 @@ class HomeTabBarController: UITabBarController {
         print("checking fb token status")
         if (FBSDKAccessToken.currentAccessToken() == nil) {
             print("user not logged in")
+            
             let vc = self.storyboard!.instantiateViewControllerWithIdentifier("LoginView") as! UIViewController
             self.presentViewController(vc, animated: true, completion: nil)
+        }
+        else {
+            print("user logged in")
+            let token = FBSDKAccessToken.currentAccessToken().tokenString
+            appDelegate.credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
         }
     }
 

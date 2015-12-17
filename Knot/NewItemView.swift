@@ -168,7 +168,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
     }
 //end keyboard
     
-    //uplaod and submission
+    //upload and submission
     @IBAction func submitNewItem(sender: UIBarButtonItem) {
         if (self.nameField.text == "") {
             let alert = UIAlertController(title: "Attention", message: "Please enter the missing values.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -177,29 +177,57 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         }
         else {
             
-        let syncClient = AWSCognito.defaultCognito()
-        // Create a record in a dataset and synchronize with the server
-        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
-        let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
-        let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
-        
-        let data = UIImageJPEGRepresentation(pic, 0.5)
-        data!.writeToURL(testFileURL1, atomically: true)
-        uploadRequest1.bucket = "knotcomplex-userfiles-mobilehub-1874622474/public"
-        uploadRequest1.key =  self.nameField.text
-        uploadRequest1.body = testFileURL1
-        
-        let task = transferManager.upload(uploadRequest1)
-        task.continueWithBlock {(task: AWSTask!) -> AnyObject! in
-            if task.error != nil {
-                print("Error: \(task.error)")
-            } else {
-                print("Upload successful")
+            /***CONVERT FROM NSDate to String ****/
+            let date = NSDate() //get the time, in this case the time an object was created.
+            //format date
+            var dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
+            var dateString = dateFormatter.stringFromDate(date)
+            print(dateString)
+            
+            //start syncClient
+            let syncClient = AWSCognito.defaultCognito()
+            
+            // Create a record in a dataset and synchronize with the server
+            var dataset = syncClient.openOrCreateDataset("myDataset")
+            dataset.setString(self.nameField.text, forKey:"Name")
+            dataset.setString(randomStringWithLength(16) as String, forKey:"ID")
+            dataset.setString(self.priceField.text, forKey:"Price")
+            dataset.setString("Silicon Valley", forKey: "Location")
+            dataset.setString(dateString, forKey:"Time")
+            dataset.setString(self.nameField.text, forKey:"image")
+            print("datasets completed")
+            dataset.synchronize().continueWithBlock {(task) -> AnyObject! in
+                if task.cancelled {
+                    // Task cancelled.
+                } else if task.error != nil {
+                    // Error while executing task
+                } else {
+                    // Task succeeded. The data was saved in the sync store.
+                }
+                return nil
             }
-            return nil
-        }
-        }
 
+            //upload image
+            print("submission code completed")
+        }
+        //notification handling
+
+    }
+    
+    func randomStringWithLength (len : Int) -> NSString {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        
+        var randomString : NSMutableString = NSMutableString(capacity: len)
+        
+        for (var i=0; i < len; i++){
+            var length = UInt32 (letters.length)
+            var rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
+        }
+        
+        return randomString
     }
     //end upload and submissions
 

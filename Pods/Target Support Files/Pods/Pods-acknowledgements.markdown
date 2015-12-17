@@ -308,6 +308,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSCloudWatch
 
@@ -615,6 +625,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 
 ## AWSCognito
@@ -954,6 +974,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSDynamoDB
 
@@ -1261,6 +1291,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 
 ## AWSEC2
@@ -1570,6 +1610,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSElasticLoadBalancing
 
@@ -1877,6 +1927,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 
 ## AWSKinesis
@@ -2186,6 +2246,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSLambda
 
@@ -2493,6 +2563,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 
 ## AWSMachineLearning
@@ -2802,6 +2882,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSMobileAnalytics
 
@@ -3109,6 +3199,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 
 ## AWSS3
@@ -3418,6 +3518,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSSES
 
@@ -3725,6 +3835,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 
 ## AWSSNS
@@ -4034,6 +4154,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSSQS
 
@@ -4342,6 +4472,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
 
 ## AWSSimpleDB
 
@@ -4649,5 +4789,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+====================
+
+Components are made available under the terms of the Eclipse Public License v1.0
+and Eclipse Distribution License v1.0 which accompany this distribution.
+
+The Eclipse Public License is available at
+  http://www.eclipse.org/legal/epl-v10.html
+and the Eclipse Distribution License is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
 
 Generated by CocoaPods - http://cocoapods.org

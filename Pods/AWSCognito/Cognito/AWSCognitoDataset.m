@@ -317,7 +317,7 @@
         }else {
             NSError *error = nil;
             NSMutableArray *conflicts = [NSMutableArray new];
-            // collect updates to write in a transaction
+            // collect updates to write in a trans
             NSMutableArray *nonConflictRecords = [NSMutableArray new];
             NSMutableArray *existingRecords = [NSMutableArray new];
             // keep track of record names for notificaiton

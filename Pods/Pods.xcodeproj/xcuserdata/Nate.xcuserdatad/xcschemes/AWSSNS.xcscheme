@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E203470B67EA3F468F4613C0'
+               BlueprintIdentifier = '06C9F0142C8809A410C0DD32'
                BlueprintName = 'AWSSNS'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libAWSSNS.a'>

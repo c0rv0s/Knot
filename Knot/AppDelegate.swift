@@ -8,30 +8,50 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate  {
     
     var window: UIWindow?
-    var credentialsProvider = AWSCognitoCredentialsProvider()
+   // var credentialsProvider = AWSCognitoCredentialsProvider()
     var cognitoId: NSString?
     var transferManager: AWSS3TransferManager?
-
+    
+    let cognitoAccountId = "872128789635"
+    let cognitoIdentityPoolId = "us-east-1:249a3e7c-13c2-4289-9ef2-2467fd930e4f"
+    let cognitoUnauthRoleArn = "arn:aws:iam::872128789635:role/Cognito_KnotComplexUnauth_Role"
+    let cognitoAuthRoleArn = "arn:aws:iam::872128789635:role/Cognito_KnotComplexAuth_Role"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         // Initialize the Amazon Cognito credentials provider
-        
+        /*
         credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
             identityPoolId:"us-east-1:249a3e7c-13c2-4289-9ef2-2467fd930e4f")
+        */
+
+        let credentialsProvider = AWSCognitoCredentialsProvider.credentialsWithRegionType(
+            AWSRegionType.USEast1,
+            accountId: cognitoAccountId,
+            identityPoolId: cognitoIdentityPoolId,
+            unauthRoleArn: cognitoUnauthRoleArn,
+            authRoleArn: cognitoAuthRoleArn)
+        let defaultServiceConfiguration = AWSServiceConfiguration(
+            region: AWSRegionType.USEast1,
+            credentialsProvider: credentialsProvider)
         
         let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
-        
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         
             // Retrieve your Amazon Cognito ID.
         cognitoId = credentialsProvider.identityId;
-
+        
+        /*
+        AWSMobileAnalytics *analytics = [AWSMobileAnalytics
+            mobileAnalyticsForAppId: @"8a8ff18d8fa242df8a62add92ba837ab" //Amazon Mobile Analytics App ID
+        identityPoolId: @"us-east-1:249a3e7c-13c2-4289-9ef2-2467fd930e4f"] //Amazon Cognito Identity Pool ID
+*/
         //return facebook data
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

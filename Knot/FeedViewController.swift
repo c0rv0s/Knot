@@ -12,7 +12,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    var tableData: [String] = []
+    var tableData: [String] = ["Lambo", "Dog", "AstroCoffee"]
     
     var refreshControl = UIRefreshControl()
     
@@ -31,6 +31,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.automaticallyAdjustsScrollViewInsets = false
         
         //download data
+        /*
         let downloadingFilePath1 = NSTemporaryDirectory().stringByAppendingPathComponent("temp-download")
         let downloadingFileURL1 = NSURL(fileURLWithPath: downloadingFilePath1 )
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
@@ -58,6 +59,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             return nil
         }
+*/
     }
     
     override func viewDidLayoutSubviews() {
@@ -90,7 +92,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             viewController.pic = UIImage(named: tableData[indexPath!.row])!
             viewController.name = tableData[indexPath!.row]
             viewController.price = "$50 - BTC: 0.3576234"
-            
         }
         
     }
