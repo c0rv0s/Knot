@@ -44,6 +44,21 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
         
         let token = FBSDKAccessToken.currentAccessToken().tokenString
         appDelegate.credentialsProvider.logins = [AWSCognitoLoginProviderKey.Facebook.rawValue: token]
+        
+        // Retrieve your Amazon Cognito ID
+        appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
+            
+            if (task.error != nil) {
+                print("CognitoID Error: " + task.error!.localizedDescription)
+                
+            } else {
+                // the task result will contain the identity id
+                self.appDelegate.cognitoId = task.result
+                print("Cognito ID: ")
+                print (self.appDelegate.cognitoId)
+            }
+            return nil
+        }
 
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
         self.presentViewController(vc, animated: true, completion: nil)

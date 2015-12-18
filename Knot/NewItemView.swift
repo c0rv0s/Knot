@@ -189,13 +189,13 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
             let syncClient = AWSCognito.defaultCognito()
             
             // Create a record in a dataset and synchronize with the server
-            var dataset = syncClient.openOrCreateDataset("myDataset")
+            var uniqueID = randomStringWithLength(16) as String
+            var dataset = syncClient.openOrCreateDataset(uniqueID)
             dataset.setString(self.nameField.text, forKey:"Name")
-            dataset.setString(randomStringWithLength(16) as String, forKey:"ID")
+            dataset.setString(uniqueID, forKey:"ID")
             dataset.setString(self.priceField.text, forKey:"Price")
             dataset.setString("Silicon Valley", forKey: "Location")
             dataset.setString(dateString, forKey:"Time")
-            dataset.setString(self.nameField.text, forKey:"image")
             print("datasets completed")
             dataset.synchronize().continueWithBlock {(task) -> AnyObject! in
                 if task.cancelled {
