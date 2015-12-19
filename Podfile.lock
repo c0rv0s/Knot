@@ -36,6 +36,11 @@ PODS:
   - Bolts/AppLinks (1.5.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.5.0)
+  - Lookback (1.1.4):
+    - PDKTZipArchive
+  - LookbackSafe (1.1.4):
+    - PDKTZipArchive
+  - PDKTZipArchive (0.3.5)
 
 DEPENDENCIES:
   - AWSAutoScaling
@@ -55,6 +60,8 @@ DEPENDENCIES:
   - AWSSNS
   - AWSSQS
   - Bolts
+  - Lookback
+  - LookbackSafe
 
 SPEC CHECKSUMS:
   AWSAutoScaling: dbc0d217e70e7d113263771914b93abb4ba751e3
@@ -74,5 +81,8 @@ SPEC CHECKSUMS:
   AWSSNS: c61e8296d6d48596b92ceb84b859809dadcecd8d
   AWSSQS: 8f9ac8b2a9bd425aa00f08c2be9f295ee36e8ab0
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
+  Lookback: 9ab9027ff246d2dc5ce34be483f70e4a6718280b
+  LookbackSafe: 3f1271d9a597bbb8ef854784e87c145854e1fbef
+  PDKTZipArchive: 81c4824eb5587131e422fc58b92c043c4aa96466
 
 COCOAPODS: 0.39.0

@@ -176,7 +176,8 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
             self.presentViewController(alert, animated: true, completion: nil)
         }
         else {
-            self.insertSomeItems().continueWithBlock({
+            var uniqueID = randomStringWithLength(16) as String
+            self.insertSomeItems(uniqueID).continueWithBlock({
                 (task: BFTask!) -> BFTask! in
                 
                 if (task.error != nil) {
@@ -189,13 +190,36 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
             })
 
             //TODO: upload image
+            let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+            let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+            let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
+            
+            let data = UIImageJPEGRepresentation(pic, 0.5)
+            data!.writeToURL(testFileURL1, atomically: true)
+            uploadRequest1.bucket = "knotcompleximages"
+            uploadRequest1.key = uniqueID
+            uploadRequest1.body = testFileURL1
+            
+            let task = transferManager.upload(uploadRequest1)
+            task.continueWithBlock { (task: AWSTask!) -> AnyObject! in
+                if task.error != nil {
+                    print("Error: \(task.error)")
+                } else {
+                    print("Upload successful")
+                    let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Awesome!", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                return nil
+            }
+
             print("submission code completed")
         }
         //notification handling
 
     }
     
-    func insertSomeItems() -> BFTask! {
+    func insertSomeItems(uniqueID: String) -> BFTask! {
         let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         /***CONVERT FROM NSDate to String ****/
@@ -207,7 +231,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         print(dateString)
         
         // Create a record in a dataset and synchronize with the server
-        var uniqueID = randomStringWithLength(16) as String
+
 
         
         var item = Item()

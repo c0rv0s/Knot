@@ -117,6 +117,7 @@
                         <outlet property="previewView" destination="4pT-6C-N51" id="Pw4-sR-phY"/>
                         <outlet property="priceField" destination="ax5-bQ-kHV" id="Yaq-nZ-Jye"/>
                         <outlet property="retakeButton" destination="Lu3-E5-zYi" id="pSw-9u-ccR"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="uploadComplete" id="uZW-Ci-LTZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4v3-ul-Gcr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -265,4 +266,7 @@
         <image name="home" width="23" height="24"/>
         <image name="plus" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="uZW-Ci-LTZ"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -89,6 +89,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PDKTZipArchive.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -142,12 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>72A4DAEBE6FDB6B9CEE1B661BAF99A27</key>
+		<key>748C8B3AB8BC06217C07552A9EF3229D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>748C8B3AB8BC06217C07552A9EF3229D</key>
+		<key>8BA0F6FC4A9154E7AC62907E4B964FD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -173,6 +178,11 @@
 			<true/>
 		</dict>
 		<key>B05430D5F057D8F5E616DAFB92E2F72C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2F5EBC790F3B096AB2969008C7FE35E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
