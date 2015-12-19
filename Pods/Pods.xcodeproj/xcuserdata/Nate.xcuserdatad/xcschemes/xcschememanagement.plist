@@ -84,6 +84,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -137,17 +142,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>72A4DAEBE6FDB6B9CEE1B661BAF99A27</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>748C8B3AB8BC06217C07552A9EF3229D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>88C51367B8922269287106D63C4F2F7D</key>
+		<key>901219B486CAC9F641B6BB4B7D5EB031</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>901219B486CAC9F641B6BB4B7D5EB031</key>
+		<key>A48601FEE4437A924848DB48369BA809</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
+pod ‘Bolts’
 pod 'AWSCore'
 pod 'AWSAutoScaling'
 pod 'AWSCloudWatch'

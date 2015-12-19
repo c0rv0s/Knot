@@ -12,7 +12,6 @@ import UIKit
 class HomeTabBarController: UITabBarController {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
     
     override func viewDidLoad() {
         super.viewDidLoad()

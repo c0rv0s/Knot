@@ -122,11 +122,11 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
     }
 
     func RBSquareImage(image: UIImage) -> UIImage {
-        var originalWidth  = image.size.width
-        var originalHeight = image.size.height
+        let originalWidth  = image.size.width
+        let originalHeight = image.size.height
         
-        var cropSquare = CGRectMake((originalHeight - originalWidth)/2, 0.0, originalWidth, originalWidth)
-        var imageRef = CGImageCreateWithImageInRect(image.CGImage, cropSquare);
+        let cropSquare = CGRectMake((originalHeight - originalWidth)/2, 0.0, originalWidth, originalWidth)
+        let imageRef = CGImageCreateWithImageInRect(image.CGImage, cropSquare);
         
         return UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
     }
@@ -176,43 +176,50 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
             self.presentViewController(alert, animated: true, completion: nil)
         }
         else {
-            
-            /***CONVERT FROM NSDate to String ****/
-            let date = NSDate() //get the time, in this case the time an object was created.
-            //format date
-            var dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
-            var dateString = dateFormatter.stringFromDate(date)
-            print(dateString)
-            
-            //start syncClient
-            let syncClient = AWSCognito.defaultCognito()
-            
-            // Create a record in a dataset and synchronize with the server
-            var uniqueID = randomStringWithLength(16) as String
-            var dataset = syncClient.openOrCreateDataset(uniqueID)
-            dataset.setString(self.nameField.text, forKey:"Name")
-            dataset.setString(uniqueID, forKey:"ID")
-            dataset.setString(self.priceField.text, forKey:"Price")
-            dataset.setString("Silicon Valley", forKey: "Location")
-            dataset.setString(dateString, forKey:"Time")
-            print("datasets completed")
-            dataset.synchronize().continueWithBlock {(task) -> AnyObject! in
-                if task.cancelled {
-                    // Task cancelled.
-                } else if task.error != nil {
-                    // Error while executing task
+            self.insertSomeItems().continueWithBlock({
+                (task: BFTask!) -> BFTask! in
+                
+                if (task.error != nil) {
+                    print(task.error!.description)
                 } else {
-                    // Task succeeded. The data was saved in the sync store.
+                    print("DynamoDB save succeeded")
                 }
-                return nil
-            }
+                
+                return nil;
+            })
 
             //TODO: upload image
             print("submission code completed")
         }
         //notification handling
 
+    }
+    
+    func insertSomeItems() -> BFTask! {
+        let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        
+        /***CONVERT FROM NSDate to String ****/
+        let date = NSDate() //get the time, in this case the time an object was created.
+        //format date
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
+        var dateString = dateFormatter.stringFromDate(date)
+        print(dateString)
+        
+        // Create a record in a dataset and synchronize with the server
+        var uniqueID = randomStringWithLength(16) as String
+
+        
+        var item = Item()
+        item.name  = self.nameField.text!
+        item.ID   = uniqueID
+        item.price   = self.priceField.text!
+        item.location = "Silicon Valley"
+        item.time  = dateString
+        let task = mapper.save(item)
+        
+        print("item created, ready to run task")
+        return BFTask(forCompletionOfAllTasks: [task])
     }
     
     func randomStringWithLength (len : Int) -> NSString {
@@ -222,8 +229,8 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         var randomString : NSMutableString = NSMutableString(capacity: len)
         
         for (var i=0; i < len; i++){
-            var length = UInt32 (letters.length)
-            var rand = arc4random_uniform(length)
+            let length = UInt32 (letters.length)
+            let rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
         }
         

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var credentialsProvider = AWSCognitoCredentialsProvider()
     var cognitoId: AnyObject?
     var transferManager: AWSS3TransferManager?
-    
+    let listingsDynamoTable = "knot-listings"
 
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Initialize the Amazon Cognito credentials provider
         
         credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
-            identityPoolId:"us-east-1:249a3e7c-13c2-4289-9ef2-2467fd930e4f")
+            identityPoolId:"us-east-1:353ba7a2-f7d3-4d16-8064-61bd93fdee7c")
 
         
         let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)

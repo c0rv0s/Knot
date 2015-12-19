@@ -20,6 +20,17 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        //load signup page
+        /*
+        let webV:UIWebView = UIWebView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+        let localfilePath = NSBundle.mainBundle().URLForResource("signup", withExtension: "html");
+        let myRequest = NSURLRequest(URL: localfilePath!);
+        webV.loadRequest(myRequest);
+        self.view.addSubview(webV)
+        self.view.sendSubviewToBack(webV)
+        */
+
         // set up the refresh control
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
