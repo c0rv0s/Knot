@@ -12,9 +12,17 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    var tableData: [String] = ["Lambo", "Dog", "AstroCoffee"]
+    var tableRows: Array<ListItem>?
+    
+    var lock:NSLock?
+    var lastEvaluatedKey:[NSObject : AnyObject]!
+    var  doneLoading = false
+    
+    var needsToRefresh = false
+
     
     var refreshControl = UIRefreshControl()
+    let bucket = "knotcomplex-userfiles-mobilehub-1874622474/public"
     
     // 1
     override func viewDidLoad() {
@@ -42,35 +50,64 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.automaticallyAdjustsScrollViewInsets = false
         
         //download data
-        /*
-        let downloadingFilePath1 = NSTemporaryDirectory().stringByAppendingPathComponent("temp-download")
-        let downloadingFileURL1 = NSURL(fileURLWithPath: downloadingFilePath1 )
-        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        tableRows = []
+        lock = NSLock()
         
+        self.refreshList(true)
         
-        let readRequest1 : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
-        readRequest1.bucket = "knotcomplex-userfiles-mobilehub-1874622474/public"
-        readRequest1.key =  "bingo"
-        readRequest1.downloadingFileURL = downloadingFileURL1
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let task = transferManager.download(readRequest1)
-        task.continueWithBlock {(task: AWSTask!) -> AnyObject! in
-            print(task.error)
-            if task.error != nil {
-            }
-            else {
-                dispatch_async(dispatch_get_main_queue()
-                    , { (); Void; in
-                        self.selectedImage.image = UIImage(contentsOfFile: downloadingFilePath1)
-                        self.selectedImage.setNeedsDisplay()
-                        self.selectedImage.reloadInputViews()
-                        
-                })
-                print("Fetched image")
-            }
-            return nil
+        if self.needsToRefresh {
+            self.refreshList(true)
+            self.needsToRefresh = false
         }
-*/
+    }
+    
+    func refreshList(startFromBeginning: Bool)  {
+        if (self.lock?.tryLock() != nil) {
+            if startFromBeginning {
+                self.lastEvaluatedKey = nil;
+                self.doneLoading = false
+            }
+            
+            
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            
+            let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+            let queryExpression = AWSDynamoDBScanExpression()
+            queryExpression.exclusiveStartKey = self.lastEvaluatedKey
+            queryExpression.limit = 20;
+            dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+                
+                if self.lastEvaluatedKey == nil {
+                    self.tableRows?.removeAll(keepCapacity: true)
+                }
+                
+                if task.result != nil {
+                    let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                    for item in paginatedOutput.items as! [ListItem] {
+                        self.tableRows?.append(item)
+                    }
+                    
+                    self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
+                    if paginatedOutput.lastEvaluatedKey == nil {
+                        self.doneLoading = true
+                    }
+                }
+                
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                self.tableView.reloadData()
+                
+                if ((task.error) != nil) {
+                    print("Error: \(task.error)")
+                }
+                return nil
+            })
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,7 +116,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // 2
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tableData.count
+        return self.tableRows!.count
     }
     
     
@@ -88,9 +125,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell:TableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! TableCell
         
-        cell.nameLabel.text = tableData[indexPath.row]
+        cell.nameLabel.text = tableRows![indexPath.row].name
         cell.priceLabel.text = "$50 - BTC: 0.3576234"
-        cell.pic.image = UIImage(named: tableData[indexPath.row])
+        cell.pic.image = UIImage(named: tableRows![indexPath.row].name)
         
         return cell
         
@@ -100,8 +137,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
-            viewController.pic = UIImage(named: tableData[indexPath!.row])!
-            viewController.name = tableData[indexPath!.row]
+            viewController.pic = UIImage(named: tableRows![indexPath!.row].name)!
+            viewController.name = tableRows![indexPath!.row].name
             viewController.price = "$50 - BTC: 0.3576234"
         }
         

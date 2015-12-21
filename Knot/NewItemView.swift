@@ -234,7 +234,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
 
 
         
-        var item = Item()
+        var item = ListItem()
         item.name  = self.nameField.text!
         item.ID   = uniqueID
         item.price   = self.priceField.text!

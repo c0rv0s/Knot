@@ -89,6 +89,26 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKMessengerShareKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKShareKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PDKTZipArchive.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -127,6 +147,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3D417356AB9DCA5B17565C7420759161</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4187A5DFAC146115CF5D283EB9A121C4</key>
 		<dict>
 			<key>primary</key>
@@ -137,7 +162,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4E286D373D75563CE26E479A68203892</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>555CF66E5D087CB97CF592B388605B33</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>57C086F0BC86D966E07C60FB1D983BF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5814D68D4128FA265BD2878CAA0D969C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -148,6 +188,11 @@
 			<true/>
 		</dict>
 		<key>748C8B3AB8BC06217C07552A9EF3229D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>81D7FE2A0FD9258247B1232874B837DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -178,11 +223,6 @@
 			<true/>
 		</dict>
 		<key>B05430D5F057D8F5E616DAFB92E2F72C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C2F5EBC790F3B096AB2969008C7FE35E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
