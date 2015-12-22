@@ -13,7 +13,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     var tableRows: Array<ListItem>?
-    var rowImages: Array<UIImage>?
+    var downloadFileURLs = Array<NSURL?>()
     
     var lock:NSLock?
     var lastEvaluatedKey:[NSObject : AnyObject]!
@@ -100,11 +100,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                         self.tableRows?.append(item)
                         
                         //image
+                        /*
                         let testFileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
                         let downloadRequest1 : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
                         
-                        var pic = UIImage()
-                        let data = UIImageJPEGRepresentation(pic, 0.5)
+                        let placeholder = UIImage(named: "placeholder")
+                        let data = UIImageJPEGRepresentation(placeholder!, 0.5)
                         data!.writeToURL(testFileURL, atomically: true)
                         downloadRequest1.bucket = "knotcompleximages"
                         downloadRequest1.key = item.ID
@@ -115,11 +116,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 print("Error: \(task.error)")
                             } else {
                                 print("Download successful")
-                                self.rowImages?.append(testFileURL.dataRepresentation)
+                                self.downloadFileURLs.append(testFileURL)
                             }
                             return nil
                         }
-                        
+                        */
                         //end image
                         
                     }
@@ -158,7 +159,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.nameLabel.text = tableRows![indexPath.row].name
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
-        cell.pic.image = rowImages![indexPath.row]
+        /*
+        if let downloadFileURL = self.downloadFileURLs[indexPath.row] {
+            if let data = NSData(contentsOfURL: downloadFileURL) {
+                cell.pic.image = UIImage(data: data)
+            }
+        }
+*/
         cell.timeLabel.text = tableRows![indexPath.row].time
         
         return cell
@@ -169,7 +176,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
-            viewController.pic = rowImages![indexPath!.row]
+            /*
+            if let downloadFileURL = self.downloadFileURLs[indexPath!.row] {
+                if let data = NSData(contentsOfURL: downloadFileURL) {
+                    viewController.pic = UIImage(data: data)!
+                }
+            }
+*/
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
