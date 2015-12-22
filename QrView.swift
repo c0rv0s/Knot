@@ -24,6 +24,21 @@ class QrView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //fetch user wallet
+        let syncClient = AWSCognito.defaultCognito()
+        let dataset = syncClient.openOrCreateDataset("userWallet")
+        let value = dataset.stringForKey("walletBTC")
+        if (value == "") {
+            let alert = UIAlertController(title: "Attention", message: "Please enter a wallet ID in Accounts Tab", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else {
+            address = value
+        }
+
+        //wallet complete, continure
+        
         imageURL = UIImageView(frame:CGRectMake(0, 0, 400, 700))
         
         imageURL.image = nil

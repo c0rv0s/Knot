@@ -162,7 +162,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqN-zo-Vf5">
                                 <rect key="frame" x="20" y="562" width="120" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -274,10 +274,10 @@
             </objects>
             <point key="canvasLocation" x="503.5" y="1651.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Account View-->
         <scene sceneID="fCq-nB-kO6">
             <objects>
-                <viewController id="Dik-Ra-Gc8" sceneMemberID="viewController">
+                <viewController id="Dik-Ra-Gc8" customClass="accountView" customModule="Knot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fwT-i9-E5P"/>
                         <viewControllerLayoutGuide type="bottom" id="twb-a5-NLP"/>
@@ -286,16 +286,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coming Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMf-4d-7U8">
-                                <rect key="frame" x="88" y="237" width="199" height="54"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Wallet ID..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uor-Ld-e4b">
+                                <rect key="frame" x="20" y="195" width="335" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your BTC wallet ID: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbt-Ua-ZtJ">
+                                <rect key="frame" x="31" y="142" width="194" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNk-yf-CTW">
+                                <rect key="frame" x="111" y="266" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="savewallet:" destination="Dik-Ra-Gc8" eventType="touchUpInside" id="IdE-LK-SLu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="r77-Kq-mrs"/>
+                    <connections>
+                        <outlet property="walletText" destination="uor-Ld-e4b" id="dNL-mG-HKh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GP5-wd-0DY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
