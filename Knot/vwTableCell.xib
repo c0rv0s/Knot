@@ -19,19 +19,19 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHs-8I-uWf">
                         <rect key="frame" x="34" y="317" width="204" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                        <color key="textColor" red="0.96083885732323226" green="0.96083885732323226" blue="0.96083885732323226" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.019195864898989945" green="0.019195864898989945" blue="0.019195864898989945" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="highlightedColor" red="0.38873106060606055" green="0.38873106060606055" blue="0.38873106060606055" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbw-hu-8yU">
                         <rect key="frame" x="34" y="278" width="204" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" red="0.98319128787878785" green="0.98319128787878785" blue="0.98319128787878785" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.025331439393939448" green="0.025331439393939448" blue="0.025331439393939448" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srz-AJ-caC">
-                        <rect key="frame" x="275" y="306" width="42" height="21"/>
+                        <rect key="frame" x="275" y="306" width="80" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -40,6 +40,7 @@
                 <outlet property="nameLabel" destination="jbw-hu-8yU" id="bbI-1i-BB0"/>
                 <outlet property="pic" destination="aIs-Gc-iTH" id="HBI-1q-ZDl"/>
                 <outlet property="priceLabel" destination="aHs-8I-uWf" id="jKH-KH-O2Y"/>
+                <outlet property="timeLabel" destination="srz-AJ-caC" id="XQg-qg-G8R"/>
             </connections>
             <point key="canvasLocation" x="387" y="194"/>
         </tableViewCell>

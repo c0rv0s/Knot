@@ -30,26 +30,6 @@ PODS:
     - AWSCore (= 2.3.2)
   - AWSSQS (2.3.2):
     - AWSCore (= 2.3.2)
-  - Bolts (1.5.0):
-    - Bolts/AppLinks (= 1.5.0)
-    - Bolts/Tasks (= 1.5.0)
-  - Bolts/AppLinks (1.5.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.5.0)
-  - FBSDKCoreKit (4.8.0):
-    - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc (= 4.8.0)
-    - FBSDKCoreKit/no-arc (= 4.8.0)
-  - FBSDKCoreKit/arc (4.8.0):
-    - Bolts (~> 1.1)
-  - FBSDKCoreKit/no-arc (4.8.0):
-    - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc
-  - FBSDKLoginKit (4.8.0):
-    - FBSDKCoreKit
-  - FBSDKMessengerShareKit (1.3.2)
-  - FBSDKShareKit (4.8.0):
-    - FBSDKCoreKit
   - Lookback (1.1.4):
     - PDKTZipArchive
   - LookbackSafe (1.1.4):
@@ -73,11 +53,6 @@ DEPENDENCIES:
   - AWSSimpleDB
   - AWSSNS
   - AWSSQS
-  - Bolts
-  - FBSDKCoreKit
-  - FBSDKLoginKit
-  - FBSDKMessengerShareKit
-  - FBSDKShareKit
   - Lookback
   - LookbackSafe
 
@@ -98,11 +73,6 @@ SPEC CHECKSUMS:
   AWSSimpleDB: 650c7762bc98a130f7abebdedfac53608ddadaf2
   AWSSNS: c61e8296d6d48596b92ceb84b859809dadcecd8d
   AWSSQS: 8f9ac8b2a9bd425aa00f08c2be9f295ee36e8ab0
-  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
-  FBSDKCoreKit: 66a935d17b6e00b6b64e604f2eb9b72c9ab7deb8
-  FBSDKLoginKit: d893fcbb98d854496925e9ff73c67b896982d3c4
-  FBSDKMessengerShareKit: 41c0b1a667d685c9433f993eb9611b3d5074e1cb
-  FBSDKShareKit: e7577ee3adf80fc04fb656dd133fbb522250672b
   Lookback: 9ab9027ff246d2dc5ce34be483f70e4a6718280b
   LookbackSafe: 3f1271d9a597bbb8ef854784e87c145854e1fbef
   PDKTZipArchive: 81c4824eb5587131e422fc58b92c043c4aa96466

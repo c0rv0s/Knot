@@ -126,8 +126,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell:TableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! TableCell
         
         cell.nameLabel.text = tableRows![indexPath.row].name
-        cell.priceLabel.text = "$50 - BTC: 0.3576234"
+        cell.priceLabel.text = "$" + tableRows![indexPath.row].price
         cell.pic.image = UIImage(named: tableRows![indexPath.row].name)
+        cell.timeLabel.text = tableRows![indexPath.row].time
         
         return cell
         
@@ -137,9 +138,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
-            viewController.pic = UIImage(named: tableRows![indexPath!.row].name)!
+            //viewController.pic = UIImage(named: tableRows![indexPath!.row].name)!
             viewController.name = tableRows![indexPath!.row].name
-            viewController.price = "$50 - BTC: 0.3576234"
+            viewController.price = tableRows![indexPath!.row].price
+            viewController.time = tableRows![indexPath!.row].time
         }
         
     }

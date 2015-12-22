@@ -13,6 +13,7 @@ class ItemDetail: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     //@IBOutlet weak var descrip: UITextView!
+    @IBOutlet weak var timeLabel: UILabel!
 
     
     var picView: UIImageView!
@@ -30,9 +31,18 @@ class ItemDetail: UIViewController {
         nameLabel.text = name
         priceLabel.text = price
         picView.image = pic
+        timeLabel.text = time
         
         self.view.addSubview(picView)
         self.view.sendSubviewToBack(picView)
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
+        if (segue!.identifier == "paySegue") {
+            let viewController:QrView = segue!.destinationViewController as! QrView
+            viewController.price = price
+        }
         
     }
 

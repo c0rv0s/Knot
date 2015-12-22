@@ -19,6 +19,7 @@ class QrView: UIViewController {
     var address = "1A5iCBMXPJF7esUssyaaeLpTocoyW2EK6n"
     var imageURL: UIImageView!
     var BTCprice: String = ""
+    var price: String = "9.99"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class QrView: UIViewController {
         imageURL.image = nil
         
         var qrURL = apiCall
-        calcBitPrice("50")
+        calcBitPrice(price)
         qrURL += address
         qrURL += "?amount="
         

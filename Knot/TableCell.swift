@@ -13,5 +13,7 @@ class TableCell: UITableViewCell {
     @IBOutlet weak var pic: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    
     
 }

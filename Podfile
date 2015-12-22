@@ -1,5 +1,4 @@
 source 'https://github.com/CocoaPods/Specs.git'
-pod ‘Bolts’
 pod 'AWSCore'
 pod 'AWSAutoScaling'
 pod 'AWSCloudWatch'
@@ -18,7 +17,3 @@ pod 'AWSSQS'
 pod 'AWSCognito'
 pod 'Lookback', :configurations => ['Debug']
 pod 'LookbackSafe', :configurations => ['Release']
-pod "FBSDKCoreKit";
-pod "FBSDKLoginKit";
-pod "FBSDKShareKit";
-pod "FBSDKMessengerShareKit";

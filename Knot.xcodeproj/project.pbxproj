@@ -38,6 +38,12 @@
 		43C777F71C1A53BB005A7641 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C777F61C1A53BB005A7641 /* Foundation.framework */; };
 		43C777F91C1A53CA005A7641 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C777F81C1A53CA005A7641 /* UIKit.framework */; };
 		43C924971C084BA40006E181 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43C924951C084BA40006E181 /* Main.storyboard */; };
+		43CF595B1C28C66B0071CCE8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CF59551C28C66B0071CCE8 /* Bolts.framework */; };
+		43CF595C1C28C66B0071CCE8 /* FacebookSDKStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 43CF59561C28C66B0071CCE8 /* FacebookSDKStrings.bundle */; };
+		43CF595D1C28C66B0071CCE8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CF59571C28C66B0071CCE8 /* FBSDKCoreKit.framework */; };
+		43CF595E1C28C66B0071CCE8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CF59581C28C66B0071CCE8 /* FBSDKLoginKit.framework */; };
+		43CF595F1C28C66B0071CCE8 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CF59591C28C66B0071CCE8 /* FBSDKMessengerShareKit.framework */; };
+		43CF59601C28C66B0071CCE8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CF595A1C28C66B0071CCE8 /* FBSDKShareKit.framework */; };
 		43D8A1051C1A6F3B002F43BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D8A1041C1A6F3B002F43BE /* libPods.a */; };
 		43D8A1091C1B8EB3002F43BE /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +103,12 @@
 		43C777F81C1A53CA005A7641 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		43C924941C0818220006E181 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "../Bridging-Header.h"; sourceTree = "<group>"; };
 		43C924961C084BA40006E181 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		43CF59551C28C66B0071CCE8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		43CF59561C28C66B0071CCE8 /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKStrings.bundle; sourceTree = "<group>"; };
+		43CF59571C28C66B0071CCE8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		43CF59581C28C66B0071CCE8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		43CF59591C28C66B0071CCE8 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
+		43CF595A1C28C66B0071CCE8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		43D8A1041C1A6F3B002F43BE /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 		7E1EE80F15CFA3842F849A93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,8 +120,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43CF595E1C28C66B0071CCE8 /* FBSDKLoginKit.framework in Frameworks */,
+				43CF595B1C28C66B0071CCE8 /* Bolts.framework in Frameworks */,
 				43D8A1051C1A6F3B002F43BE /* libPods.a in Frameworks */,
 				43C777F91C1A53CA005A7641 /* UIKit.framework in Frameworks */,
+				43CF595F1C28C66B0071CCE8 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				430DF90C1BFAFF3500839F37 /* SystemConfiguration.framework in Frameworks */,
 				43C777F71C1A53BB005A7641 /* Foundation.framework in Frameworks */,
 				431F1A581C1127FB00EDB1A8 /* Social.framework in Frameworks */,
@@ -117,9 +132,11 @@
 				431F1A521C1127B700EDB1A8 /* Security.framework in Frameworks */,
 				431F1A501C1127B000EDB1A8 /* QuartzCore.framework in Frameworks */,
 				431F1A4E1C1127A800EDB1A8 /* CoreLocation.framework in Frameworks */,
+				43CF59601C28C66B0071CCE8 /* FBSDKShareKit.framework in Frameworks */,
 				431F1A4C1C11279F00EDB1A8 /* CoreGraphics.framework in Frameworks */,
 				431F1A4A1C11279700EDB1A8 /* CFNetwork.framework in Frameworks */,
 				431F1A481C11279000EDB1A8 /* AudioToolbox.framework in Frameworks */,
+				43CF595D1C28C66B0071CCE8 /* FBSDKCoreKit.framework in Frameworks */,
 				430DF90A1BFAFF3500839F37 /* libsqlite3.tbd in Frameworks */,
 				430DF90B1BFAFF3500839F37 /* libz.tbd in Frameworks */,
 			);
@@ -145,6 +162,12 @@
 		085B8A7EEC2DC4D5536681F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43CF59551C28C66B0071CCE8 /* Bolts.framework */,
+				43CF59561C28C66B0071CCE8 /* FacebookSDKStrings.bundle */,
+				43CF59571C28C66B0071CCE8 /* FBSDKCoreKit.framework */,
+				43CF59581C28C66B0071CCE8 /* FBSDKLoginKit.framework */,
+				43CF59591C28C66B0071CCE8 /* FBSDKMessengerShareKit.framework */,
+				43CF595A1C28C66B0071CCE8 /* FBSDKShareKit.framework */,
 				43D8A1041C1A6F3B002F43BE /* libPods.a */,
 				43C777F81C1A53CA005A7641 /* UIKit.framework */,
 				43C777F61C1A53BB005A7641 /* Foundation.framework */,
@@ -365,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				431853531BF9892F000C6ED4 /* LaunchScreen.storyboard in Resources */,
+				43CF595C1C28C66B0071CCE8 /* FacebookSDKStrings.bundle in Resources */,
 				43C924971C084BA40006E181 /* Main.storyboard in Resources */,
 				4318537B1BF989AE000C6ED4 /* vwTableCell.xib in Resources */,
 				431853501BF9892F000C6ED4 /* Assets.xcassets in Resources */,
