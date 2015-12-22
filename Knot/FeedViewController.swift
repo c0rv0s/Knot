@@ -13,6 +13,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     var tableRows: Array<ListItem>?
+    var rowImages: Array<UIImage>?
     
     var lock:NSLock?
     var lastEvaluatedKey:[NSObject : AnyObject]!
@@ -40,10 +41,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         */
 
         // set up the refresh control
+        /*
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView?.addSubview(refreshControl)
-        
+        */
         // Register custom cell
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
@@ -52,10 +54,14 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         //download data
         tableRows = []
         lock = NSLock()
-        
         self.refreshList(true)
         
+        //load an image
+        
 
+    }
+    @IBAction func reloadFeed(sender: AnyObject) {
+                self.refreshList(true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -74,6 +80,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.doneLoading = false
             }
             
+            let transferManager = AWSS3TransferManager.defaultS3TransferManager()
             
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             
@@ -91,6 +98,30 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                     for item in paginatedOutput.items as! [ListItem] {
                         self.tableRows?.append(item)
+                        
+                        //image
+                        let testFileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+                        let downloadRequest1 : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
+                        
+                        var pic = UIImage()
+                        let data = UIImageJPEGRepresentation(pic, 0.5)
+                        data!.writeToURL(testFileURL, atomically: true)
+                        downloadRequest1.bucket = "knotcompleximages"
+                        downloadRequest1.key = item.ID
+                        
+                        let task = transferManager.download(downloadRequest1)
+                        task.continueWithBlock { (task: AWSTask!) -> AnyObject! in
+                            if task.error != nil {
+                                print("Error: \(task.error)")
+                            } else {
+                                print("Download successful")
+                                self.rowImages?.append(testFileURL.dataRepresentation)
+                            }
+                            return nil
+                        }
+                        
+                        //end image
+                        
                     }
                     
                     self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
@@ -127,7 +158,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.nameLabel.text = tableRows![indexPath.row].name
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
-        cell.pic.image = UIImage(named: tableRows![indexPath.row].name)
+        cell.pic.image = rowImages![indexPath.row]
         cell.timeLabel.text = tableRows![indexPath.row].time
         
         return cell
@@ -138,7 +169,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
-            //viewController.pic = UIImage(named: tableRows![indexPath!.row].name)!
+            viewController.pic = rowImages![indexPath!.row]
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time

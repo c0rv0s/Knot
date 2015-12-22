@@ -189,7 +189,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
                 return nil;
             })
 
-            //TODO: upload image
+            //upload image
             let transferManager = AWSS3TransferManager.defaultS3TransferManager()
             let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
             let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
