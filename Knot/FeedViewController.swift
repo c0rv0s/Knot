@@ -14,6 +14,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var tableRows: Array<ListItem>?
     var downloadFileURLs = Array<NSURL?>()
+    var tableImages = [String: UIImage]()
     
     var lock:NSLock?
     var lastEvaluatedKey:[NSObject : AnyObject]!
@@ -23,7 +24,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     var refreshControl = UIRefreshControl()
-    let bucket = "knotcomplex-userfiles-mobilehub-1874622474/public"
+    let bucket = "knotcompleximages"
     
     // 1
     override func viewDidLoad() {
@@ -41,27 +42,42 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         */
 
         // set up the refresh control
-        /*
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView?.addSubview(refreshControl)
-        */
+        
+        refreshControl = UIRefreshControl()
+        //tableView.addSubview(refreshControl)
+        
         // Register custom cell
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
+        self.refreshList(true)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
         
         //download data
         tableRows = []
         lock = NSLock()
-        self.refreshList(true)
+
         
         //load an image
         
-
     }
+    
     @IBAction func reloadFeed(sender: AnyObject) {
-                self.refreshList(true)
+        self.refreshList(true)
+    }
+    
+    func refresh(){
+        
+        // -- DO SOMETHING AWESOME (... or just wait 3 seconds) --
+        // This is where you'll make requests to an API, reload data, or process information
+                    self.refreshList(true)
+        var delayInSeconds = 3.0;
+        var popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
+        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+
+            // When done requesting/reloading/processing invoke endRefreshing, to close the control
+            self.refreshControl.endRefreshing()
+        }
+        // -- FINISHED SOMETHING AWESOME, WOO! --
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -99,30 +115,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                     for item in paginatedOutput.items as! [ListItem] {
                         self.tableRows?.append(item)
                         
-                        //image
-                        /*
-                        let testFileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
-                        let downloadRequest1 : AWSS3TransferManagerDownloadRequest = AWSS3TransferManagerDownloadRequest()
+                        //EXTRA CODE FOR TESTING
+                        //let placeholder = UIImage(named: "placeholder")
+                        //let data = UIImageJPEGRepresentation(placeholder!, 0.5)
+                        //data!.writeToURL(testFileURL, atomically: true)
                         
-                        let placeholder = UIImage(named: "placeholder")
-                        let data = UIImageJPEGRepresentation(placeholder!, 0.5)
-                        data!.writeToURL(testFileURL, atomically: true)
-                        downloadRequest1.bucket = "knotcompleximages"
-                        downloadRequest1.key = item.ID
-                        
-                        let task = transferManager.download(downloadRequest1)
-                        task.continueWithBlock { (task: AWSTask!) -> AnyObject! in
-                            if task.error != nil {
-                                print("Error: \(task.error)")
-                            } else {
-                                print("Download successful")
-                                self.downloadFileURLs.append(testFileURL)
-                            }
-                            return nil
-                        }
-                        */
-                        //end image
-                        
+                        //REFRESH image list
+                        self.downloadImage(item.ID)
                     }
                     
                     self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
@@ -142,6 +141,75 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func downloadImage(key: String){
+        
+        var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
+        
+        //downloading image
+        
+        
+        let S3BucketName: String = "knotcompleximages"
+        let S3DownloadKeyName: String = key
+        
+        
+        
+        
+        let expression = AWSS3TransferUtilityDownloadExpression()
+        expression.downloadProgress = {(task: AWSS3TransferUtilityTask, bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) in
+            dispatch_async(dispatch_get_main_queue(), {
+                let progress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+                //self.progressView.progress = progress
+                //   self.statusLabel.text = "Downloading..."
+                NSLog("Progress is: %f",progress)
+            })
+        }
+        
+        
+        
+        completionHandler = { (task, location, data, error) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                if ((error) != nil){
+                    NSLog("Failed with error")
+                    NSLog("Error: %@",error!);
+                    //   self.statusLabel.text = "Failed"
+                }
+                    /*
+                else if(self.progressView.progress != 1.0) {
+                    //    self.statusLabel.text = "Failed"
+                    NSLog("Error: Failed - Likely due to invalid region / filename")
+                }   */
+                else{
+                    //    self.statusLabel.text = "Success"
+                    self.tableImages[S3DownloadKeyName] = UIImage(data: data!)
+                    print("time to see all the keys")
+                    for (key) in self.tableImages {
+                        print("\(key)")
+                    }
+                }
+            })
+        }
+        
+        let transferUtility = AWSS3TransferUtility.defaultS3TransferUtility()
+        
+        transferUtility?.downloadToURL(nil, bucket: S3BucketName, key: S3DownloadKeyName, expression: expression, completionHander: completionHandler).continueWithBlock { (task) -> AnyObject! in
+            if let error = task.error {
+                NSLog("Error: %@",error.localizedDescription);
+                //  self.statusLabel.text = "Failed"
+            }
+            if let exception = task.exception {
+                NSLog("Exception: %@",exception.description);
+                //  self.statusLabel.text = "Failed"
+            }
+            if let _ = task.result {
+                //    self.statusLabel.text = "Starting Download"
+                NSLog("Download Starting!")
+                // Do something with uploadTask.
+            }
+            return nil;
+        }
+        
+    }
+    
     override func viewDidLayoutSubviews() {
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 6, right: 0)
     }
@@ -159,13 +227,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.nameLabel.text = tableRows![indexPath.row].name
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
-        /*
-        if let downloadFileURL = self.downloadFileURLs[indexPath.row] {
-            if let data = NSData(contentsOfURL: downloadFileURL) {
-                cell.pic.image = UIImage(data: data)
-            }
-        }
-*/
+        
+        cell.pic.image = tableImages[tableRows![indexPath.row].ID]
+
         cell.timeLabel.text = tableRows![indexPath.row].time
         
         return cell
@@ -176,19 +240,16 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
-            /*
-            if let downloadFileURL = self.downloadFileURLs[indexPath!.row] {
-                if let data = NSData(contentsOfURL: downloadFileURL) {
-                    viewController.pic = UIImage(data: data)!
-                }
-            }
-*/
+            
+            viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
+
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
         }
         
     }
+    
     
     // 4
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

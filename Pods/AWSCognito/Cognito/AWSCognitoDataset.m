@@ -1,6 +1,6 @@
-/*
- Copyright 2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- */
+//
+// Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
 
 #import "AWSCognitoDataset.h"
 #import "AWSCognitoUtil.h"
@@ -317,7 +317,7 @@
         }else {
             NSError *error = nil;
             NSMutableArray *conflicts = [NSMutableArray new];
-            // collect updates to write in a trans
+            // collect updates to write in a transaction
             NSMutableArray *nonConflictRecords = [NSMutableArray new];
             NSMutableArray *existingRecords = [NSMutableArray new];
             // keep track of record names for notificaiton
