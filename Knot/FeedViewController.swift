@@ -42,42 +42,24 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         */
 
         // set up the refresh control
-        
-        refreshControl = UIRefreshControl()
-        //tableView.addSubview(refreshControl)
+
         
         // Register custom cell
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
-        self.refreshList(true)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
         
         //download data
         tableRows = []
         lock = NSLock()
+        self.refreshList(true)
 
-        
-        //load an image
         
     }
     
+
     @IBAction func reloadFeed(sender: AnyObject) {
         self.refreshList(true)
-    }
-    
-    func refresh(){
-        
-        // -- DO SOMETHING AWESOME (... or just wait 3 seconds) --
-        // This is where you'll make requests to an API, reload data, or process information
-                    self.refreshList(true)
-        var delayInSeconds = 3.0;
-        var popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-
-            // When done requesting/reloading/processing invoke endRefreshing, to close the control
-            self.refreshControl.endRefreshing()
-        }
-        // -- FINISHED SOMETHING AWESOME, WOO! --
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -103,7 +85,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
             let queryExpression = AWSDynamoDBScanExpression()
             queryExpression.exclusiveStartKey = self.lastEvaluatedKey
-            queryExpression.limit = 20;
+            queryExpression.limit = 50;
             dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
                 
                 if self.lastEvaluatedKey == nil {
@@ -113,15 +95,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if task.result != nil {
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                     for item in paginatedOutput.items as! [ListItem] {
-                        self.tableRows?.append(item)
-                        
-                        //EXTRA CODE FOR TESTING
-                        //let placeholder = UIImage(named: "placeholder")
-                        //let data = UIImageJPEGRepresentation(placeholder!, 0.5)
-                        //data!.writeToURL(testFileURL, atomically: true)
-                        
-                        //REFRESH image list
-                        self.downloadImage(item.ID)
+                        if item.sold == false {
+                            self.tableRows?.append(item)
+                            self.downloadImage(item.ID)
+                        }
                     }
                     
                     self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
@@ -246,6 +223,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
+            viewController.ID = tableRows![indexPath!.row].ID
         }
         
     }

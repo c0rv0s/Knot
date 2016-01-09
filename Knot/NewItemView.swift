@@ -240,6 +240,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         item.price   = self.priceField.text!
         item.location = "Silicon Valley"
         item.time  = dateString
+        item.sold = false
         let task = mapper.save(item)
         
         print("item created, ready to run task")

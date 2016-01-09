@@ -30,9 +30,9 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Knot" id="svS-mW-wlC">
-                        <barButtonItem key="rightBarButtonItem" title="Reload" id="z06-rm-eKw">
+                        <barButtonItem key="rightBarButtonItem" image="reload" id="Tcm-Bd-hu9">
                             <connections>
-                                <action selector="reloadFeed:" destination="BYZ-38-t0r" id="hYl-mw-D52"/>
+                                <action selector="reloadFeed:" destination="BYZ-38-t0r" id="aFQ-oV-Vdk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -199,6 +199,16 @@
                     <view key="view" contentMode="scaleToFill" id="jdL-UQ-PXx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yT-r3-Ojx">
+                                <rect key="frame" x="122" y="537" width="130" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="FINISHED"/>
+                                <connections>
+                                    <action selector="paymentComplete:" destination="00D-5U-fKp" eventType="touchUpInside" id="f0d-AX-X1e"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pay" id="hLp-OJ-ibi"/>
@@ -341,5 +351,6 @@
         <image name="camera" width="256" height="256"/>
         <image name="home" width="23" height="24"/>
         <image name="plus" width="24" height="24"/>
+        <image name="reload" width="32" height="32"/>
     </resources>
 </document>

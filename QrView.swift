@@ -20,6 +20,8 @@ class QrView: UIViewController {
     var imageURL: UIImageView!
     var BTCprice: String = ""
     var price: String = "9.99"
+    var ID: String = ""
+    var item = ListItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,35 +69,7 @@ class QrView: UIViewController {
         print(qrURL)
         
     }
-    /*
-    // MARK: Actions
-    @IBAction func Generate(sender: AnyObject) {
-        imageURL.image = nil
-        
-        var qrURL = apiCall
-        calcBitPrice("50")
-        qrURL += address
-        qrURL += "?amount="
-        
-        //check that price fetched
-        while(true) {
-            let length = self.BTCprice.characters.count
-            if length > 1 {
-                break
-            }
-        }
-        qrURL += self.BTCprice
-        //self.priceLabel.text = "Total BTC: " + self.BTCprice
-        
-        if let checkedUrl = NSURL(string: qrURL) {
-            imageURL.contentMode = .ScaleAspectFit
-            downloadImage(checkedUrl)
-        }
-        self.view.addSubview(imageURL)
-        self.view.sendSubviewToBack(imageURL)
-        print(qrURL)
-    }
-    */
+    
     //MARK: Get QR code image
     func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
         NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
@@ -138,5 +112,14 @@ class QrView: UIViewController {
         }
     }
     
+    @IBAction func paymentComplete(sender: AnyObject) {
+        let alert = UIAlertController(title: "Attention", message: "This will remove this item from the feed, are you sure you want to keep going?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Keep Going", style: .Default, handler: { (alertAction) -> Void in
+            
+
+            
+        }))
+    }
 }
 
