@@ -21,7 +21,7 @@ class ItemDetail: UIViewController {
     var name : String = "Text"
     var price : String = "Text"
     var time: String = "Time"
-    var ID: String = ""
+    var IDNum: String = ""
     
     
     override func viewDidLoad() {
@@ -43,10 +43,9 @@ class ItemDetail: UIViewController {
         if (segue!.identifier == "paySegue") {
             let viewController:QrView = segue!.destinationViewController as! QrView
             viewController.price = price
-            viewController.ID = ID
+            viewController.ID = IDNum
         }
         
     }
-
     
 }

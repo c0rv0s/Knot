@@ -8,8 +8,9 @@
 
 import UIKit
 import AVFoundation
+import CoreLocation
 
-class NewItemView: UIViewController, UITextFieldDelegate  {
+class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate  {
     
     var picView: UIImageView!
     var pic : UIImage = UIImage()
@@ -19,6 +20,9 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
     @IBOutlet weak var nameField: UITextField!
     
     @IBOutlet weak var priceField: UITextField!
+    
+    var locationManager: CLLocationManager = CLLocationManager()
+    var location: CLLocation!
     
     //camera 
     @IBOutlet weak var previewView: UIView!
@@ -42,6 +46,22 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 
+        //store location
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+
+    }
+    
+    func locationManager(manager: CLLocationManager,didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    {
+        if status == .AuthorizedWhenInUse {
+            manager.startUpdatingLocation()
+        }
     }
     
     //Camera
@@ -138,7 +158,8 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         self.picView.removeFromSuperview()
         self.picView = nil
         self.previewView.hidden = false
-        
+        self.priceField.text = ""
+        self.nameField.text = ""
         
     }
     //end camera
@@ -177,7 +198,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         }
         else {
             var uniqueID = randomStringWithLength(16) as String
-            self.insertSomeItems(uniqueID).continueWithBlock({
+            self.insertItem(uniqueID).continueWithBlock({
                 (task: BFTask!) -> BFTask! in
                 
                 if (task.error != nil) {
@@ -209,6 +230,7 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
                     let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Awesome!", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
+                
                 }
                 return nil
             }
@@ -219,7 +241,9 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
 
     }
     
-    func insertSomeItems(uniqueID: String) -> BFTask! {
+
+    
+    func insertItem(uniqueID: String) -> BFTask! {
         let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         /***CONVERT FROM NSDate to String ****/
@@ -233,17 +257,22 @@ class NewItemView: UIViewController, UITextFieldDelegate  {
         // Create a record in a dataset and synchronize with the server
 
 
+        let location = locationManager.location
+        locationManager.stopUpdatingLocation()
+        
         
         var item = ListItem()
         item.name  = self.nameField.text!
         item.ID   = uniqueID
         item.price   = self.priceField.text!
-        item.location = "Silicon Valley"
+        item.location =  "Silicon Valley" //"\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
         item.time  = dateString
-        item.sold = false
+        item.sold = 0
         let task = mapper.save(item)
         
-        print("item created, ready to run task")
+        
+        
+        print("item created, preparing upload")
         return BFTask(forCompletionOfAllTasks: [task])
     }
     

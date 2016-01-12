@@ -32,7 +32,7 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
             let loginView : FBSDKLoginButton = FBSDKLoginButton()
             self.view.addSubview(loginView)
             loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+            loginView.readPermissions = ["user_friends"]
             loginView.delegate = self
         }
     }
@@ -84,7 +84,13 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         print("User Logged Out")
     }
-    
+
+    @IBAction func TermsOfService(sender: AnyObject) {
+        if let url = NSURL(string: "http://www.knotcomplex.com/privacy") {
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+
     func returnUserData()
     {
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)

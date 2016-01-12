@@ -11,17 +11,12 @@ import UIKit
 
 class QrView: UIViewController {
     
-    //MARK: Properties
-    //@IBOutlet weak var btcTextField: UITextField!
-    //@IBOutlet weak var priceLabel: UILabel!
-    
     var apiCall = "https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=bitcoin:"
     var address = "1A5iCBMXPJF7esUssyaaeLpTocoyW2EK6n"
     var imageURL: UIImageView!
-    var BTCprice: String = ""
+    var BTCprice: String = "420.0"
     var price: String = "9.99"
-    var ID: String = ""
-    var item = ListItem()
+    var ID: String = "fg5poud5gZW2z6Mw"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +25,7 @@ class QrView: UIViewController {
         let syncClient = AWSCognito.defaultCognito()
         let dataset = syncClient.openOrCreateDataset("userWallet")
         let value = dataset.stringForKey("walletBTC")
-        if (value == "") {
+        if (value == nil) {
             let alert = UIAlertController(title: "Attention", message: "Please enter a wallet ID in Accounts Tab", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)

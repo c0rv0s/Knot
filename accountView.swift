@@ -9,13 +9,22 @@
 import Foundation
 import UIKit
 
-class accountView: UIViewController {
+class accountView: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var walletText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        walletText.delegate = self
     }
+    
+    //keyboard
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     @IBAction func savewallet(sender: AnyObject) {
         let syncClient = AWSCognito.defaultCognito()
         var wallet = walletText.text

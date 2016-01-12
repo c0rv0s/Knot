@@ -172,7 +172,7 @@
                     <navigationItem key="navigationItem" title="Detail" id="roL-4Z-4lU">
                         <barButtonItem key="rightBarButtonItem" title="Pay" id="Oip-A4-Ms5">
                             <connections>
-                                <segue destination="00D-5U-fKp" kind="show" identifier="paySegue" id="cdx-d9-PqH"/>
+                                <segue destination="00D-5U-fKp" kind="show" identifier="paySegue" id="NHe-ym-Tde"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -236,6 +236,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRC-Cr-rit">
+                                <rect key="frame" x="0.0" y="440" width="375" height="62"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="By tapping Login you agree to Knot's Terms of Service"/>
+                                <connections>
+                                    <action selector="TermsOfService:" destination="SdQ-rf-AsK" eventType="touchUpInside" id="x8Y-FL-hx8"/>
+                                    <action selector="login:" destination="SdQ-rf-AsK" eventType="touchUpInside" id="TQD-EZ-0d2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

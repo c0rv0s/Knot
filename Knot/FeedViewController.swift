@@ -78,8 +78,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.doneLoading = false
             }
             
-            let transferManager = AWSS3TransferManager.defaultS3TransferManager()
-            
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             
             let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
@@ -95,7 +93,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if task.result != nil {
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                     for item in paginatedOutput.items as! [ListItem] {
-                        if item.sold == false {
+                        if item.sold == 0 {
                             self.tableRows?.append(item)
                             self.downloadImage(item.ID)
                         }
@@ -223,7 +221,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
-            viewController.ID = tableRows![indexPath!.row].ID
+            viewController.IDNum = tableRows![indexPath!.row].ID
         }
         
     }
