@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     var credentialsProvider = AWSCognitoCredentialsProvider()
     var cognitoId: AnyObject?
-    //var transferManager: AWSS3TransferManager?
     let listingsDynamoTable = "knot-listings"
 
     

@@ -93,7 +93,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if task.result != nil {
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                     for item in paginatedOutput.items as! [ListItem] {
-                        if item.sold == 0 {
+                        if item.sold == "false" {
                             self.tableRows?.append(item)
                             self.downloadImage(item.ID)
                         }

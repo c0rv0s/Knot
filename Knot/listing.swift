@@ -10,12 +10,12 @@ import Foundation
 
 class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
-    var name  : String = ""
-    var ID   : String = ""
-    var price   : String = ""
-    var location : String = ""
-    var time : String = ""
-    var sold : Int = 0
+    var name  : String = "placeholder"
+    var ID   : String = "placeholder"
+    var price   : String = "placeholder"
+    var location : String = "placeholder"
+    var time : String = "placeholder"
+    var sold : String = "false"
     
     /*
     override init!() { super.init() }
@@ -32,7 +32,7 @@ class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     }
     
     class func rangeKeyAttribute() -> String! {
-        return "date"
+        return "price"
     }
     /*
     //required to let DynamoDB Mapper create instances of this class

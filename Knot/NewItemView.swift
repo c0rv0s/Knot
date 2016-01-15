@@ -24,7 +24,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
     var locationManager: CLLocationManager = CLLocationManager()
     var location: CLLocation!
     
-    //camera 
+    //camera
     @IBOutlet weak var previewView: UIView!
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCaptureStillImageOutput?
@@ -108,16 +108,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         super.viewDidAppear(animated)
         previewLayer!.frame = previewView.bounds
     }
-    /*
-    override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        if (segue!.identifier == "AddDetailsSegue") {
-            let viewController:NewItemView = segue!.destinationViewController as! NewItemView
-            viewController.pic = image
-            
-        }
-        
-    }
-*/
+
     @IBAction func didPressTakePhoto(sender: UIButton) {
         
         if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
@@ -259,15 +250,17 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
 
         let location = locationManager.location
         locationManager.stopUpdatingLocation()
+        print(location)
         
         
         var item = ListItem()
         item.name  = self.nameField.text!
         item.ID   = uniqueID
         item.price   = self.priceField.text!
-        item.location =  "Silicon Valley" //"\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
+        item.location =  "\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
         item.time  = dateString
-        item.sold = 0
+        item.sold = "false"
+        print(item)
         let task = mapper.save(item)
         
         
