@@ -246,7 +246,18 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         print(dateString)
         
         // Create a record in a dataset and synchronize with the server
-
+        // Retrieve your Amazon Cognito ID
+        var cognitoID = ""
+        appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
+            if (task.error != nil) {
+                print("Error: " + task.error!.localizedDescription)
+            }
+            else {
+                // the task result will contain the identity id
+                cognitoID = task.result as! String
+            }
+            return nil
+        }
 
         let location = locationManager.location
         locationManager.stopUpdatingLocation()
@@ -257,9 +268,10 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         item.name  = self.nameField.text!
         item.ID   = uniqueID
         item.price   = self.priceField.text!
-        item.location =  "\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
+        //item.location =  "\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
         item.time  = dateString
         item.sold = "false"
+        item.seller = cognitoID
         print(item)
         let task = mapper.save(item)
         

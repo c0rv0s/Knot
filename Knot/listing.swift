@@ -16,6 +16,8 @@ class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var location : String = "placeholder"
     var time : String = "placeholder"
     var sold : String = "false"
+    var seller : String = "placehoder"
+    var buyer : String = "None"
     
     /*
     override init!() { super.init() }
