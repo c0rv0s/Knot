@@ -20,9 +20,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
     @IBOutlet weak var nameField: UITextField!
     
     @IBOutlet weak var priceField: UITextField!
-    
-    var locationManager: CLLocationManager = CLLocationManager()
-    var location: CLLocation!
+
     
     //camera
     @IBOutlet weak var previewView: UIView!
@@ -32,6 +30,10 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
     //end camera
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    //location
+    var locationManager: OneShotLocationManager?
+    var locString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,13 +49,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 
         //store location
-        if CLLocationManager.authorizationStatus() == .NotDetermined {
-            locationManager.requestWhenInUseAuthorization()
-        }
         
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
 
     }
     
@@ -107,6 +103,18 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         previewLayer!.frame = previewView.bounds
+        
+        locationManager = OneShotLocationManager()
+        locationManager!.fetchWithCompletion {location, error in
+            // fetch location or an error
+            if let loc = location {
+                print(location)
+                self.locString = "\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
+            } else if let err = error {
+                print(err.localizedDescription)
+            }
+            self.locationManager = nil
+        }
     }
 
     @IBAction func didPressTakePhoto(sender: UIButton) {
@@ -259,16 +267,14 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
             return nil
         }
 
-        let location = locationManager.location
-        locationManager.stopUpdatingLocation()
-        print(location)
-        
-        
         var item = ListItem()
+        
+
+        
         item.name  = self.nameField.text!
         item.ID   = uniqueID
         item.price   = self.priceField.text!
-        //item.location =  "\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
+        item.location =  locString
         item.time  = dateString
         item.sold = "false"
         item.seller = cognitoID

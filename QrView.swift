@@ -112,9 +112,37 @@ class QrView: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Keep Going", style: .Default, handler: { (alertAction) -> Void in
             
-
+            let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+            var lock:NSLock?
+            var lastEvaluatedKey:[NSObject : AnyObject]!
+            var item = ListItem()
             
+            let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+            let queryExpression = AWSDynamoDBScanExpression()
+            queryExpression.exclusiveStartKey = lastEvaluatedKey
+            queryExpression.limit = 50;
+            dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
+                if task.result != nil {
+                    let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                    for oldItem in paginatedOutput.items as! [ListItem] {
+                        if item.ID == self.ID {
+                            item.name  = oldItem.name
+                            item.ID   = oldItem.ID
+                            item.price   = oldItem.price
+                            item.location =  oldItem.location
+                            item.time  = oldItem.time
+                            item.sold = "true"
+                            item.seller = oldItem.seller
+                            let task = mapper.save(item)
+                        }
+                    }
+                }
+                return nil
+            })
+
         }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
+
 }
 

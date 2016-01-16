@@ -10,8 +10,8 @@ import Foundation
 
 class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
-    var name  : String = "placeholder"
     var ID   : String = "placeholder"
+    var name  : String = "placeholder"
     var price   : String = "placeholder"
     var location : String = "placeholder"
     var time : String = "placeholder"
@@ -30,11 +30,11 @@ class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         return "knot-listings"
     }
     class func hashKeyAttribute() -> String! {
-        return "time"
+        return "ID"
     }
     
     class func rangeKeyAttribute() -> String! {
-        return "price"
+        return "time"
     }
     /*
     //required to let DynamoDB Mapper create instances of this class

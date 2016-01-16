@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     var credentialsProvider = AWSCognitoCredentialsProvider()
     var cognitoId: AnyObject?
-    let listingsDynamoTable = "knot-listings"
-
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 

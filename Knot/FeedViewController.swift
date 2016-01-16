@@ -126,9 +126,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let S3BucketName: String = "knotcompleximages"
         let S3DownloadKeyName: String = key
         
-        
-        
-        
         let expression = AWSS3TransferUtilityDownloadExpression()
         expression.downloadProgress = {(task: AWSS3TransferUtilityTask, bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) in
             dispatch_async(dispatch_get_main_queue(), {

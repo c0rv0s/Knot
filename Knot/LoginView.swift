@@ -15,6 +15,8 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+        var locationManager: OneShotLocationManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +36,20 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
             loginView.center = self.view.center
             loginView.readPermissions = ["user_friends"]
             loginView.delegate = self
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        locationManager = OneShotLocationManager()
+        locationManager!.fetchWithCompletion {location, error in
+            // fetch location or an error
+            if let loc = location {
+            } else if let err = error {
+                print(err.localizedDescription)
+            }
+            self.locationManager = nil
         }
     }
     
