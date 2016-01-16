@@ -97,7 +97,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need to know your location for potential buyers</string>
+	<string>We need to know your location for potential buyers, It will only be accessed when posting a new listing.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
