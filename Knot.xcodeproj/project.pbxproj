@@ -29,6 +29,7 @@
 		431F1A521C1127B700EDB1A8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A511C1127B700EDB1A8 /* Security.framework */; };
 		431F1A561C1127F600EDB1A8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A551C1127F600EDB1A8 /* Accounts.framework */; };
 		431F1A581C1127FB00EDB1A8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431F1A571C1127FB00EDB1A8 /* Social.framework */; };
+		433758A91C4CEB5A003D8339 /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433758A81C4CEB5A003D8339 /* SwiftSpinner.swift */; };
 		434BE01D1C0CD628007479AB /* string-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BE01C1C0CD628007479AB /* string-extension.swift */; };
 		43869C5B1C03CE36008E6056 /* NewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C5A1C03CE36008E6056 /* NewItemView.swift */; };
 		43869C611C052E07008E6056 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43869C601C052E07008E6056 /* LoginView.swift */; };
@@ -96,6 +97,7 @@
 		431F1A511C1127B700EDB1A8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		431F1A551C1127F600EDB1A8 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		431F1A571C1127FB00EDB1A8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		433758A81C4CEB5A003D8339 /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
 		433F04091C240C6A0011DAF1 /* Knot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Knot.entitlements; sourceTree = "<group>"; };
 		434BE01C1C0CD628007479AB /* string-extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "string-extension.swift"; sourceTree = "<group>"; };
 		43869C5A1C03CE36008E6056 /* NewItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemView.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		431853441BF9892F000C6ED4 /* Knot */ = {
 			isa = PBXGroup;
 			children = (
+				433758A81C4CEB5A003D8339 /* SwiftSpinner.swift */,
 				43E761C21C4AEF5B0051E060 /* OneShotLocationManager.swift */,
 				433F04091C240C6A0011DAF1 /* Knot.entitlements */,
 				43DA27281C292FA100465C02 /* accountView.swift */,
@@ -473,6 +476,7 @@
 				43E761C31C4AEF5B0051E060 /* OneShotLocationManager.swift in Sources */,
 				430293B51C24F0580071E11D /* listing.swift in Sources */,
 				434BE01D1C0CD628007479AB /* string-extension.swift in Sources */,
+				433758A91C4CEB5A003D8339 /* SwiftSpinner.swift in Sources */,
 				4318537A1BF989AE000C6ED4 /* TableCell.swift in Sources */,
 				43D8A1091C1B8EB3002F43BE /* HomeTabBarController.swift in Sources */,
 				43DA27291C292FA100465C02 /* accountView.swift in Sources */,

@@ -225,6 +225,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
                 if task.error != nil {
                     print("Error: \(task.error)")
                 } else {
+                    SwiftSpinner.hide()
                     print("Upload successful")
                     let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Awesome!", style: UIAlertActionStyle.Default, handler: nil))
@@ -242,6 +243,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
 
     
     func insertItem(uniqueID: String) -> BFTask! {
+        SwiftSpinner.show("Uploading \(self.nameField.text!)")
         let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         /***CONVERT FROM NSDate to String ****/
