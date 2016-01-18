@@ -229,7 +229,6 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
                     let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Awesome!", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
-                
                 }
                 return nil
             }

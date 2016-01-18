@@ -17,6 +17,9 @@ class QrView: UIViewController {
     var BTCprice: String = "420.0"
     var price: String = "9.99"
     var ID: String = "fg5poud5gZW2z6Mw"
+    var time: String = "5"
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,37 +114,31 @@ class QrView: UIViewController {
         let alert = UIAlertController(title: "Attention", message: "This will remove this item from the feed, are you sure you want to keep going?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Keep Going", style: .Default, handler: { (alertAction) -> Void in
-            
-            let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-            var lock:NSLock?
-            var lastEvaluatedKey:[NSObject : AnyObject]!
-            var item = ListItem()
-            
-            let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-            let queryExpression = AWSDynamoDBScanExpression()
-            queryExpression.exclusiveStartKey = lastEvaluatedKey
-            queryExpression.limit = 50;
-            dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
-                if task.result != nil {
-                    let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
-                    for oldItem in paginatedOutput.items as! [ListItem] {
-                        if item.ID == self.ID {
-                            item.name  = oldItem.name
-                            item.ID   = oldItem.ID
-                            item.price   = oldItem.price
-                            item.location =  oldItem.location
-                            item.time  = oldItem.time
-                            item.sold = "true"
-                            item.seller = oldItem.seller
-                            let task = mapper.save(item)
-                        }
-                    }
-                }
-                return nil
-            })
-
+            self.updateSoldStatus()
         }))
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func updateSoldStatus() {
+        var hashValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
+        hashValue.S = self.ID
+        var otherValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
+        otherValue.S = self.time
+        var updatedValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
+        updatedValue.S = "true"
+        
+        var updateInput: AWSDynamoDBUpdateItemInput = AWSDynamoDBUpdateItemInput()
+        updateInput.tableName = "knot-listings"
+        updateInput.key = ["ID": hashValue, "time": otherValue]
+        var valueUpdate: AWSDynamoDBAttributeValueUpdate = AWSDynamoDBAttributeValueUpdate()
+        valueUpdate.value = updatedValue
+        valueUpdate.action = AWSDynamoDBAttributeAction.Put
+        updateInput.attributeUpdates = ["sold": valueUpdate]
+        updateInput.returnValues = AWSDynamoDBReturnValue.UpdatedNew
+        
+        AWSDynamoDB.defaultDynamoDB().updateItem(updateInput)
+        print(updateInput)
+        print("status updated")
     }
 
 }

@@ -44,6 +44,7 @@ class ItemDetail: UIViewController {
             let viewController:QrView = segue!.destinationViewController as! QrView
             viewController.price = price
             viewController.ID = IDNum
+            viewController.time = time
         }
         
     }

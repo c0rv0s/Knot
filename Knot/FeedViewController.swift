@@ -153,10 +153,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 else{
                     //    self.statusLabel.text = "Success"
                     self.tableImages[S3DownloadKeyName] = UIImage(data: data!)
-                    print("time to see all the keys")
-                    for (key) in self.tableImages {
-                        print("\(key)")
-                    }
                 }
             })
         }
