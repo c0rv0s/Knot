@@ -120,6 +120,7 @@ class QrView: UIViewController {
     }
     
     func updateSoldStatus() {
+        SwiftSpinner.show("Completing Transaction")
         var hashValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
         hashValue.S = self.ID
         var otherValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
@@ -136,9 +137,9 @@ class QrView: UIViewController {
         updateInput.attributeUpdates = ["sold": valueUpdate]
         updateInput.returnValues = AWSDynamoDBReturnValue.UpdatedNew
         
-        AWSDynamoDB.defaultDynamoDB().updateItem(updateInput)
+        AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).waitUntilFinished()
         print(updateInput)
-        print("status updated")
+        SwiftSpinner.hide()
     }
 
 }

@@ -109,7 +109,7 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
             // fetch location or an error
             if let loc = location {
                 print(location)
-                self.locString = "\(location!.coordinate.latitude), \(location!.coordinate.longitude)"
+                self.locString = "\(location!.coordinate.latitude) \(location!.coordinate.longitude)"
             } else if let err = error {
                 print(err.localizedDescription)
             }

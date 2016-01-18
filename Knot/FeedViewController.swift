@@ -228,6 +228,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
             viewController.IDNum = tableRows![indexPath!.row].ID
+            viewController.itemSeller = tableRows![indexPath!.row].seller
+            viewController.location = tableRows![indexPath!.row].location
         }
         
     }

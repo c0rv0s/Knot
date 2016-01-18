@@ -55,7 +55,8 @@
                     <connections>
                         <segue destination="ZEP-TR-n8f" kind="relationship" relationship="viewControllers" id="OMJ-4c-SHi"/>
                         <segue destination="7zq-ke-Vlb" kind="relationship" relationship="viewControllers" id="tLq-Na-JQd"/>
-                        <segue destination="qP0-zv-SaE" kind="relationship" relationship="viewControllers" id="ykh-po-TWR"/>
+                        <segue destination="R3S-hv-G5h" kind="relationship" relationship="viewControllers" id="PEg-B2-8TG"/>
+                        <segue destination="qP0-zv-SaE" kind="relationship" relationship="viewControllers" id="Dha-w7-YPp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGN-TA-Jdk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -148,32 +149,42 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lX8-Hz-rsP">
-                                <rect key="frame" x="20" y="501" width="331" height="21"/>
+                                <rect key="frame" x="265" y="460" width="110" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.30737058080808077" green="0.30737058080808077" blue="0.30737058080808077" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqN-zo-Vf5">
-                                <rect key="frame" x="20" y="562" width="120" height="21"/>
+                                <rect key="frame" x="20" y="501" width="120" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w45-C7-Ewp">
+                                <rect key="frame" x="103" y="584" width="169" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Receive Payment"/>
+                                <connections>
+                                    <segue destination="00D-5U-fKp" kind="show" id="MYD-Ie-gP5"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2I-Nv-fuf">
+                                <rect key="frame" x="20" y="530" width="327" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="roL-4Z-4lU">
-                        <barButtonItem key="rightBarButtonItem" title="Pay" id="Oip-A4-Ms5">
-                            <connections>
-                                <segue destination="00D-5U-fKp" kind="show" identifier="paySegue" id="JD2-Fi-gzl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Detail" id="roL-4Z-4lU"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="addressLabel" destination="V2I-Nv-fuf" id="kly-WQ-6Ul"/>
                         <outlet property="nameLabel" destination="LFw-rw-427" id="8rg-k1-jh5"/>
+                        <outlet property="payButton" destination="w45-C7-Ewp" id="efY-jf-iqe"/>
                         <outlet property="priceLabel" destination="lX8-Hz-rsP" id="3Tt-5d-s9s"/>
                         <outlet property="timeLabel" destination="fqN-zo-Vf5" id="e5K-Ma-NYz"/>
                     </connections>
@@ -210,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Do-Zm-u32" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3132.5" y="379.5"/>
+            <point key="canvasLocation" x="2494.5" y="389.5"/>
         </scene>
         <!--Login View-->
         <scene sceneID="EMn-uU-yz8">
@@ -327,7 +338,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GP5-wd-0DY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1321.5" y="2470.5"/>
+            <point key="canvasLocation" x="1361.5" y="3286.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fRB-S2-MH5">
+            <objects>
+                <viewController id="vvZ-zI-IKU" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nh1-A1-jKB"/>
+                        <viewControllerLayoutGuide type="bottom" id="bW1-T1-l0q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5cc-Ux-WKV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coming Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qj-Pj-6f8">
+                                <rect key="frame" x="113" y="323" width="149" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ni5-G0-S7u"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qmB-QQ-Cy6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1335.5" y="2390.5"/>
         </scene>
         <!--Account-->
         <scene sceneID="zx1-YQ-VVH">
@@ -346,12 +384,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wH3-EJ-glI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="510" y="2471"/>
+            <point key="canvasLocation" x="497.5" y="3278.5"/>
+        </scene>
+        <!--Chat-->
+        <scene sceneID="qAI-ba-m9T">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="R3S-hv-G5h" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Chat" image="chat" id="jgq-l6-SCt"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="flW-fK-6zz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vvZ-zI-IKU" kind="relationship" relationship="rootViewController" id="kQM-Sl-uHn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e74-RH-keX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="366" y="2403"/>
         </scene>
     </scenes>
     <resources>
         <image name="avatar83" width="32" height="32"/>
         <image name="camera" width="256" height="256"/>
+        <image name="chat" width="32" height="32"/>
         <image name="home" width="23" height="24"/>
         <image name="plus" width="24" height="24"/>
     </resources>
