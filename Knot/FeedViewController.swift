@@ -42,7 +42,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         */
 
         // set up the refresh control
-
+        refreshControl = UIRefreshControl()
+        tableView.addSubview(refreshControl)
+        
+        // When activated, invoke our refresh function
+        self.refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         
         // Register custom cell
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
@@ -57,9 +61,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-
-    @IBAction func reloadFeed(sender: AnyObject) {
+    func refresh(){
+        
+        // -- DO SOMETHING AWESOME (... or just wait 3 seconds) --
+        // This is where you'll make requests to an API, reload data, or process information
         self.refreshList(true)
+        var delayInSeconds = 3.0;
+        var popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
+        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+            // When done requesting/reloading/processing invoke endRefreshing, to close the control
+            self.refreshControl.endRefreshing()
+        }
+        // -- FINISHED SOMETHING AWESOME, WOO! --
     }
     
     override func viewWillAppear(animated: Bool) {
