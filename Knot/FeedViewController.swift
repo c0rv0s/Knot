@@ -12,13 +12,17 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    var tableRows: Array<ListItem>?
+    var tableRowLeft: Array<ListItem>?
+    var tableRowRight: Array<ListItem>?
     var downloadFileURLs = Array<NSURL?>()
     var tableImages = [String: UIImage]()
     
     var lock:NSLock?
     var lastEvaluatedKey:[NSObject : AnyObject]!
     var  doneLoading = false
+    
+    var loadLeft = true
+    var indexToLoad: Int = 0
     
     var needsToRefresh = false
     
@@ -54,7 +58,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         
         //download data
-        tableRows = []
+        tableRowLeft = []
+        tableRowRight = []
         lock = NSLock()
         self.refreshList(true)
         
@@ -85,7 +90,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func refreshList(startFromBeginning: Bool)  {
         //SwiftSpinner.show("Loading Data")
-        self.tableRows?.removeAll(keepCapacity: true)
+        self.tableRowLeft?.removeAll(keepCapacity: true)
+        self.tableRowRight?.removeAll(keepCapacity: true)
         if (self.lock?.tryLock() != nil) {
             if startFromBeginning {
                 self.lastEvaluatedKey = nil;
@@ -98,19 +104,34 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let queryExpression = AWSDynamoDBScanExpression()
             queryExpression.exclusiveStartKey = self.lastEvaluatedKey
             queryExpression.limit = 20;
+            
+            //load left
             dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
                 
                 if self.lastEvaluatedKey == nil {
-                    self.tableRows?.removeAll(keepCapacity: true)
+                    self.tableRowLeft?.removeAll(keepCapacity: true)
+                    self.tableRowRight?.removeAll(keepCapacity: true)
                 }
                 
                 if task.result != nil {
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                    var checked = false
+                    var left = true
                     for item in paginatedOutput.items as! [ListItem] {
-                            if item.sold == "false" {
-                                self.tableRows?.append(item)
-                                self.downloadImage(item.ID)
+                        checked = false
+                        if item.sold == "false" {
+                            if left && !checked {
+                                self.tableRowLeft?.append(item)
+                                left = false
+                                checked = true
                             }
+                            if !left && !checked {
+                                self.tableRowRight?.append(item)
+                                left = true
+                                checked = true
+                            }
+                        }
+                        self.downloadImage(item.ID)
                     }
                     
                     self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
@@ -122,13 +143,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 self.tableView.reloadData()
                 
-
-
                 if ((task.error) != nil) {
                     print("Error: \(task.error)")
                 }
                 return nil
             })
+
         }
     }
     
@@ -200,7 +220,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // 2
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tableRows!.count
+        return self.tableRowLeft!.count
     }
     
     
@@ -209,52 +229,111 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell:TableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! TableCell
         
-        cell.nameLabel.text = tableRows![indexPath.row].name
-        cell.priceLabel.text = "$" + tableRows![indexPath.row].price
-        
-        cell.pic.image = tableImages[tableRows![indexPath.row].ID]
-
-        let overDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)!
-        let secondsUntil = secondsFrom(currentDate, endDate: overDate)
-        if(secondsUntil > 0)
+        //left side
+        cell.picOne.image = tableImages[tableRowLeft![indexPath.row].ID]
+        let overDateLeft = dateFormatter.dateFromString(tableRowLeft![indexPath.row].time)!
+        let secondsUntilLeft = secondsFrom(currentDate, endDate: overDateLeft)
+        if(secondsUntilLeft > 0)
         {
-            cell.timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
+            cell.timerOne.text = printSecondsToDaysHoursMinutesSeconds(secondsUntilLeft)
         }
         else {
-            cell.timeLabel.text = "Ended"
+            cell.timerOne.text = "Ended"
         }
+        
+        cell.picOne.userInteractionEnabled = true;
+        let tapRecognizerLeft = UITapGestureRecognizer(target: self, action: "imageTappedLeft:")
+        cell.picOne.addGestureRecognizer(tapRecognizerLeft)
+        
+        //right side
+        if tableRowRight!.count > indexPath.row {
+            cell.picTwo.image = tableImages[tableRowRight![indexPath.row].ID]
+            let overDateRight = dateFormatter.dateFromString(tableRowRight![indexPath.row].time)!
+            let secondsUntilRight = secondsFrom(currentDate, endDate: overDateRight)
+            if(secondsUntilRight > 0)
+            {
+                cell.timerTwo.text = printSecondsToDaysHoursMinutesSeconds(secondsUntilRight)
+            }
+            else {
+                cell.timerTwo.text = "Ended"
+            }
+            
+            cell.picTwo.userInteractionEnabled = true;
+            let tapRecognizerRight = UITapGestureRecognizer(target: self, action: "imageTappedRight:")
+            cell.picTwo.addGestureRecognizer(tapRecognizerRight)
+
+        }
+
         return cell
         
+    }
+    
+    func imageTappedLeft(sender: AnyObject)
+    {
+        loadLeft = true
+        let touch = sender.locationInView(tableView)
+        if let indexPath = tableView.indexPathForRowAtPoint(touch) {
+            // Access the image or the cell at this index path
+            indexToLoad = indexPath.row
+        }
+        self.performSegueWithIdentifier("DetailSeg", sender: self)
+    }
+    func imageTappedRight(sender: AnyObject)
+    {
+        loadLeft = false
+        let touch = sender.locationInView(tableView)
+        if let indexPath = tableView.indexPathForRowAtPoint(touch) {
+            // Access the image or the cell at this index path
+            indexToLoad = indexPath.row
+        }
+        self.performSegueWithIdentifier("DetailSeg", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
         if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
-            let indexPath = self.tableView.indexPathForSelectedRow
-            
-            viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
-
-            viewController.name = tableRows![indexPath!.row].name
-            viewController.price = tableRows![indexPath!.row].price
-            viewController.time = tableRows![indexPath!.row].time
-            viewController.IDNum = tableRows![indexPath!.row].ID
-            viewController.itemSeller = tableRows![indexPath!.row].seller
-            viewController.location = tableRows![indexPath!.row].location
-            viewController.sold = tableRows![indexPath!.row].sold
+            //let indexPath = self.tableView.indexPathForSelectedRow
+            if loadLeft {
+                viewController.pic = tableImages[tableRowLeft![indexToLoad].ID]!
+                viewController.name = tableRowLeft![indexToLoad].name
+                viewController.price = tableRowLeft![indexToLoad].price
+                viewController.time = tableRowLeft![indexToLoad].time
+                viewController.IDNum = tableRowLeft![indexToLoad].ID
+                viewController.itemSeller = tableRowLeft![indexToLoad].seller
+                viewController.location = tableRowLeft![indexToLoad].location
+                viewController.sold = tableRowLeft![indexToLoad].sold
+                viewController.fbID = tableRowLeft![indexToLoad].sellerFBID
+                viewController.descript = tableRowLeft![indexToLoad].descriptionKnot
+            }
+            else {
+                viewController.pic = tableImages[tableRowRight![indexToLoad].ID]!
+                viewController.name = tableRowRight![indexToLoad].name
+                viewController.price = tableRowRight![indexToLoad].price
+                viewController.time = tableRowRight![indexToLoad].time
+                viewController.IDNum = tableRowRight![indexToLoad].ID
+                viewController.itemSeller = tableRowRight![indexToLoad].seller
+                viewController.location = tableRowRight![indexToLoad].location
+                viewController.sold = tableRowRight![indexToLoad].sold
+                viewController.fbID = tableRowRight![indexToLoad].sellerFBID
+                viewController.descript = tableRowRight![indexToLoad].descriptionKnot
+            }
         }
         
     }
     
     
     // 4
+    /*
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+            let currentCell = tableView.cellForRowAtIndexPath(indexPath) as! TableCell
+            loadLeft = currentCell.leftSide
             self.performSegueWithIdentifier("DetailSeg", sender: tableView)
-
     }
+*/
     
     // 5
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 380
+        return 190
     }
     
     func refreshTable(sender:AnyObject) {

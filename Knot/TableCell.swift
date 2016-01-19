@@ -9,11 +9,36 @@
 import UIKit
 
 class TableCell: UITableViewCell {
+    @IBOutlet weak var picOne: UIImageView!
+    @IBOutlet weak var picTwo: UIImageView!
+    @IBOutlet weak var timerTwo: UILabel!
+    @IBOutlet weak var timerOne: UILabel!
+    
+    /*
+    //var delegate: MyTableViewCellDelegate?
+    var leftSide:Bool = false
+    
+    func viewDidLoad() {
+        
+        // Other setup here...
 
-    @IBOutlet weak var pic: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-
-
+        picOne.userInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapImageLeft:")
+        picOne.addGestureRecognizer(tapGestureRecognizer)
+        
+        picTwo.userInteractionEnabled = true
+        let tapGestureRecognizerR = UITapGestureRecognizer(target: self, action: "didTapImageRight:")
+        picTwo.addGestureRecognizer(tapGestureRecognizerR)
+        
+    }
+    
+    func didTapImageLeft(sender: AnyObject) {
+        self.leftSide = true
+    }
+    func didTapImageRight(sender: AnyObject) {
+        self.leftSide = false
+    }
+*/
+    
 }
+

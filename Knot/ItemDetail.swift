@@ -8,17 +8,26 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
-class ItemDetail: UIViewController {
+class ItemDetail: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var descripText: UITextView!
 
+    @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var profPic: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
 
+    @IBOutlet weak var sellerName: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
 
     @IBOutlet weak var payButton: UIButton!
+    
+    var dict : NSDictionary!
     
     var picView: UIImageView!
     var pic : UIImage = UIImage()
@@ -30,6 +39,8 @@ class ItemDetail: UIViewController {
     var location: String = ""
     var sold: String = ""
     var cognitoID: String = ""
+    var fbID: String = ""
+    var descript: String = ""
     
     //timer variables
     var secondsUntil: Int = 1000
@@ -38,6 +49,8 @@ class ItemDetail: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        descripText.text = descript
+        descripText.editable = false
         
         appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
             if (task.error != nil) {
@@ -54,9 +67,28 @@ class ItemDetail: UIViewController {
             payButton.hidden = true
         }
         
+        FBSDKGraphRequest(graphPath: fbID, parameters: ["fields": "name, first_name, last_name, picture.type(large), email"]).startWithCompletionHandler({ (connection, result, error) -> Void in
+            if (error == nil){
+                self.dict = result as! NSDictionary
+                print(self.dict)
+                NSLog(self.dict.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as! String)
+                
+                
+                if let url = NSURL(string: self.dict.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as! String) {
+                    if let data = NSData(contentsOfURL: url){
+                        self.profPic.image = UIImage(data: data)
+                    }
+                }
+                let nametext = (self.dict.objectForKey("first_name") as! String) + " " + (self.dict.objectForKey("last_name") as! String)
+                self.sellerName.text = nametext
+                //self.emial.text = (self.dict.objectForKey("email") as! String)
+                
+            }
+        })
+        
         self.updateLocation()
         
-        picView = UIImageView(frame:CGRectMake(0, 60, 380, 380))
+        picView = UIImageView(frame:CGRectMake(0, 0, 380, 380))
         
         nameLabel.text = name
         priceLabel.text = "$" + price
@@ -73,10 +105,11 @@ class ItemDetail: UIViewController {
         
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
-        self.view.addSubview(picView)
-        self.view.sendSubviewToBack(picView)
+        self.scrollView.addSubview(picView)
+        self.scrollView.sendSubviewToBack(picView)
         
     }
+    
     
     func update() {
         
@@ -90,7 +123,7 @@ class ItemDetail: UIViewController {
             }
         }
         else {
-            updateSoldStatus()
+            updateSoldStatus("ended")
             timeLabel.text = "Ended"
         }
         
@@ -123,8 +156,16 @@ class ItemDetail: UIViewController {
         let coordinatesArr = self.location.characters.split{$0 == " "}.map(String.init)
         let latitude = Double(coordinatesArr[0])
         let longitude = Double(coordinatesArr[1])
-        print(latitude)
-        print(longitude)
+        
+        let initialLocation = CLLocation(latitude: latitude!, longitude: longitude!)
+        let regionRadius: CLLocationDistance = 500
+        func centerMapOnLocation(location: CLLocation) {
+            let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                regionRadius * 2.0, regionRadius * 2.0)
+            map.setRegion(coordinateRegion, animated: true)
+        }
+        centerMapOnLocation(initialLocation)
+        
         var address = ""
         var streetHolder = ""
         var cityHolder = ""
@@ -162,13 +203,13 @@ class ItemDetail: UIViewController {
         }
     }
     
-    func updateSoldStatus() {
+    func updateSoldStatus(type: String) {
         var hashValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
         hashValue.S = self.IDNum
         var otherValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
         otherValue.S = self.time
         var updatedValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
-        updatedValue.S = "true"
+        updatedValue.S = type
         
         var updateInput: AWSDynamoDBUpdateItemInput = AWSDynamoDBUpdateItemInput()
         updateInput.tableName = "knot-listings"

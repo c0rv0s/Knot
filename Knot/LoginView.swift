@@ -78,7 +78,6 @@ class LoginView: UIViewController, FBSDKLoginButtonDelegate {
 
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
         self.presentViewController(vc, animated: true, completion: nil)
-        SwiftSpinner.show("Loading Data")
         
         //error handling
         if ((error) != nil)

@@ -18,6 +18,11 @@ class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var sold : String = "false"
     var seller : String = "placehoder"
     var buyer : String = "None"
+    var sellerFBID : String = "placeholder"
+    var descriptionKnot : String = ""
+    var condition : String = ""
+    var category : String = ""
+    var international : Bool = false
     
     /*
     override init!() { super.init() }

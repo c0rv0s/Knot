@@ -221,7 +221,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
     // 3
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell 	{
         
-        let cell:TableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! TableCell
+        let cell:PersonalTableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! PersonalTableCell
         
         cell.nameLabel.text = tableRows![indexPath.row].name
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
@@ -261,6 +261,8 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             viewController.itemSeller = tableRows![indexPath!.row].seller
             viewController.location = tableRows![indexPath!.row].location
             viewController.sold = tableRows![indexPath!.row].sold
+            viewController.fbID = tableRows![indexPath!.row].sellerFBID
+            viewController.descript = tableRows![indexPath!.row].descriptionKnot
         }
         
     }
