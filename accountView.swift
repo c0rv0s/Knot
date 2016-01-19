@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class accountView: UIViewController, UITextFieldDelegate {
+class accountSettingsView: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var walletText: UITextField!
     

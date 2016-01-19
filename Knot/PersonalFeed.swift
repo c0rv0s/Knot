@@ -1,15 +1,18 @@
 //
-//  ViewController.swift
+//  PersonalFeed.swift
 //  Knot
 //
-//  Created by Nathan Mueller on 11/15/15.
-//  Copyright © 2015 Knot App. All rights reserved.
+//  Created by Nathan Mueller on 1/18/16.
+//  Copyright © 2016 Knot App. All rights reserved.
 //
+
+import Foundation
 
 import UIKit
 
-class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+
     @IBOutlet weak var tableView: UITableView!
     
     var tableRows: Array<ListItem>?
@@ -24,11 +27,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let currentDate = NSDate()
     let dateFormatter = NSDateFormatter()
-
+    
     
     var refreshControl = UIRefreshControl()
     let bucket = "knotcompleximages"
-
+    
+    var cognitoID: String = ""
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -36,7 +40,19 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
+        appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
+            if (task.error != nil) {
+                print("Error: " + task.error!.localizedDescription)
+            }
+            else {
+                // the task result will contain the identity id
+                self.cognitoID = task.result as! String
+                print(self.cognitoID)
+            }
+            return nil
+        }
+        
         
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         
@@ -48,7 +64,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         
         // Register custom cell
-        let nib = UINib(nibName: "vwTableCell", bundle: nil)
+        let nib = UINib(nibName: "storeTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -56,7 +72,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableRows = []
         lock = NSLock()
         self.refreshList(true)
-
+        
         
     }
     
@@ -105,10 +121,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if task.result != nil {
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                     for item in paginatedOutput.items as! [ListItem] {
-                            if item.sold == "false" {
-                                self.tableRows?.append(item)
-                                self.downloadImage(item.ID)
-                            }
+                        print(item.seller)
+                        if item.seller == self.cognitoID {
+                            self.tableRows?.append(item)
+                            self.downloadImage(item.ID)
+                        }
+                        
                     }
                     
                     self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
@@ -158,10 +176,10 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                     //   self.statusLabel.text = "Failed"
                 }
                     /*
-                else if(self.progressView.progress != 1.0) {
+                    else if(self.progressView.progress != 1.0) {
                     //    self.statusLabel.text = "Failed"
                     NSLog("Error: Failed - Likely due to invalid region / filename")
-                }   */
+                    }   */
                 else{
                     //    self.statusLabel.text = "Success"
                     self.tableImages[S3DownloadKeyName] = UIImage(data: data!)
@@ -209,27 +227,33 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
         
         cell.pic.image = tableImages[tableRows![indexPath.row].ID]
-
-        let overDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)!
-        let secondsUntil = secondsFrom(currentDate, endDate: overDate)
-        if(secondsUntil > 0)
-        {
-            cell.timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
+        
+        if tableRows![indexPath.row].sold == "true" {
+            cell.timeLabel.text = "Sold!"
         }
         else {
-            cell.timeLabel.text = "Ended"
+            let overDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)!
+            let secondsUntil = secondsFrom(currentDate, endDate: overDate)
+            if(secondsUntil > 0)
+            {
+                cell.timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
+            }
+            else {
+                cell.timeLabel.text = "Ended"
+            }
         }
         return cell
         
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        if (segue!.identifier == "DetailSeg") {
+        
+        if (segue!.identifier == "PersonalDetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
             
             viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
-
+            
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
@@ -243,17 +267,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // 4
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-            self.performSegueWithIdentifier("DetailSeg", sender: tableView)
-
+        
+        self.performSegueWithIdentifier("PersonalDetailSeg", sender: tableView)
+        
     }
     
     // 5
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 380
+        return 90
     }
     
     func refresh(sender:AnyObject) {
-        let nib = UINib(nibName: "vwTableCell", bundle: nil)
+        let nib = UINib(nibName: "storeTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
     }
@@ -280,7 +305,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     func secondsFrom(startDate:NSDate, endDate:NSDate) -> Int{
         return NSCalendar.currentCalendar().components(.Second, fromDate: startDate, toDate: endDate, options: []).second
     }
-
-
+    
+    
 }
-

@@ -64,11 +64,10 @@ class ItemDetail: UIViewController {
         //set up countdown and timer stuff
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        let listDate = dateFormatter.dateFromString(time)!
+        let overDate = dateFormatter.dateFromString(time)!
         let currentDate = NSDate()
-        var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 7, toDate: listDate, options: NSCalendarOptions.init(rawValue: 0))
 
-        secondsUntil = secondsFrom(currentDate, endDate: overDate!)
+        secondsUntil = secondsFrom(currentDate, endDate: overDate)
         
         
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
@@ -97,6 +96,15 @@ class ItemDetail: UIViewController {
     
     func printSecondsToDaysHoursMinutesSeconds (seconds:Int) -> String {
         let (d, h, m, s) = secondsToDaysHoursMinutesSeconds (seconds)
+        if m < 10 {
+            if s < 10 {
+                return "\(d) Days, \(h):0\(m):0\(s) left"
+            }
+            return "\(d) Days, \(h):0\(m):\(s) left"
+        }
+        if s < 10 {
+            return "\(d) Days, \(h):\(m):0\(s) left"
+        }
         return "\(d) Days, \(h):\(m):\(s) left"
     }
     

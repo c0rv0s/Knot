@@ -245,9 +245,10 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         
         /***CONVERT FROM NSDate to String ****/
         let currentDate = NSDate()
+        var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 7, toDate: currentDate, options: NSCalendarOptions.init(rawValue: 0))
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        var dateString = dateFormatter.stringFromDate(currentDate)
+        var dateString = dateFormatter.stringFromDate(overDate!)
         
         
         // Create a record in a dataset and synchronize with the server
@@ -265,8 +266,6 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         }
 
         var item = ListItem()
-        
-
         
         item.name  = self.nameField.text!
         item.ID   = uniqueID
