@@ -51,12 +51,12 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
+
         
         //download data
         tableRows = []
         lock = NSLock()
         self.refreshList(true)
-
         
     }
     
@@ -84,6 +84,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func refreshList(startFromBeginning: Bool)  {
+        //SwiftSpinner.show("Loading Data")
+        self.tableRows?.removeAll(keepCapacity: true)
         if (self.lock?.tryLock() != nil) {
             if startFromBeginning {
                 self.lastEvaluatedKey = nil;
@@ -120,6 +122,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 self.tableView.reloadData()
                 
+
+
                 if ((task.error) != nil) {
                     print("Error: \(task.error)")
                 }
@@ -236,6 +240,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             viewController.IDNum = tableRows![indexPath!.row].ID
             viewController.itemSeller = tableRows![indexPath!.row].seller
             viewController.location = tableRows![indexPath!.row].location
+            viewController.sold = tableRows![indexPath!.row].sold
         }
         
     }
@@ -252,7 +257,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 380
     }
     
-    func refresh(sender:AnyObject) {
+    func refreshTable(sender:AnyObject) {
         let nib = UINib(nibName: "vwTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false

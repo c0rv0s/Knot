@@ -260,6 +260,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             viewController.IDNum = tableRows![indexPath!.row].ID
             viewController.itemSeller = tableRows![indexPath!.row].seller
             viewController.location = tableRows![indexPath!.row].location
+            viewController.sold = tableRows![indexPath!.row].sold
         }
         
     }

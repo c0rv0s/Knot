@@ -49,7 +49,7 @@
 		43CF59601C28C66B0071CCE8 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CF595A1C28C66B0071CCE8 /* FBSDKShareKit.framework */; };
 		43D8A1051C1A6F3B002F43BE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D8A1041C1A6F3B002F43BE /* libPods.a */; };
 		43D8A1091C1B8EB3002F43BE /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */; };
-		43DA27291C292FA100465C02 /* accountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DA27281C292FA100465C02 /* accountView.swift */; };
+		43DA27291C292FA100465C02 /* accountSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DA27281C292FA100465C02 /* accountSettingsView.swift */; };
 		43E761C31C4AEF5B0051E060 /* OneShotLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E761C21C4AEF5B0051E060 /* OneShotLocationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,7 +119,7 @@
 		43CF595A1C28C66B0071CCE8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		43D8A1041C1A6F3B002F43BE /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		43D8A1081C1B8EB3002F43BE /* HomeTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
-		43DA27281C292FA100465C02 /* accountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = accountView.swift; path = ../accountView.swift; sourceTree = "<group>"; };
+		43DA27281C292FA100465C02 /* accountSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = accountSettingsView.swift; path = ../accountSettingsView.swift; sourceTree = "<group>"; };
 		43E761C21C4AEF5B0051E060 /* OneShotLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneShotLocationManager.swift; sourceTree = "<group>"; };
 		7E1EE80F15CFA3842F849A93 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E8D0205F3E15E8345F83F768 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 				433758A81C4CEB5A003D8339 /* SwiftSpinner.swift */,
 				43E761C21C4AEF5B0051E060 /* OneShotLocationManager.swift */,
 				433F04091C240C6A0011DAF1 /* Knot.entitlements */,
-				43DA27281C292FA100465C02 /* accountView.swift */,
+				43DA27281C292FA100465C02 /* accountSettingsView.swift */,
 				430DF8E31BFAA6B300839F37 /* QrView.swift */,
 				431853781BF989AE000C6ED4 /* TableCell.swift */,
 				431853791BF989AE000C6ED4 /* vwTableCell.xib */,
@@ -486,7 +486,7 @@
 				433758A91C4CEB5A003D8339 /* SwiftSpinner.swift in Sources */,
 				4318537A1BF989AE000C6ED4 /* TableCell.swift in Sources */,
 				43D8A1091C1B8EB3002F43BE /* HomeTabBarController.swift in Sources */,
-				43DA27291C292FA100465C02 /* accountView.swift in Sources */,
+				43DA27291C292FA100465C02 /* accountSettingsView.swift in Sources */,
 				43869C5B1C03CE36008E6056 /* NewItemView.swift in Sources */,
 				4318534E1BF9892F000C6ED4 /* Knot.xcdatamodeld in Sources */,
 				431853481BF9892F000C6ED4 /* FeedViewController.swift in Sources */,

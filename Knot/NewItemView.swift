@@ -225,13 +225,22 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
                     SwiftSpinner.hide()
                     print("Upload successful")
                     let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Awesome!", style: UIAlertActionStyle.Default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Awesome!", style: .Default, handler: { (alertAction) -> Void in
+                        self.cameraButton.hidden = false
+                        self.retakeButton.hidden = true
+                        self.picView.image = nil
+                        self.picView.removeFromSuperview()
+                        self.picView = nil
+                        self.previewView.hidden = false
+                        self.priceField.text = ""
+                        self.nameField.text = ""
+                        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
+                        self.presentViewController(vc, animated: true, completion: nil)
+                    }))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
                 return nil
             }
-
-            print("submission code completed")
         }
         //notification handling
 

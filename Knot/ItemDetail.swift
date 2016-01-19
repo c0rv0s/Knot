@@ -28,6 +28,8 @@ class ItemDetail: UIViewController {
     var IDNum: String = ""
     var itemSeller: String = ""
     var location: String = ""
+    var sold: String = ""
+    var cognitoID: String = ""
     
     //timer variables
     var secondsUntil: Int = 1000
@@ -37,19 +39,18 @@ class ItemDetail: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var cognitoID = ""
         appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
             if (task.error != nil) {
                 print("Error: " + task.error!.localizedDescription)
             }
             else {
                 // the task result will contain the identity id
-                cognitoID = task.result as! String
+                self.cognitoID = task.result as! String
             }
             return nil
         }
         
-        if itemSeller != cognitoID {
+        if itemSeller != cognitoID || sold == "true" {
             payButton.hidden = true
         }
         
@@ -81,11 +82,16 @@ class ItemDetail: UIViewController {
         
         if(secondsUntil > 0)
         {
-            timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil--)
+            if sold == "true" {
+                timeLabel.text = "Sold!"
+            }
+            else {
+                timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil--)
+            }
         }
         else {
             updateSoldStatus()
-            timeLabel.text = "SOLD"
+            timeLabel.text = "Ended"
         }
         
     }

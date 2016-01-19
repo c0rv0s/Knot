@@ -12,12 +12,12 @@ import UIKit
 class QrView: UIViewController {
     
     var apiCall = "https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=bitcoin:"
-    var address = "1A5iCBMXPJF7esUssyaaeLpTocoyW2EK6n"
+    var address = ""
     var imageURL: UIImageView!
-    var BTCprice: String = "420.0"
-    var price: String = "9.99"
-    var ID: String = "fg5poud5gZW2z6Mw"
-    var time: String = "5"
+    var BTCprice: String = ""
+    var price: String = ""
+    var ID: String = ""
+    var time: String = ""
     
 
     
