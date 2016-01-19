@@ -17,4 +17,3 @@ pod 'AWSSQS'
 pod 'AWSCognito'
 pod 'Lookback', :configurations => ['Debug']
 pod 'LookbackSafe', :configurations => ['Release']
-pod 'SendBirdSDK'

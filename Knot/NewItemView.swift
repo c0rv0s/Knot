@@ -48,9 +48,6 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
 
-        //store location
-        
-
     }
     
     func locationManager(manager: CLLocationManager,didChangeAuthorizationStatus status: CLAuthorizationStatus)
@@ -247,12 +244,11 @@ class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDeleg
         let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         /***CONVERT FROM NSDate to String ****/
-        let date = NSDate() //get the time, in this case the time an object was created.
-        //format date
-        var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
-        var dateString = dateFormatter.stringFromDate(date)
-        print(dateString)
+        let currentDate = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        var dateString = dateFormatter.stringFromDate(currentDate)
+        
         
         // Create a record in a dataset and synchronize with the server
         // Retrieve your Amazon Cognito ID

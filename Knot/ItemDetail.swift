@@ -13,7 +13,6 @@ class ItemDetail: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    //@IBOutlet weak var descrip: UITextView!
     @IBOutlet weak var timeLabel: UILabel!
 
 
@@ -29,6 +28,9 @@ class ItemDetail: UIViewController {
     var IDNum: String = ""
     var itemSeller: String = ""
     var location: String = ""
+    
+    //timer variables
+    var secondsUntil: Int = 1000
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -58,11 +60,48 @@ class ItemDetail: UIViewController {
         nameLabel.text = name
         priceLabel.text = "$" + price
         picView.image = pic
-        timeLabel.text = time
+        
+        //set up countdown and timer stuff
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let listDate = dateFormatter.dateFromString(time)!
+        let currentDate = NSDate()
+        var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 7, toDate: listDate, options: NSCalendarOptions.init(rawValue: 0))
+
+        secondsUntil = secondsFrom(currentDate, endDate: overDate!)
+        
+        
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
         
         self.view.addSubview(picView)
         self.view.sendSubviewToBack(picView)
         
+    }
+    
+    func update() {
+        
+        if(secondsUntil > 0)
+        {
+            timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil--)
+        }
+        else {
+            updateSoldStatus()
+            timeLabel.text = "SOLD"
+        }
+        
+    }
+    
+    func secondsToDaysHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
+        return (seconds / 86400, (seconds % 86400) / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func printSecondsToDaysHoursMinutesSeconds (seconds:Int) -> String {
+        let (d, h, m, s) = secondsToDaysHoursMinutesSeconds (seconds)
+        return "\(d) Days, \(h):\(m):\(s) left"
+    }
+    
+    func secondsFrom(startDate:NSDate, endDate:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(.Second, fromDate: startDate, toDate: endDate, options: []).second
     }
 
     func updateLocation()
@@ -107,6 +146,26 @@ class ItemDetail: UIViewController {
                 address = streetHolder + ", " + cityHolder
                 self.addressLabel.text = address
         }
+    }
+    
+    func updateSoldStatus() {
+        var hashValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
+        hashValue.S = self.IDNum
+        var otherValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
+        otherValue.S = self.time
+        var updatedValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
+        updatedValue.S = "true"
+        
+        var updateInput: AWSDynamoDBUpdateItemInput = AWSDynamoDBUpdateItemInput()
+        updateInput.tableName = "knot-listings"
+        updateInput.key = ["ID": hashValue, "time": otherValue]
+        var valueUpdate: AWSDynamoDBAttributeValueUpdate = AWSDynamoDBAttributeValueUpdate()
+        valueUpdate.value = updatedValue
+        valueUpdate.action = AWSDynamoDBAttributeAction.Put
+        updateInput.attributeUpdates = ["sold": valueUpdate]
+        updateInput.returnValues = AWSDynamoDBReturnValue.UpdatedNew
+        
+        AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).waitUntilFinished()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {

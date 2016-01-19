@@ -21,6 +21,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var  doneLoading = false
     
     var needsToRefresh = false
+    
+    let currentDate = NSDate()
+    let dateFormatter = NSDateFormatter()
 
     
     var refreshControl = UIRefreshControl()
@@ -30,6 +33,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         
         //load signup page
         /*
@@ -96,7 +100,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
             let queryExpression = AWSDynamoDBScanExpression()
             queryExpression.exclusiveStartKey = self.lastEvaluatedKey
-            queryExpression.limit = 50;
+            queryExpression.limit = 20;
             dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
                 
                 if self.lastEvaluatedKey == nil {
@@ -183,7 +187,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if let _ = task.result {
                 //    self.statusLabel.text = "Starting Download"
-                NSLog("Download Starting!")
+                //NSLog("Download Starting!")
                 // Do something with uploadTask.
             }
             return nil;
@@ -210,9 +214,23 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
         
         cell.pic.image = tableImages[tableRows![indexPath.row].ID]
-
-        cell.timeLabel.text = tableRows![indexPath.row].time
         
+        //get remaining time
+        /*
+        let listDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)
+        var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Day, value: 7, toDate: listDate!, options: NSCalendarOptions.init(rawValue: 0))
+        
+        let secondsUntil = secondsFrom(currentDate, endDate: overDate!)
+        
+        if(secondsUntil > 0)
+        {
+            cell.timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
+        }
+        else {
+            cell.timeLabel.text = "SOLD"
+        }
+        */
+        cell.timeLabel.text = tableRows![indexPath.row].time
         return cell
         
     }
@@ -251,7 +269,18 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.automaticallyAdjustsScrollViewInsets = false
     }
     
-    @IBAction func unwindToViewOtherController(segue:UIStoryboardSegue) {
+    //timer setup stuff
+    func secondsToDaysHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
+        return (seconds / 86400, (seconds % 86400) / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func printSecondsToDaysHoursMinutesSeconds (seconds:Int) -> String {
+        let (d, h, m, s) = secondsToDaysHoursMinutesSeconds (seconds)
+        return "\(d) Days, \(h):\(m):\(s) left"
+    }
+    
+    func secondsFrom(startDate:NSDate, endDate:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(.Second, fromDate: startDate, toDate: endDate, options: []).second
     }
 
 
