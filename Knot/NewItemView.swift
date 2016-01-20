@@ -58,6 +58,8 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        picOneView.image = UIImage(named: "grey")
+        
         picker.delegate = self
         // Do any additional setup after loading the view, typically from a nib
         addphoto2.hidden = true
@@ -312,6 +314,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
             addphoto2.hidden = false
             addphoto1.setTitle("Change", forState: .Normal)
             one = true
+            picTwoView.image = UIImage(named: "grey")
         }
         if photoNum == 2 {
             picTwo = chosenImage
@@ -319,6 +322,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
             addphoto3.hidden = false
             addphoto2.setTitle("Change", forState: .Normal)
             two = true
+            picThreeView.image = UIImage(named: "grey")
         }
         if photoNum == 3 {
             picThree = chosenImage

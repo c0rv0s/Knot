@@ -617,11 +617,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Knot/NewItemView.swift"
-            timestampString = "474943197.434436"
+            timestampString = "474958276.970668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
+            startingLineNumber = "604"
+            endingLineNumber = "604"
             landmarkName = "NewItemView"
             landmarkType = "3">
          </BreakpointContent>
@@ -633,11 +633,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Knot/NewItemView.swift"
-            timestampString = "474943197.434436"
+            timestampString = "474958276.970668"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "586"
-            endingLineNumber = "586"
+            startingLineNumber = "590"
+            endingLineNumber = "590"
             landmarkName = "NewItemView"
             landmarkType = "3">
          </BreakpointContent>
@@ -766,8 +766,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
             endingLineNumber = "156"
-            landmarkName = "updateLocation()"
-            landmarkType = "5">
+            landmarkName = "ItemDetail"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -814,7 +814,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
             endingLineNumber = "158"
-            landmarkName = "updateLocation()"
+            landmarkName = "secondsFrom(_:endDate:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -830,8 +830,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "169"
             endingLineNumber = "169"
-            landmarkName = "updateLocation()"
-            landmarkType = "5">
+            landmarkName = "centerMapOnLocation(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -846,8 +846,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
             endingLineNumber = "173"
-            landmarkName = "updateLocation()"
-            landmarkType = "5">
+            landmarkName = "centerMapOnLocation(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

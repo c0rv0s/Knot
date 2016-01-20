@@ -152,7 +152,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
         //downloading image
         
         
-        let S3BucketName: String = "knotcomplexthumbnails"
+        let S3BucketName: String = "knotcompleximages"
         let S3DownloadKeyName: String = key
         
         let expression = AWSS3TransferUtilityDownloadExpression()
@@ -263,7 +263,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             viewController.fbID = tableRows![indexPath!.row].sellerFBID
             viewController.descript = tableRows![indexPath!.row].descriptionKnot
             viewController.condition = tableRows![indexPath!.row].condition
-            viewController.condition = tableRows![indexPath!.row].category
+            viewController.category = tableRows![indexPath!.row].category
         }
         
     }
