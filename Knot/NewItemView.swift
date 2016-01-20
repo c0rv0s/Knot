@@ -18,9 +18,9 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     @IBOutlet weak var picTwoView: UIImageView!
     @IBOutlet weak var picThreeView: UIImageView!
     
-    var picOne: UIImage = UIImage()
-    var picTwo: UIImage = UIImage()
-    var picThree: UIImage = UIImage()
+    var picOne: UIImage!
+    var picTwo: UIImage!
+    var picThree: UIImage!
     
     @IBOutlet weak var priceField: UITextField!
     @IBOutlet weak var nameField: UITextField!
@@ -36,13 +36,16 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     var photoNum : Int = 1
     let picker = UIImagePickerController()
+    var fbID = "eror"
     
     var one = false
     var two = false
     var three = false
 
-    
-    var lengthOption = ["1 Hour", "3 Hours", "5 Hours", "12 Hours", "24 Hours", "3 Days", "5 Days", "7 Days", "12 Days"]
+    var timeHoursString = "1"
+    var timeHoursInt = 1
+    var hours = ["1 Hour": 1,"3 Hours": 3,"5 Hours": 5,"12 Hours": 12,"24 Hours": 24,"3 Days": 72,"5 Days": 120,"7 Days": 175]
+    var lengthOption = ["1 Hour", "3 Hours", "5 Hours", "12 Hours", "24 Hours", "3 Days", "5 Days", "7 Days"]
     var conditionOption = ["New", "Manufacturer refurbished", "Seller refurbished", "Used", "For parts or not working"]
     var categoryOption = ["Art and Antiques", "Baby and Child", "Books, Movies and Music", "Games and Consoles", "Electronics", "Cameras and Photo", "Fashion and Accessories", "Sport and Leisure", "Cars and Motor", "Furniture", "Appliances", "Services", "Other"]
     
@@ -59,6 +62,15 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         // Do any additional setup after loading the view, typically from a nib
         addphoto2.hidden = true
         addphoto3.hidden = true
+        
+        if((FBSDKAccessToken.currentAccessToken()) != nil){
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id"]).startWithCompletionHandler({ (connection, result, error) -> Void in
+                if (error == nil){
+                    var dict = result as! NSDictionary
+                    self.fbID = dict.objectForKey("id") as! String
+                }
+            })
+        }
 
         nameField.delegate = self;
 
@@ -77,6 +89,20 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         conditionView.delegate = self
         conditionField.inputView = conditionView
         
+        locationManager = OneShotLocationManager()
+        locationManager!.fetchWithCompletion {location, error in
+            // fetch location or an error
+            if let loc = location {
+                print(location)
+                var construct = String(location!.coordinate.latitude) + " "
+                construct += String(location!.coordinate.longitude)
+                self.locString = construct
+            } else if let err = error {
+                print(err.localizedDescription)
+            }
+            self.locationManager = nil
+        }
+        
         priceField.delegate = self
         priceField.keyboardType = UIKeyboardType.NumbersAndPunctuation
         
@@ -87,19 +113,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         view.addGestureRecognizer(tap)
 
     }
-    
-    func getFBID() -> String  {
-        var id = "error"
-        if((FBSDKAccessToken.currentAccessToken()) != nil){
-            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).startWithCompletionHandler({ (connection, result, error) -> Void in
-                if (error == nil){
-                    var dict = result as! NSDictionary
-                    id = dict.objectForKey("id") as! String
-                }
-            })
-        }
-        return id
-    }
+
     
     func randomStringWithLength (len : Int) -> NSString {
         
@@ -121,7 +135,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         
         /***CONVERT FROM NSDate to String ****/
         let currentDate = NSDate()
-        var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Hour, value: 5, toDate: currentDate, options: NSCalendarOptions.init(rawValue: 0))
+        var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Hour, value: timeHoursInt, toDate: currentDate, options: NSCalendarOptions.init(rawValue: 0))
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         var dateString = dateFormatter.stringFromDate(overDate!)
@@ -150,10 +164,11 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         item.time  = dateString
         item.sold = "false"
         item.seller = cognitoID
-        item.sellerFBID = self.getFBID()
+        item.sellerFBID = self.fbID
         item.descriptionKnot = self.descriptionField.text
-        item.category = "derp"
-        item.condition = "derp"
+        item.category = categoryField.text!
+        item.condition = conditionField.text!
+        item.numberOfPics = photoNum
         print(item)
         let task = mapper.save(item)
         
@@ -182,6 +197,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 0 {
+            timeHoursInt = hours[lengthOption[row]]!
             return lengthOption[row]
         }
         if pickerView.tag == 1 {
@@ -346,6 +362,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         
         return UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
     }
+    
     @IBAction func submit(sender: AnyObject) {
         if (self.nameField.text == "" || self.priceField.text == "") {
             let alert = UIAlertController(title: "Attention", message: "Please enter the missing values.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -354,6 +371,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         }
         else {
             SwiftSpinner.show("Uploading \(self.nameField.text!)")
+            
             var uniqueID = randomStringWithLength(16) as String
             self.insertItem(uniqueID).continueWithBlock({
                 (task: BFTask!) -> BFTask! in
@@ -377,6 +395,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
             var success3 = 0
             
             if one {
+                print("one is one")
                 let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
                 let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
                 let dataOne = UIImageJPEGRepresentation(picOne, 0.5)
@@ -391,73 +410,81 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
                         success1 = 2
                     } else {
                         success1 = 1
+                        if !self.two {
+                            self.wrapUpSubmission(success1, succ2: success2, succ3: success3)
+                        }
                     }
                     return nil
                 }
-                
-            }
-            
-            if two {
-                let testFileURL2 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
-                let uploadRequest2 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
-                let dataTwo = UIImageJPEGRepresentation(picTwo, 0.5)
-                dataTwo!.writeToURL(testFileURL2, atomically: true)
-                uploadRequest2.bucket = "knotcompleximages"
-                uploadRequest2.key = uniqueID + " 2"
-                uploadRequest2.body = testFileURL2
-                let task2 = transferManager.upload(uploadRequest2)
-                task2.continueWithBlock { (task: AWSTask!) -> AnyObject! in
-                    if task.error != nil {
-                        print("Error: \(task.error)")
-                        success2 = 2
-                    } else {
-                        success2 = 1
+                if two {
+                    print("two is on")
+                    let testFileURL2 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+                    let uploadRequest2 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
+                    let dataTwo = UIImageJPEGRepresentation(picTwo, 0.5)
+                    dataTwo!.writeToURL(testFileURL2, atomically: true)
+                    uploadRequest2.bucket = "knotcompleximage2"
+                    uploadRequest2.key = uniqueID
+                    uploadRequest2.body = testFileURL2
+                    let task2 = transferManager.upload(uploadRequest2)
+                    task2.continueWithBlock { (task: AWSTask!) -> AnyObject! in
+                        if task.error != nil {
+                            print("Error: \(task.error)")
+                            success2 = 2
+                        } else {
+                            success2 = 1
+                            if !self.three {
+                                self.wrapUpSubmission(success1, succ2: success2, succ3: success3)
+                            }
+                        }
+                        return nil
                     }
-                    return nil
+                    if three {
+                        print("three is on")
+                        let testFileURL3 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+                        let uploadRequest3 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
+                        let dataThree = UIImageJPEGRepresentation(picThree, 0.5)
+                        dataThree!.writeToURL(testFileURL3, atomically: true)
+                        uploadRequest3.bucket = "knotcompleximage3"
+                        uploadRequest3.key = uniqueID
+                        uploadRequest3.body = testFileURL3
+                        let task3 = transferManager.upload(uploadRequest3)
+                        task3.continueWithBlock { (task: AWSTask!) -> AnyObject! in
+                            if task.error != nil {
+                                print("Error: \(task.error)")
+                                success3 = 2
+                            }
+                            else {
+                                success3 = 1
+                                self.wrapUpSubmission(success1, succ2: success2, succ3: success3)
+                            }
+                            return nil
+                        }
+                    }
                 }
             }
-            
-            if three {
-                let testFileURL3 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
-                let uploadRequest3 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
-                let dataThree = UIImageJPEGRepresentation(picThree, 0.5)
-                dataThree!.writeToURL(testFileURL3, atomically: true)
-                uploadRequest3.bucket = "knotcompleximages"
-                uploadRequest3.key = uniqueID + " 3"
-                uploadRequest3.body = testFileURL3
-                let task3 = transferManager.upload(uploadRequest3)
-                task3.continueWithBlock { (task: AWSTask!) -> AnyObject! in
-                    if task.error != nil {
-                        print("Error: \(task.error)")
-                        success3 = 2
-                    }
-                    else {
-                        success3 = 1
-                    }
-                    return nil
-                }
-            }
-            SwiftSpinner.hide()
-            if success1 == 2 || success2 == 2 || success3 == 2 {
-                let alert = UIAlertController(title: "Uh Oh", message: "Something went wrong, contact support or try again", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (alertAction) -> Void in
-                    self.priceField.text = ""
-                    self.nameField.text = ""
-                }))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-            
-            print("Upload successful")
-            let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Awesome!", style: .Default, handler: { (alertAction) -> Void in
+        }
+    }
+    
+    func wrapUpSubmission(succ1: Int, succ2: Int, succ3: Int) {
+        SwiftSpinner.hide()
+        if succ1 == 2 || succ2 == 2 || succ3 == 2 {
+            let alert = UIAlertController(title: "Uh Oh", message: "Something went wrong, contact support or try again", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (alertAction) -> Void in
                 self.priceField.text = ""
                 self.nameField.text = ""
-                let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
-                self.presentViewController(vc, animated: true, completion: nil)
             }))
             self.presentViewController(alert, animated: true, completion: nil)
-            
         }
+        
+        print("Upload successful")
+        let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Awesome!", style: .Default, handler: { (alertAction) -> Void in
+            self.priceField.text = ""
+            self.nameField.text = ""
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
+            self.presentViewController(vc, animated: true, completion: nil)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
         //end upload and submissions

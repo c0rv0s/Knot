@@ -19,10 +19,11 @@ class ListItem : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     var seller : String = "placehoder"
     var buyer : String = "None"
     var sellerFBID : String = "placeholder"
-    var descriptionKnot : String = ""
-    var condition : String = ""
-    var category : String = ""
+    var descriptionKnot : String = "placeholder"
+    var condition : String = "placeholder"
+    var category : String = "placeholder"
     var international : Bool = false
+    var numberOfPics : Int = 1
     
     /*
     override init!() { super.init() }

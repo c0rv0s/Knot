@@ -30,7 +30,6 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     
     var refreshControl = UIRefreshControl()
-    let bucket = "knotcompleximages"
     
     var cognitoID: String = ""
     
@@ -153,7 +152,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
         //downloading image
         
         
-        let S3BucketName: String = "knotcompleximages"
+        let S3BucketName: String = "knotcomplexthumbnails"
         let S3DownloadKeyName: String = key
         
         let expression = AWSS3TransferUtilityDownloadExpression()
@@ -252,7 +251,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
             
-            viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
+            //viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
             
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
@@ -263,6 +262,8 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             viewController.sold = tableRows![indexPath!.row].sold
             viewController.fbID = tableRows![indexPath!.row].sellerFBID
             viewController.descript = tableRows![indexPath!.row].descriptionKnot
+            viewController.condition = tableRows![indexPath!.row].condition
+            viewController.condition = tableRows![indexPath!.row].category
         }
         
     }

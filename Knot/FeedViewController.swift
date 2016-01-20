@@ -31,8 +31,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     
     var refreshControl = UIRefreshControl()
-    let bucket = "knotcompleximages"
-
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -159,7 +157,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         //downloading image
         
         
-        let S3BucketName: String = "knotcompleximages"
+        let S3BucketName: String = "knotcomplexthumbnails"
         let S3DownloadKeyName: String = key
         
         let expression = AWSS3TransferUtilityDownloadExpression()
@@ -294,7 +292,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             //let indexPath = self.tableView.indexPathForSelectedRow
             if loadLeft {
-                viewController.pic = tableImages[tableRowLeft![indexToLoad].ID]!
+                //viewController.pic = tableImages[tableRowLeft![indexToLoad].ID]!
                 viewController.name = tableRowLeft![indexToLoad].name
                 viewController.price = tableRowLeft![indexToLoad].price
                 viewController.time = tableRowLeft![indexToLoad].time
@@ -304,9 +302,11 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewController.sold = tableRowLeft![indexToLoad].sold
                 viewController.fbID = tableRowLeft![indexToLoad].sellerFBID
                 viewController.descript = tableRowLeft![indexToLoad].descriptionKnot
+                viewController.condition = tableRowLeft![indexToLoad].condition
+                viewController.condition = tableRowLeft![indexToLoad].category
             }
             else {
-                viewController.pic = tableImages[tableRowRight![indexToLoad].ID]!
+                //viewController.pic = tableImages[tableRowRight![indexToLoad].ID]!
                 viewController.name = tableRowRight![indexToLoad].name
                 viewController.price = tableRowRight![indexToLoad].price
                 viewController.time = tableRowRight![indexToLoad].time
@@ -316,6 +316,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewController.sold = tableRowRight![indexToLoad].sold
                 viewController.fbID = tableRowRight![indexToLoad].sellerFBID
                 viewController.descript = tableRowRight![indexToLoad].descriptionKnot
+                viewController.condition = tableRowRight![indexToLoad].condition
+                viewController.condition = tableRowRight![indexToLoad].category
             }
         }
         

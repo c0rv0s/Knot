@@ -15,6 +15,8 @@ class ItemDetail: UIViewController, UITextViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var conditionLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     @IBOutlet weak var descripText: UITextView!
 
@@ -41,6 +43,8 @@ class ItemDetail: UIViewController, UITextViewDelegate {
     var cognitoID: String = ""
     var fbID: String = ""
     var descript: String = ""
+    var condition: String = ""
+    var category: String = ""
     
     //timer variables
     var secondsUntil: Int = 1000
@@ -92,7 +96,10 @@ class ItemDetail: UIViewController, UITextViewDelegate {
         
         nameLabel.text = name
         priceLabel.text = "$" + price
+        categoryLabel.text = self.category
+        conditionLabel.text = self.condition
         picView.image = pic
+        
         
         //set up countdown and timer stuff
         let dateFormatter = NSDateFormatter()
