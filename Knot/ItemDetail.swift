@@ -9,8 +9,9 @@
 import UIKit
 import CoreLocation
 import MapKit
+import MessageUI
 
-class ItemDetail: UIViewController, UITextViewDelegate {
+class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -210,6 +211,8 @@ class ItemDetail: UIViewController, UITextViewDelegate {
         }
     }
     
+    
+    
     func updateSoldStatus(type: String) {
         var hashValue: AWSDynamoDBAttributeValue = AWSDynamoDBAttributeValue()
         hashValue.S = self.IDNum
@@ -240,4 +243,44 @@ class ItemDetail: UIViewController, UITextViewDelegate {
         
     }
     
+    @IBAction func reportuser(sender: AnyObject) {
+        var why = "Cancel"
+        let alert = UIAlertController(title: "Report Item", message: "Please select an option: ", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Violence", style: .Default, handler: { (alertAction) -> Void in
+            why = "Violence"
+            self.sendEmail(why)
+        }))
+        alert.addAction(UIAlertAction(title: "Nudity", style: .Default, handler: { (alertAction) -> Void in
+            why = "Nudity"
+            self.sendEmail(why)
+        }))
+        alert.addAction(UIAlertAction(title: "Illicit Goods (Drugs, Weapons)", style: .Default, handler: { (alertAction) -> Void in
+            why = "Nudity"
+            self.sendEmail(why)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (alertAction) -> Void in
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+    }
+    
+    
+    func sendEmail(why: String) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["hashwage@gmail.com"])
+            var body = "Reporting item " + IDNum + " for " + why + " (add any other details here)" + "\n Thanks!"
+            mail.setMessageBody(body, isHTML: false)
+            
+            presentViewController(mail, animated: true, completion: nil)
+        } else {
+            // show failure alert
+        }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+
 }

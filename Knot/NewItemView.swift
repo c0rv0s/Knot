@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate,
-UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     

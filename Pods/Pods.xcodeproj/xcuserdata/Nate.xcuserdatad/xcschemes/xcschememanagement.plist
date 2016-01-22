@@ -84,11 +84,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>IQDropDownTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>PDKTZipArchive.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -142,17 +137,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>60146A80D4B5EC3ADF92ECA99E4E4C8D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8BA0F6FC4A9154E7AC62907E4B964FD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>901219B486CAC9F641B6BB4B7D5EB031</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>905DF06AD554358BBFE8DAB291818EB9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -178,11 +173,6 @@
 			<true/>
 		</dict>
 		<key>CEA448DB544C9DC1E5BF682A484D03DE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DE0BAF9D7F72B02455B1BE9507AEA6FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
