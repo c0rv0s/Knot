@@ -251,7 +251,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
             
-            //viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
+            viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
             
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
