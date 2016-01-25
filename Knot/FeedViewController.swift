@@ -1,18 +1,15 @@
 //
-//  PersonalFeed.swift
+//  ViewController.swift
 //  Knot
 //
-//  Created by Nathan Mueller on 1/18/16.
-//  Copyright © 2016 Knot App. All rights reserved.
+//  Created by Nathan Mueller on 11/15/15.
+//  Copyright © 2015 Knot App. All rights reserved.
 //
-
-import Foundation
 
 import UIKit
 
-class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-
     @IBOutlet weak var tableView: UITableView!
     
     var tableRows: Array<ListItem>?
@@ -24,46 +21,31 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
     var  doneLoading = false
     
     var needsToRefresh = false
-    
-    let currentDate = NSDate()
-    let dateFormatter = NSDateFormatter()
-    
+
     
     var refreshControl = UIRefreshControl()
-    
-    var cognitoID: String = ""
-    
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let bucket = "knotcompleximages"
     
     // 1
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
-            if (task.error != nil) {
-                print("Error: " + task.error!.localizedDescription)
-            }
-            else {
-                // the task result will contain the identity id
-                self.cognitoID = task.result as! String
-                print(self.cognitoID)
-            }
-            return nil
-        }
-        
-        
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        
+        //load signup page
+        /*
+        let webV:UIWebView = UIWebView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+        let localfilePath = NSBundle.mainBundle().URLForResource("signup", withExtension: "html");
+        let myRequest = NSURLRequest(URL: localfilePath!);
+        webV.loadRequest(myRequest);
+        self.view.addSubview(webV)
+        self.view.sendSubviewToBack(webV)
+        */
+
         // set up the refresh control
-        refreshControl = UIRefreshControl()
-        tableView.addSubview(refreshControl)
-        
-        // When activated, invoke our refresh function
-        self.refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+
         
         // Register custom cell
-        let nib = UINib(nibName: "storeTableCell", bundle: nil)
+        let nib = UINib(nibName: "vwTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -71,22 +53,13 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
         tableRows = []
         lock = NSLock()
         self.refreshList(true)
-        
+
         
     }
     
-    func refresh(){
-        
-        // -- DO SOMETHING AWESOME (... or just wait 3 seconds) --
-        // This is where you'll make requests to an API, reload data, or process information
+
+    @IBAction func reloadFeed(sender: AnyObject) {
         self.refreshList(true)
-        var delayInSeconds = 3.0;
-        var popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            // When done requesting/reloading/processing invoke endRefreshing, to close the control
-            self.refreshControl.endRefreshing()
-        }
-        // -- FINISHED SOMETHING AWESOME, WOO! --
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -110,7 +83,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
             let queryExpression = AWSDynamoDBScanExpression()
             queryExpression.exclusiveStartKey = self.lastEvaluatedKey
-            queryExpression.limit = 20;
+            queryExpression.limit = 50;
             dynamoDBObjectMapper.scan(ListItem.self, expression: queryExpression).continueWithExecutor(AWSExecutor.mainThreadExecutor(), withBlock: { (task:AWSTask!) -> AnyObject! in
                 
                 if self.lastEvaluatedKey == nil {
@@ -120,12 +93,10 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
                 if task.result != nil {
                     let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                     for item in paginatedOutput.items as! [ListItem] {
-                        print(item.seller)
-                        if item.seller == self.cognitoID {
+                        if item.sold == "false" {
                             self.tableRows?.append(item)
                             self.downloadImage(item.ID)
                         }
-                        
                     }
                     
                     self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
@@ -175,13 +146,17 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
                     //   self.statusLabel.text = "Failed"
                 }
                     /*
-                    else if(self.progressView.progress != 1.0) {
+                else if(self.progressView.progress != 1.0) {
                     //    self.statusLabel.text = "Failed"
                     NSLog("Error: Failed - Likely due to invalid region / filename")
-                    }   */
+                }   */
                 else{
                     //    self.statusLabel.text = "Success"
                     self.tableImages[S3DownloadKeyName] = UIImage(data: data!)
+                    print("time to see all the keys")
+                    for (key) in self.tableImages {
+                        print("\(key)")
+                    }
                 }
             })
         }
@@ -199,7 +174,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             if let _ = task.result {
                 //    self.statusLabel.text = "Starting Download"
-                //NSLog("Download Starting!")
+                NSLog("Download Starting!")
                 // Do something with uploadTask.
             }
             return nil;
@@ -220,52 +195,30 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
     // 3
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell 	{
         
-        let cell:PersonalTableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! PersonalTableCell
+        let cell:TableCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! TableCell
         
         cell.nameLabel.text = tableRows![indexPath.row].name
         cell.priceLabel.text = "$" + tableRows![indexPath.row].price
         
         cell.pic.image = tableImages[tableRows![indexPath.row].ID]
+
+        cell.timeLabel.text = tableRows![indexPath.row].time
         
-        if tableRows![indexPath.row].sold == "true" {
-            cell.timeLabel.text = "Sold!"
-        }
-        else {
-            let overDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)!
-            let secondsUntil = secondsFrom(currentDate, endDate: overDate)
-            if(secondsUntil > 0)
-            {
-                cell.timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
-            }
-            else {
-                cell.timeLabel.text = "Ended"
-            }
-        }
         return cell
         
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
-        
-        if (segue!.identifier == "PersonalDetailSeg") {
+        if (segue!.identifier == "DetailSeg") {
             let viewController:ItemDetail = segue!.destinationViewController as! ItemDetail
             let indexPath = self.tableView.indexPathForSelectedRow
-            viewController.hidesBottomBarWhenPushed = true
             
             viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
-            
+
             viewController.name = tableRows![indexPath!.row].name
             viewController.price = tableRows![indexPath!.row].price
             viewController.time = tableRows![indexPath!.row].time
             viewController.IDNum = tableRows![indexPath!.row].ID
-            viewController.itemSeller = tableRows![indexPath!.row].seller
-            viewController.location = tableRows![indexPath!.row].location
-            viewController.sold = tableRows![indexPath!.row].sold
-            viewController.fbID = tableRows![indexPath!.row].sellerFBID
-            viewController.descript = tableRows![indexPath!.row].descriptionKnot
-            viewController.condition = tableRows![indexPath!.row].condition
-            viewController.category = tableRows![indexPath!.row].category
-            viewController.owned = true
         }
         
     }
@@ -273,64 +226,23 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     // 4
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        /*
-        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("ItemDetail") as! ItemDetail
-        let indexPath = self.tableView.indexPathForSelectedRow
-        //viewController.hidesBottomBarWhenPushed = true
-        
-        viewController.pic = tableImages[tableRows![indexPath!.row].ID]!
-        
-        viewController.name = tableRows![indexPath!.row].name
-        viewController.price = tableRows![indexPath!.row].price
-        viewController.time = tableRows![indexPath!.row].time
-        viewController.IDNum = tableRows![indexPath!.row].ID
-        viewController.itemSeller = tableRows![indexPath!.row].seller
-        viewController.location = tableRows![indexPath!.row].location
-        viewController.sold = tableRows![indexPath!.row].sold
-        viewController.fbID = tableRows![indexPath!.row].sellerFBID
-        viewController.descript = tableRows![indexPath!.row].descriptionKnot
-        viewController.condition = tableRows![indexPath!.row].condition
-        viewController.category = tableRows![indexPath!.row].category
-        viewController.owned = true
-        self.presentViewController(viewController, animated: true, completion: nil)
-        */
-        self.performSegueWithIdentifier("PersonalDetailSeg", sender: tableView)
-        
+            self.performSegueWithIdentifier("DetailSeg", sender: tableView)
     }
     
     // 5
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90
+        return 380
     }
     
     func refresh(sender:AnyObject) {
-        let nib = UINib(nibName: "storeTableCell", bundle: nil)
+        let nib = UINib(nibName: "vwTableCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         self.automaticallyAdjustsScrollViewInsets = false
     }
     
-    //timer setup stuff
-    func secondsToDaysHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
-        return (seconds / 86400, (seconds % 86400) / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    @IBAction func unwindToViewOtherController(segue:UIStoryboardSegue) {
     }
-    
-    func printSecondsToDaysHoursMinutesSeconds (seconds:Int) -> String {
-        let (d, h, m, s) = secondsToDaysHoursMinutesSeconds (seconds)
-        if m < 10 {
-            if s < 10 {
-                return "\(d) Days, \(h):0\(m):0\(s) left"
-            }
-            return "\(d) Days, \(h):0\(m):\(s) left"
-        }
-        if s < 10 {
-            return "\(d) Days, \(h):\(m):0\(s) left"
-        }
-        return "\(d) Days, \(h):\(m):\(s) left"
-    }
-    
-    func secondsFrom(startDate:NSDate, endDate:NSDate) -> Int{
-        return NSCalendar.currentCalendar().components(.Second, fromDate: startDate, toDate: endDate, options: []).second
-    }
-    
-    
+
+
 }
+

@@ -15,5 +15,3 @@ pod 'AWSSimpleDB'
 pod 'AWSSNS'
 pod 'AWSSQS'
 pod 'AWSCognito'
-pod 'Lookback', :configurations => ['Debug']
-pod 'LookbackSafe', :configurations => ['Release']

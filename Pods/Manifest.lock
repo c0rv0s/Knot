@@ -30,11 +30,6 @@ PODS:
     - AWSCore (= 2.3.3)
   - AWSSQS (2.3.3):
     - AWSCore (= 2.3.3)
-  - Lookback (1.1.4):
-    - PDKTZipArchive
-  - LookbackSafe (1.1.4):
-    - PDKTZipArchive
-  - PDKTZipArchive (0.3.5)
 
 DEPENDENCIES:
   - AWSAutoScaling
@@ -53,8 +48,6 @@ DEPENDENCIES:
   - AWSSimpleDB
   - AWSSNS
   - AWSSQS
-  - Lookback
-  - LookbackSafe
 
 SPEC CHECKSUMS:
   AWSAutoScaling: effea7f5902b3c7536fdbc85a169f7a4e4dcbbbc
@@ -73,8 +66,5 @@ SPEC CHECKSUMS:
   AWSSimpleDB: ba3c2c2d3e8503afcb41c1253f0ed35418a21188
   AWSSNS: d6b874e95c1b9795085bd8e5c9aa0f205a7cbe23
   AWSSQS: 6b150bbdc971582104ddc1f8660581ff9e21a762
-  Lookback: 9ab9027ff246d2dc5ce34be483f70e4a6718280b
-  LookbackSafe: 3f1271d9a597bbb8ef854784e87c145854e1fbef
-  PDKTZipArchive: 81c4824eb5587131e422fc58b92c043c4aa96466
 
 COCOAPODS: 0.39.0

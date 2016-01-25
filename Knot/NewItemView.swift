@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class NewItemView: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate,
-UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
+UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -25,7 +25,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     @IBOutlet weak var priceField: UITextField!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var descriptionField: UITextView!
-
+    
     @IBOutlet weak var addphoto1: UIButton!
     @IBOutlet weak var addphoto2: UIButton!
     @IBOutlet weak var addphoto3: UIButton!
@@ -41,7 +41,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     var one = false
     var two = false
     var three = false
-
+    
     var timeHoursString = "1"
     var timeHoursInt = 1
     var hours = ["1 Hour": 1,"3 Hours": 3,"5 Hours": 5,"12 Hours": 12,"24 Hours": 24,"3 Days": 72,"5 Days": 120,"7 Days": 175]
@@ -73,9 +73,9 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
                 }
             })
         }
-
+        
         nameField.delegate = self;
-
+        
         var lengthView = UIPickerView()
         lengthView.tag = 0
         lengthView.delegate = self
@@ -113,9 +113,9 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
-
+        
     }
-
+    
     
     func randomStringWithLength (len : Int) -> NSString {
         
@@ -205,7 +205,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         if pickerView.tag == 1 {
             return categoryOption[row]
         }
-        else {
+        if pickerView.tag == 2 {
             return conditionOption[row]
         }
         return ""
@@ -217,7 +217,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         if pickerView.tag == 1 {
             categoryField.text = categoryOption[row]
         }
-        else {
+        if pickerView.tag == 2 {
             conditionField.text = conditionOption[row]
         }
     }
@@ -274,7 +274,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self.view.window)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: self.view.window)
     }
-//end keyboard
+    //end keyboard
     
     @IBAction func addphoto1(sender: AnyObject) {
         photoNum = 1
@@ -291,13 +291,13 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     func showCamera() {
         if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
-        picker.allowsEditing = false
-        picker.sourceType = UIImagePickerControllerSourceType.Camera
-        picker.cameraCaptureMode = .Photo
-        picker.modalPresentationStyle = .FullScreen
-        presentViewController(picker,
-            animated: true,
-            completion: nil)
+            picker.allowsEditing = false
+            picker.sourceType = UIImagePickerControllerSourceType.Camera
+            picker.cameraCaptureMode = .Photo
+            picker.modalPresentationStyle = .FullScreen
+            presentViewController(picker,
+                animated: true,
+                completion: nil)
         }
     }
     
@@ -306,31 +306,31 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     func imagePickerController(
         picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject]){
-        var chosenImage = RBSquareImage(info[UIImagePickerControllerOriginalImage] as! UIImage) //2
-        //myImageView.contentMode = .ScaleAspectFit //3
-        if photoNum == 1 {
-            picOne = chosenImage
-            picOneView.image = chosenImage
-            addphoto2.hidden = false
-            addphoto1.setTitle("Change", forState: .Normal)
-            one = true
-            picTwoView.image = UIImage(named: "grey")
-        }
-        if photoNum == 2 {
-            picTwo = chosenImage
-            picTwoView.image = chosenImage
-            addphoto3.hidden = false
-            addphoto2.setTitle("Change", forState: .Normal)
-            two = true
-            picThreeView.image = UIImage(named: "grey")
-        }
-        if photoNum == 3 {
-            picThree = chosenImage
-            picThreeView.image = chosenImage
-            addphoto3.setTitle("Change", forState: .Normal)
-            three = true
-        }
-        dismissViewControllerAnimated(true, completion: nil) //5
+            var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+            //myImageView.contentMode = .ScaleAspectFit //3
+            if photoNum == 1 {
+                picOne = chosenImage
+                picOneView.image = chosenImage
+                addphoto2.hidden = false
+                addphoto1.setTitle("Change", forState: .Normal)
+                one = true
+                picTwoView.image = UIImage(named: "grey")
+            }
+            if photoNum == 2 {
+                picTwo = chosenImage
+                picTwoView.image = chosenImage
+                addphoto3.hidden = false
+                addphoto2.setTitle("Change", forState: .Normal)
+                two = true
+                picThreeView.image = UIImage(named: "grey")
+            }
+            if photoNum == 3 {
+                picThree = chosenImage
+                picThreeView.image = chosenImage
+                addphoto3.setTitle("Change", forState: .Normal)
+                three = true
+            }
+            dismissViewControllerAnimated(true, completion: nil) //5
     }
     //What to do if the image picker cancels.
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -338,6 +338,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
             completion: nil)
     }
     
+    /*
     func RBSquareImage(image: UIImage) -> UIImage {
         var originalWidth  = image.size.width
         var originalHeight = image.size.height
@@ -365,7 +366,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         var imageRef = CGImageCreateWithImageInRect(image.CGImage, cropSquare);
         
         return UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
-    }
+    }*/
     
     @IBAction func submit(sender: AnyObject) {
         if (self.nameField.text == "" || self.priceField.text == "") {
@@ -491,7 +492,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-        //end upload and submissions
+    //end upload and submissions
     @IBAction func cancelListing(sender: AnyObject) {
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
         self.presentViewController(vc, animated: true, completion: nil)

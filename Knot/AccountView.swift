@@ -28,7 +28,15 @@ class AccountView: UIViewController {
                     
                     if let url = NSURL(string: self.dict.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as! String) {
                         if let data = NSData(contentsOfURL: url){
-                            self.profPic.image = UIImage(data: data)
+                            var profilePicture = UIImage(data: data)
+                            /*
+                            self.profPic.layer.borderWidth = 1.0
+                            self.profPic.layer.masksToBounds = false
+                            self.profPic.layer.borderColor = UIColor.whiteColor().CGColor
+                            self.profPic.layer.cornerRadius = profilePicture.frame.size.width/2
+                            self.profPic.clipsToBounds = true
+*/
+                            self.profPic.image = profilePicture
                         }
                     }
                     let nametext = (self.dict.objectForKey("first_name") as! String) + " " + (self.dict.objectForKey("last_name") as! String)

@@ -11,7 +11,10 @@ import CoreLocation
 import MapKit
 import MessageUI
 
-class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
+class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate {
+    
+    
+    @IBOutlet weak var alternatingButton: UIButton!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -23,6 +26,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
 
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var profPic: UIImageView!
+
     @IBOutlet weak var scrollView: UIScrollView!
 
     @IBOutlet weak var sellerName: UILabel!
@@ -47,6 +51,10 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
     var condition: String = ""
     var category: String = ""
     
+    var selleremail: String = ""
+    
+    var owned: Bool = false
+    
     //timer variables
     var secondsUntil: Int = 1000
     
@@ -54,6 +62,14 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if self.owned {
+            self.alternatingButton.setTitle("Receive Payment", forState: .Normal)
+        }
+        else {
+            self.alternatingButton.setTitle("Contact", forState: .Normal)
+        }
+
         descripText.text = descript
         descripText.editable = false
         
@@ -81,10 +97,19 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
                 
                 if let url = NSURL(string: self.dict.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as! String) {
                     if let data = NSData(contentsOfURL: url){
-                        self.profPic.image = UIImage(data: data)
+                        var profilePicture = UIImage(data: data)
+                        /*
+                        self.profPic.layer.borderWidth = 1.0
+                        self.profPic.layer.masksToBounds = false
+                        self.profPic.layer.borderColor = UIColor.whiteColor().CGColor
+                        self.profPic.layer.cornerRadius = profilePicture.frame.size.width/2
+                        self.profPic.clipsToBounds = true
+                        */
+                        self.profPic.image = profilePicture
                     }
                 }
                 let nametext = (self.dict.objectForKey("first_name") as! String) + " " + (self.dict.objectForKey("last_name") as! String)
+                self.selleremail = (self.dict.objectForKey("email") as! String)
                 self.sellerName.text = nametext
                 //self.emial.text = (self.dict.objectForKey("email") as! String)
                 
@@ -93,7 +118,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
         
         self.updateLocation()
         
-        picView = UIImageView(frame:CGRectMake(0, 0, 380, 380))
+        picView = UIImageView(frame:CGRectMake(0, 0, 380, 506))
         
         nameLabel.text = name
         priceLabel.text = "$" + price
@@ -117,8 +142,12 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
         self.scrollView.sendSubviewToBack(picView)
         
     }
+
     
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSize(width:375, height:1100)
+    }
     func update() {
         
         if(secondsUntil > 0)
@@ -235,7 +264,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
     
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
         if (segue!.identifier == "paySegue") {
-            let viewController:QrView = segue!.destinationViewController as! QrView
+            let viewController:QRView = segue!.destinationViewController as! QRView
             viewController.price = price
             viewController.ID = IDNum
             viewController.time = time
@@ -283,4 +312,22 @@ class ItemDetail: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MF
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    @IBAction func alternatingButton(sender: AnyObject) {
+        if owned {
+            self.performSegueWithIdentifier("paySegue", sender: self)
+        }
+        else {
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients([selleremail])
+                var body = "Hey, I'm interested in " + name + ". Can I learn more?"
+                mail.setMessageBody(body, isHTML: false)
+                
+                presentViewController(mail, animated: true, completion: nil)
+            } else {
+                // show failure alert
+            }
+        }
+    }
 }

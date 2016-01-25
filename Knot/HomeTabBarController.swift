@@ -15,11 +15,6 @@ class HomeTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         print("checking fb token status")
         if (FBSDKAccessToken.currentAccessToken() == nil) {
             print("user not logged in")
@@ -48,5 +43,4 @@ class HomeTabBarController: UITabBarController {
             }
         }
     }
-
 }

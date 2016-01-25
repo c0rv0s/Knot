@@ -14,8 +14,9 @@ class AddScene: UINavigationController {
         super.viewDidLoad()
         
         
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("NewItemView") as! UIViewController
-        self.presentViewController(vc, animated: true, completion: nil)
+        //let vc = self.storyboard!.instantiateViewControllerWithIdentifier("NewItemView") as! UIViewController
+        //self.presentViewController(vc, animated: true, completion: nil)
+        self.performSegueWithIdentifier("PresentNewItemView", sender: self)
     }
     
 }
