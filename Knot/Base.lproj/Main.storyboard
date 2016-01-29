@@ -200,9 +200,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1100"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfW-K2-En9">
-                                        <rect key="frame" x="223" y="470" width="152" height="39"/>
+                                        <rect key="frame" x="223" y="470" width="168" height="39"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="8Ac-lG-8dT">
-                                            <rect key="frame" x="0.0" y="0.0" width="152" height="39"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="168" height="39"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lX8-Hz-rsP">

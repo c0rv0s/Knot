@@ -115,6 +115,9 @@ class QRView: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Keep Going", style: .Default, handler: { (alertAction) -> Void in
             self.updateSoldStatus()
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
+            self.presentViewController(vc, animated: true, completion: nil)
+
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }

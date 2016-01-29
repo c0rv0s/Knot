@@ -38,7 +38,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     var photoNum : Int = 1
     let picker = UIImagePickerController()
-    var fbID = "eror"
+    var fbID = "error"
     
     var one = false
     var two = false
@@ -46,7 +46,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     var timeHoursString = "1"
     var timeHoursInt = 1
-    var hours = ["1 Hour": 1,"3 Hours": 3,"5 Hours": 5,"12 Hours": 12,"24 Hours": 24,"3 Days": 72,"5 Days": 120,"7 Days": 175]
+    var hours = ["1 Hour": 1,"3 Hours": 3,"5 Hours": 5,"12 Hours": 12,"24 Hours": 24,"3 Days": 72,"5 Days": 120,"7 Days": 168]
     var lengthOption = ["1 Hour", "3 Hours", "5 Hours", "12 Hours", "24 Hours", "3 Days", "5 Days", "7 Days"]
     var conditionOption = ["New", "Manufacturer refurbished", "Seller refurbished", "Used", "For parts or not working"]
     var categoryOption = ["Art and Antiques", "Baby and Child", "Books, Movies and Music", "Games and Consoles", "Electronics", "Cameras and Photo", "Fashion and Accessories", "Sport and Leisure", "Cars and Motor", "Furniture", "Appliances", "Services", "Other"]
@@ -395,38 +395,8 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
             completion: nil)
     }
     
-    /*
-    func RBSquareImage(image: UIImage) -> UIImage {
-        var originalWidth  = image.size.width
-        var originalHeight = image.size.height
-        var x: CGFloat = 0.0
-        var y: CGFloat = 0.0
-        var edge: CGFloat = 0.0
-        
-        if (originalWidth > originalHeight) {
-            // landscape
-            edge = originalHeight
-            x = (originalWidth - edge) / 2.0
-            y = 0.0
-            
-        } else if (originalHeight > originalWidth) {
-            // portrait
-            edge = originalWidth
-            x = 0.0
-            y = (originalHeight - originalWidth) / 2.0
-        } else {
-            // square
-            edge = originalWidth
-        }
-        
-        var cropSquare = CGRectMake(x, y, edge, edge)
-        var imageRef = CGImageCreateWithImageInRect(image.CGImage, cropSquare);
-        
-        return UIImage(CGImage: imageRef!, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
-    }*/
-    
     @IBAction func submit(sender: AnyObject) {
-        if (self.nameField.text == "" || self.priceField.text == "") {
+        if (self.nameField.text == "" || self.priceField.text == "" || self.descriptionField.text == "..." || self.categoryField.text == "Category" || self.lengthField.text == "Length of Listing" || self.conditionField.text == "Item Condition" || self.picOne == nil) {
             let alert = UIAlertController(title: "Attention", message: "Please enter the missing values.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
