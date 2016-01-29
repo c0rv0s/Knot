@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Home Tab Bar Controller-->
@@ -39,11 +40,11 @@
                         <viewControllerLayoutGuide type="bottom" id="3bz-7h-OzJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="voc-pg-14W">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="920"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="780"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jcd-N8-O1A">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="921"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="780"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="025-ca-Ymg">
                                         <rect key="frame" x="21" y="347" width="335" height="82"/>
@@ -135,14 +136,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="rect" keyPath="frame">
-                                        <rect key="value" x="0.0" y="0.0" width="375" height="667"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="keyPath">
-                                        <size key="value" width="375" height="920"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="7ah-zJ-hsL" id="ib5-Lr-fay"/>
                                 </connections>
@@ -155,7 +148,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="920"/>
+                    <size key="freeformSize" width="375" height="780"/>
                     <connections>
                         <outlet property="addphoto1" destination="WjI-na-eAS" id="3Mx-jd-gnK"/>
                         <outlet property="addphoto2" destination="pCX-Xy-JEn" id="jnf-0O-PrX"/>
@@ -188,7 +181,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kf-b3-a9c">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9kf-b3-a9c">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1100"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfW-K2-En9">
@@ -273,9 +266,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <connections>
+                                    <outlet property="delegate" destination="No7-vI-DDg" id="p5l-uL-FDB"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zBM-tx-8t6" firstAttribute="top" secondItem="9kf-b3-a9c" secondAttribute="bottom" id="8sN-SX-s1J"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9kf-b3-a9c" secondAttribute="trailing" constant="-20" id="LUt-Xs-w3S"/>
+                            <constraint firstItem="9kf-b3-a9c" firstAttribute="leading" secondItem="3if-3e-9oH" secondAttribute="leadingMargin" constant="-20" id="r9o-lH-KBX"/>
+                            <constraint firstItem="9kf-b3-a9c" firstAttribute="top" secondItem="3if-3e-9oH" secondAttribute="topMargin" id="uq0-pE-iIz"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Detail" id="roL-4Z-4lU">

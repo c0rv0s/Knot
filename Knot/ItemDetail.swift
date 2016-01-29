@@ -62,7 +62,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.scrollView.contentSize = CGSize(width:375, height: 1100)
         if self.owned {
             self.alternatingButton.setTitle("Receive Payment", forState: .Normal)
         }
@@ -146,7 +146,6 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(width:375, height:1100)
     }
     func update() {
         if(secondsUntil < 43200)

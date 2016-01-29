@@ -57,7 +57,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.scrollView.contentSize = CGSize(width:375, height: 900)
         picOneView.image = UIImage(named: "grey")
         
         picker.delegate = self
