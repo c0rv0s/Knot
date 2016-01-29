@@ -221,9 +221,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="009-m9-of2">
                                                     <rect key="frame" x="0.0" y="0.0" width="216" height="39"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
+                                                    <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="alternatingButton:" destination="No7-vI-DDg" eventType="touchUpInside" id="PiI-9L-1NH"/>
                                                     </connections>
@@ -389,26 +387,26 @@
                         <collectionViewLayout key="collectionViewLayout" id="2KM-6L-0cV" customClass="FeedLayout" customModule="Knot" customModuleProvider="target"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AnnotatedPhotoCell" reuseIdentifier="AnnotatedPhotoCell" id="zyI-2L-8di" customClass="AnnotatedPhotoCell" customModule="Knot" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="180" height="273"/>
+                                <rect key="frame" x="0.0" y="64" width="170" height="273"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="273"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="170" height="273"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="RoundedCornersView" translatesAutoresizingMaskIntoConstraints="NO" id="Djh-5F-ngW" customClass="RoundedCornersView" customModule="Knot" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="180" height="273"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="170" height="273"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rI8-Z3-6va">
-                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="213"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="170" height="213"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMH-ed-y6j">
-                                                    <rect key="frame" x="8" y="221" width="164" height="21"/>
+                                                    <rect key="frame" x="8" y="221" width="154" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kII-rZ-mIN">
-                                                    <rect key="frame" x="8" y="244" width="164" height="21"/>
+                                                    <rect key="frame" x="8" y="244" width="154" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -424,7 +422,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <size key="customSize" width="180" height="273"/>
+                                <size key="customSize" width="170" height="273"/>
                                 <connections>
                                     <outlet property="countdownLabel" destination="kII-rZ-mIN" id="Vku-Yk-5IG"/>
                                     <outlet property="imageView" destination="rI8-Z3-6va" id="Pw9-VK-Nqm"/>
@@ -433,6 +431,10 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="ZnA-cl-Of3" id="FBy-Va-54M"/>
+                            <outlet property="delegate" destination="ZnA-cl-Of3" id="v3n-2Y-8yL"/>
+                        </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Knot" id="KMT-H2-MdL"/>
                     <connections>
@@ -538,10 +540,10 @@
             </objects>
             <point key="canvasLocation" x="1559.5" y="3724.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Messaging-->
         <scene sceneID="fRB-S2-MH5">
             <objects>
-                <viewController id="vvZ-zI-IKU" sceneMemberID="viewController">
+                <viewController id="vvZ-zI-IKU" customClass="Messaging" customModule="Knot" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nh1-A1-jKB"/>
                         <viewControllerLayoutGuide type="bottom" id="bW1-T1-l0q"/>
@@ -549,14 +551,6 @@
                     <view key="view" contentMode="scaleToFill" id="5cc-Ux-WKV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coming Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qj-Pj-6f8">
-                                <rect key="frame" x="113" y="323" width="149" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ni5-G0-S7u"/>

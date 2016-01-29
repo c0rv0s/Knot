@@ -229,6 +229,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         if tableRows![indexPath.row].sold == "true" {
             cell.timeLabel.text = "Sold!"
+            cell.timeLabel.textColor = UIColor.redColor()
         }
         else {
             let overDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)!
@@ -236,8 +237,15 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
             if(secondsUntil > 0)
             {
                 cell.timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
+                if secondsUntil < 43200 {
+                    cell.timeLabel.textColor = UIColor.redColor()
+                }
+                else {
+                    cell.timeLabel.textColor = UIColor.blackColor()
+                }
             }
             else {
+                cell.timeLabel.textColor = UIColor.redColor()
                 cell.timeLabel.text = "Ended"
             }
         }
@@ -316,16 +324,27 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func printSecondsToDaysHoursMinutesSeconds (seconds:Int) -> String {
         let (d, h, m, s) = secondsToDaysHoursMinutesSeconds (seconds)
-        if m < 10 {
-            if s < 10 {
-                return "\(d) Days, \(h):0\(m):0\(s) left"
+        //more than 1 day remaining
+        if d > 0 {
+            if m < 10 {
+                return "\(d) Days, \(h):0\(m) left"
             }
-            return "\(d) Days, \(h):0\(m):\(s) left"
+            return "\(d) Days, \(h):\(m) left"
         }
-        if s < 10 {
-            return "\(d) Days, \(h):\(m):0\(s) left"
+            //less than a day less
+        else {
+            if m < 10 {
+                if s < 10 {
+                    return "\(h):0\(m):0\(s) left"
+                }
+                return "\(h):0\(m):\(s) left"
+            }
+            if s < 10 {
+                return "\(h):\(m):0\(s) left"
+            }
+            return "\(h):\(m):\(s) left"
+            
         }
-        return "\(d) Days, \(h):\(m):\(s) left"
     }
     
     func secondsFrom(startDate:NSDate, endDate:NSDate) -> Int{

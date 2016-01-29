@@ -30,6 +30,7 @@ PODS:
     - AWSCore (= 2.3.3)
   - AWSSQS (2.3.3):
     - AWSCore (= 2.3.3)
+  - SendBirdSDK (2.0.12)
 
 DEPENDENCIES:
   - AWSAutoScaling
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - AWSSimpleDB
   - AWSSNS
   - AWSSQS
+  - SendBirdSDK
 
 SPEC CHECKSUMS:
   AWSAutoScaling: effea7f5902b3c7536fdbc85a169f7a4e4dcbbbc
@@ -66,5 +68,6 @@ SPEC CHECKSUMS:
   AWSSimpleDB: ba3c2c2d3e8503afcb41c1253f0ed35418a21188
   AWSSNS: d6b874e95c1b9795085bd8e5c9aa0f205a7cbe23
   AWSSQS: 6b150bbdc971582104ddc1f8660581ff9e21a762
+  SendBirdSDK: b402e1399b667106979cc146231aedfc87415adf
 
 COCOAPODS: 0.39.0

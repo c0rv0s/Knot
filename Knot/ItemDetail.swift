@@ -149,6 +149,14 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         scrollView.contentSize = CGSize(width:375, height:1100)
     }
     func update() {
+        if(secondsUntil < 43200)
+        {
+            timeLabel.textColor = UIColor.redColor()
+        }
+        if(secondsUntil >= 43200)
+        {
+            timeLabel.textColor = UIColor.blackColor()
+        }
         
         if(secondsUntil > 0)
         {

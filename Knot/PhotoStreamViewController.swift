@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class PhotoStreamViewController: UICollectionViewController {
+class PhotoStreamViewController: UICollectionViewController{
     var lock:NSLock?
     var lastEvaluatedKey:[NSObject : AnyObject]!
     
@@ -84,8 +84,9 @@ class PhotoStreamViewController: UICollectionViewController {
                 let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                 for item in paginatedOutput.items as! [ListItem] {
                     if item.sold == "false" {
-                        self.downloadImage(item.ID)
+                        
                         self.collectionItems?.append(item)
+                        self.downloadImage(item.ID)
                         //let newPhoto = Photo(litem: item, image: self.collectionImages[item.ID]!)
                         //self.photos.append(newPhoto)
 
@@ -95,7 +96,10 @@ class PhotoStreamViewController: UICollectionViewController {
                 
                 self.lastEvaluatedKey = paginatedOutput.lastEvaluatedKey
             }
-            self.colView.reloadData()
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.colView.reloadData()
+            })
             
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             
@@ -163,6 +167,11 @@ class PhotoStreamViewController: UICollectionViewController {
                 //    self.statusLabel.text = "Starting Download"
                 //NSLog("Download Starting!")
                 // Do something with uploadTask.
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.colView.reloadData()
+                })
+                
             }
             return nil;
         }
@@ -209,20 +218,28 @@ class PhotoStreamViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("AnnotatedPhotoCell", forIndexPath: indexPath) as! AnnotatedPhotoCell
         cell.cellItem = collectionItems![indexPath.row]
+        
         cell.cellPic = collectionImages[collectionItems![indexPath.row].ID]
 
-        let overDateRight = self.dateFormatter.dateFromString(cell.cellItem.time)!
-        let secondsUntilRight = secondsFrom(currentDate, endDate: overDateRight)
-        if(secondsUntilRight > 0)
+        let overDate = self.dateFormatter.dateFromString(cell.cellItem.time)!
+        let secondsUntil = secondsFrom(currentDate, endDate: overDate)
+        if(secondsUntil > 0)
         {
-            cell.countdownLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntilRight)
+            cell.countdownLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil)
+            if secondsUntil < 43200 {
+                cell.countdownLabel.textColor = UIColor.redColor()
+            }
+            else {
+                cell.countdownLabel.textColor = UIColor.blackColor()
+            }
         }
         else {
+            cell.countdownLabel.textColor = UIColor.redColor()
             cell.countdownLabel.text = "Ended"
         }
         cell.titleLabel.text = cell.cellItem.name
         cell.imageView.image = cell.cellPic
-        //collectionView.reloadItemsAtIndexPaths([indexPath])
+
         print("cell made")
         return cell
     }
@@ -234,21 +251,51 @@ class PhotoStreamViewController: UICollectionViewController {
     
     func printSecondsToDaysHoursMinutesSeconds (seconds:Int) -> String {
         let (d, h, m, s) = secondsToDaysHoursMinutesSeconds (seconds)
-        if m < 10 {
-            if s < 10 {
-                return "\(d) Days, \(h):0\(m):0\(s) left"
+        //more than 1 day remaining
+        if d > 0 {
+            if m < 10 {
+                return "\(d) Days, \(h):0\(m) left"
             }
-            return "\(d) Days, \(h):0\(m):\(s) left"
+            return "\(d) Days, \(h):\(m) left"
         }
-        if s < 10 {
-            return "\(d) Days, \(h):\(m):0\(s) left"
+        //less than a day less
+        else {
+            if m < 10 {
+                if s < 10 {
+                    return "\(h):0\(m):0\(s) left"
+                }
+                return "\(h):0\(m):\(s) left"
+            }
+            if s < 10 {
+                return "\(h):\(m):0\(s) left"
+            }
+            return "\(h):\(m):\(s) left"
+
         }
-        return "\(d) Days, \(h):\(m):\(s) left"
     }
     
     func secondsFrom(startDate:NSDate, endDate:NSDate) -> Int{
         return NSCalendar.currentCalendar().components(.Second, fromDate: startDate, toDate: endDate, options: []).second
     }
+    
+    /*
+func fadeInNewImage(newImage: UIImage) {
+let tmpImageView = UIImageView(image: newImage)
+tmpImageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+tmpImageView.contentMode = photoImageView.contentMode
+tmpImageView.frame = photoImageView.bounds
+tmpImageView.alpha = 0.0
+photoImageView.addSubview(tmpImageView)
+
+UIView.animateWithDuration(0.75, animations: {
+tmpImageView.alpha = 1.0
+}, completion: {
+finished in
+self.photoImageView.image = newImage
+tmpImageView.removeFromSuperview()
+})
+}
+*/
 }
 
 extension PhotoStreamViewController : FeedLayoutDelegate {
