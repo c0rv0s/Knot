@@ -108,11 +108,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Knot/ItemDetail.swift"
-            timestampString = "475420497.930691"
+            timestampString = "475747312.165314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "ItemDetail"
             landmarkType = "3">
             <Locations>

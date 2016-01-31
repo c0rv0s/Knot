@@ -42,7 +42,7 @@ class PhotoStreamViewController: UICollectionViewController{
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
 
         self.collectionItems = []
-        self.loadPhotos()
+        //self.loadPhotos()
         
         appDelegate.credentialsProvider.getIdentityId().continueWithBlock { (task: AWSTask!) -> AnyObject! in
             if (task.error != nil) {
@@ -167,11 +167,11 @@ class PhotoStreamViewController: UICollectionViewController{
                 //    self.statusLabel.text = "Starting Download"
                 //NSLog("Download Starting!")
                 // Do something with uploadTask.
-                
+                /*
                 dispatch_async(dispatch_get_main_queue(), {
                     self.colView.reloadData()
                 })
-                
+                */
             }
             return nil;
         }
@@ -205,6 +205,7 @@ class PhotoStreamViewController: UICollectionViewController{
             viewController.descript = collectionItems![self.selectedRow].descriptionKnot
             viewController.condition = collectionItems![self.selectedRow].condition
             viewController.category = collectionItems![self.selectedRow].category
+            viewController.numPics = collectionItems![self.selectedRow].numberOfPics
             
             if self.cognitoID == collectionItems![self.selectedRow].seller {
                 viewController.owned = true
