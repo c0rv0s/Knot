@@ -13,12 +13,13 @@ import MessageUI
 
 class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate {
     
-    
+    /*
     @IBOutlet weak var imageScroll: UIScrollView!
     @IBOutlet var pageControl: UIPageControl!
     
     var pageImages: [UIImage] = []
     var pageViews: [UIImageView?] = []
+*/
     
     @IBOutlet weak var alternatingButton: UIButton!
     
@@ -63,7 +64,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
     var owned: Bool = false
     
     //timer variables
-    var secondsUntil: Int = 1000
+    var secondsUntil: Int = 100
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -75,9 +76,12 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         self.scrollView.contentSize = CGSize(width:375, height: 1100)
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         
+        /*
         //paging
         // 1
-        pageImages = [pic]
+        self.pageImages = []
+        self.pageImages.append(pic)
+        //self.pageImages.append(UIImage(named: "Knot380")!)
         if numPics > 1 {
             print("two pics yea")
             self.downloadImage(IDNum, bucketName: "knotcompleximage2")
@@ -99,15 +103,15 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         }
         
         // 4
-        let pagesScrollViewSize = scrollView.frame.size
-        scrollView.contentSize = CGSize(width: pagesScrollViewSize.width * CGFloat(pageImages.count),
+        let pagesScrollViewSize = imageScroll.frame.size
+        imageScroll.contentSize = CGSize(width: pagesScrollViewSize.width * CGFloat(pageImages.count),
             height: pagesScrollViewSize.height)
-        
+
         // 5
         loadVisiblePages()
         
         //paging done
-        
+        */
         
         if self.owned {
             self.alternatingButton.setTitle("Receive Payment", forState: .Normal)
@@ -206,6 +210,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         {
             if sold == "true" {
                 timeLabel.text = "Sold!"
+                timeLabel.textColor = UIColor.greenColor()
             }
             else {
                 timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil--)
@@ -383,7 +388,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         }
     }
     
-    
+    /*
     //download iamge
     func downloadImage(key: String, bucketName: String){
         
@@ -514,8 +519,9 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView!) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         // Load the pages that are now on screen
         loadVisiblePages()
     }
+*/
 }

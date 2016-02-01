@@ -108,11 +108,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Knot/ItemDetail.swift"
-            timestampString = "475747312.165314"
+            timestampString = "475989653.369611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "ItemDetail"
             landmarkType = "3">
             <Locations>
@@ -124,7 +124,7 @@
                   moduleName = "Knot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Nate/Library/Mobile%20Documents/com~apple~CloudDocs/Knot/Knot/ItemDetail.swift"
-                  timestampString = "475420227.849266"
+                  timestampString = "475989518.881769"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -139,7 +139,7 @@
                   moduleName = "Knot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Nate/Library/Mobile%20Documents/com~apple~CloudDocs/Knot/Knot/ItemDetail.swift"
-                  timestampString = "475420227.84946"
+                  timestampString = "475989518.881881"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -154,7 +154,7 @@
                   moduleName = "Knot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Nate/Library/Mobile%20Documents/com~apple~CloudDocs/Knot/Knot/ItemDetail.swift"
-                  timestampString = "475420227.849617"
+                  timestampString = "475989518.881976"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -169,12 +169,12 @@
                   moduleName = "Knot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Nate/Library/Mobile%20Documents/com~apple~CloudDocs/Knot/Knot/ItemDetail.swift"
-                  timestampString = "475420227.850958"
+                  timestampString = "475989518.882072"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "732">
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "888">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -184,12 +184,12 @@
                   moduleName = "Knot"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Nate/Library/Mobile%20Documents/com~apple~CloudDocs/Knot/Knot/ItemDetail.swift"
-                  timestampString = "475420227.851074"
+                  timestampString = "475989518.882168"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "672">
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "832">
                </Location>
             </Locations>
          </BreakpointContent>

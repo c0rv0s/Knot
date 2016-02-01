@@ -229,7 +229,7 @@ class PersonalFeed: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         if tableRows![indexPath.row].sold == "true" {
             cell.timeLabel.text = "Sold!"
-            cell.timeLabel.textColor = UIColor.redColor()
+            cell.timeLabel.textColor = UIColor.greenColor()
         }
         else {
             let overDate = dateFormatter.dateFromString(tableRows![indexPath.row].time)!
