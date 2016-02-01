@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import SendBirdSDK
+import SendBirdSDK
 
 class Messaging: UIViewController {
     
