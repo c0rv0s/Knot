@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SBMessageClass.h"
-#import "MessagingTableViewController.h"
+#import "SendBird/MessagingTableViewController.h"
 
 
 @implementation SBMessageClass
 
-
+/*
 - (void)startSendBirdMessaging
 {
     NSString *APP_ID = @"6D1F1F00-D8E0-4574-A738-4BDB61AF0411";
@@ -37,7 +37,7 @@
     [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
-- (void)startSendBirdMessaging
+- (void)startSendBirdMessagingTarget
 {
     NSString *APP_ID = @"6D1F1F00-D8E0-4574-A738-4BDB61AF0411";
     NSString *USER_ID = [SendBirdUtils deviceUniqueID];
@@ -60,6 +60,6 @@
     [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
-
+*/
 
 @end

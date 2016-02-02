@@ -10,11 +10,11 @@
 #define SBMessageClass_h
 
 
-@interface SBMessageClass
+@interface SBMessageClass : NSObject 
 
 
 - (void)startSendBirdMessaging;
-- (void)startSendBirdMessaging;
+- (void)startSendBirdMessagingTarget;
 
 @end
 
