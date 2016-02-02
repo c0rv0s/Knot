@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         
+        Instabug.startWithToken("78c16dde6a35093640aa82c7114f0526", invocationEvent: IBGInvocationEventShake)
+
         /*
         AWSMobileAnalytics *analytics = [AWSMobileAnalytics
             mobileAnalyticsForAppId: @"8a8ff18d8fa242df8a62add92ba837ab" //Amazon Mobile Analytics App ID

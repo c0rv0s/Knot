@@ -19,6 +19,7 @@
 #import <AWSS3/AWSS3.h>
 #import <AWSDynamoDB/AWSDynamoDB.h>
 
+#import <Instabug/Instabug.h>
 
 
 #endif /* Bridging_Header_h */

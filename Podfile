@@ -15,5 +15,8 @@ pod 'AWSSimpleDB'
 pod 'AWSSNS'
 pod 'AWSSQS'
 pod 'AWSCognito'
+pod 'Instabug'
 
+use_frameworks!
 pod 'SendBirdSDK'
+

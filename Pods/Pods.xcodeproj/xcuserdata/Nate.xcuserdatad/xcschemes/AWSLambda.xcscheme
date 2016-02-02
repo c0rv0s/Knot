@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '12E68E1AF8E36EE9CEBC8065'
+               BlueprintIdentifier = '7F6C0323408533DA160BAF06'
                BlueprintName = 'AWSLambda'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libAWSLambda.a'>
+               BuildableName = 'AWSLambda.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
