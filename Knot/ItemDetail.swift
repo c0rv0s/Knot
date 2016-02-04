@@ -114,7 +114,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         */
         
         if self.owned {
-            self.alternatingButton.setTitle("Receive Payment", forState: .Normal)
+            self.alternatingButton.setTitle("Mark As Sold", forState: .Normal)
         }
         else {
             self.alternatingButton.setTitle("Contact", forState: .Normal)
@@ -197,30 +197,39 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         super.viewDidLayoutSubviews()
     }
     func update() {
-        if(secondsUntil < 43200)
-        {
-            timeLabel.textColor = UIColor.redColor()
-        }
-        if(secondsUntil >= 43200)
-        {
-            timeLabel.textColor = UIColor.blackColor()
-        }
         
+        self.setTextColor(secondsUntil)
+
         if(secondsUntil > 0)
         {
             if sold == "true" {
                 timeLabel.text = "Sold!"
                 timeLabel.textColor = UIColor.greenColor()
             }
+            
             else {
+
                 timeLabel.text = printSecondsToDaysHoursMinutesSeconds(secondsUntil--)
             }
         }
+
         else {
             updateSoldStatus("ended")
             timeLabel.text = "Ended"
+            self.alternatingButton.hidden = true
         }
-        
+
+    }
+    
+    func setTextColor(seconds: Int) {
+        if(seconds < 43200 && seconds >= 0)
+        {
+            timeLabel.textColor = UIColor.redColor()
+        }
+        if(seconds >= 43200)
+        {
+            timeLabel.textColor = UIColor.blackColor()
+        }
     }
     
     func secondsToDaysHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int, Int) {
@@ -316,6 +325,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
         updateInput.attributeUpdates = ["sold": valueUpdate]
         updateInput.returnValues = AWSDynamoDBReturnValue.UpdatedNew
         
+        self.sold = "Sold!"
         AWSDynamoDB.defaultDynamoDB().updateItem(updateInput).waitUntilFinished()
     }
     
@@ -371,7 +381,16 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
 
     @IBAction func alternatingButton(sender: AnyObject) {
         if owned {
-            self.performSegueWithIdentifier("paySegue", sender: self)
+            //self.performSegueWithIdentifier("paySegue", sender: self)
+            let alert = UIAlertController(title: "Are You Sure?", message: "Is this transaction completed?", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (alertAction) -> Void in
+                self.updateSoldStatus("Sold!")
+                self.timeLabel.text = "Sold!"
+                self.timeLabel.textColor = UIColor.greenColor()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (alertAction) -> Void in
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         else {
             if MFMailComposeViewController.canSendMail() {
@@ -387,6 +406,7 @@ class ItemDetail: UIViewController, UITextViewDelegate, MFMailComposeViewControl
             }
         }
     }
+
     
     /*
     //download iamge

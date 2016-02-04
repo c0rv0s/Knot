@@ -15,7 +15,11 @@ pod 'AWSSimpleDB'
 pod 'AWSSNS'
 pod 'AWSSQS'
 pod 'AWSCognito'
+
 pod 'Instabug'
 
-pod 'SendBirdSDK'
+#platform :ios, ‘9.2’
+#use_frameworks!
+
+#pod 'SendBirdSDK'
 

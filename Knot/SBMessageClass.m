@@ -13,7 +13,7 @@
 
 @implementation SBMessageClass
 
-/*
+
 - (void)startSendBirdMessaging
 {
     NSString *APP_ID = @"6D1F1F00-D8E0-4574-A738-4BDB61AF0411";
@@ -30,11 +30,12 @@
     [viewController setChannelUrl:CHANNEL_URL];
     [viewController setUserName:USER_NAME];
     [viewController setUserId:USER_ID];
-    
+    /*
     [self.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
+     */
 }
 
 - (void)startSendBirdMessagingTarget
@@ -54,12 +55,11 @@
     [viewController initChannelTitle];
     [viewController setChannelUrl:CHANNEL_URL];
     [viewController setUserName:USER_NAME];
-    
+    /*
     [self.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
+     */
 }
-*/
-
 @end

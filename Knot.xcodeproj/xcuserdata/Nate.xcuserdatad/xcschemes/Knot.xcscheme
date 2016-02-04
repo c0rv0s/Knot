@@ -114,7 +114,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "Knot - Beta"
+      customArchiveName = "Knot"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

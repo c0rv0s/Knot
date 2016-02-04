@@ -44,9 +44,8 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     var two = false
     var three = false
     
-    var timeHoursString = "1"
     var timeHoursInt = 1
-    var hours = ["1 Hour": 1,"3 Hours": 3,"5 Hours": 5,"12 Hours": 12,"24 Hours": 24,"3 Days": 72,"5 Days": 120,"7 Days": 168]
+    var hours = [1,3,5,12,24,72,120,168]
     var lengthOption = ["1 Hour", "3 Hours", "5 Hours", "12 Hours", "24 Hours", "3 Days", "5 Days", "7 Days"]
     var conditionOption = ["New", "Manufacturer refurbished", "Seller refurbished", "Used", "For parts or not working"]
     var categoryOption = ["Art and Antiques", "Baby and Child", "Books, Movies and Music", "Games and Consoles", "Electronics", "Cameras and Photo", "Fashion and Accessories", "Sport and Leisure", "Cars and Motor", "Furniture", "Appliances", "Services", "Other"]
@@ -130,7 +129,6 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
             let rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
         }
-        
         return randomString
     }
     
@@ -138,6 +136,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         let mapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         
         /***CONVERT FROM NSDate to String ****/
+        print(timeHoursInt)
         let currentDate = NSDate()
         var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Hour, value: timeHoursInt, toDate: currentDate, options: NSCalendarOptions.init(rawValue: 0))
         let dateFormatter = NSDateFormatter()
@@ -201,7 +200,8 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 0 {
-            timeHoursInt = hours[lengthOption[row]]!
+            print(row)
+            timeHoursInt = hours[row]
             return lengthOption[row]
         }
         if pickerView.tag == 1 {
@@ -442,6 +442,7 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
                         success1 = 2
                     } else {
                         success1 = 1
+                        self.wrapUpSubmission(success1, succ2: success2, succ3: success3)
                         if self.two {
                             print("two is on")
                             let testFileURL2 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
@@ -475,21 +476,16 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
                                             }
                                             else {
                                                 print("Upload successful")
-                                                        SwiftSpinner.hide()
-                                                let alert = UIAlertController(title: "Success", message: "Your upload has completed.", preferredStyle: UIAlertControllerStyle.Alert)
-                                                alert.addAction(UIAlertAction(title: "Awesome!", style: .Default, handler: { (alertAction) -> Void in
-                                                    let vc = self.storyboard!.instantiateViewControllerWithIdentifier("MainRootView") as! UITabBarController
-                                                    self.presentViewController(vc, animated: true, completion: nil)
-                                                }))
-                                                self.presentViewController(alert, animated: true, completion: nil)
-
+                                              
                                             }
                                             return nil
                                         }
+                                        
                                     }
                                 }
                                 return nil
                             }
+                            
                         }
                     }
                     return nil

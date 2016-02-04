@@ -58,8 +58,9 @@ class PhotoStreamViewController: UICollectionViewController{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.colView.reloadData()
         self.loadPhotos()
+        
     }
     
     
@@ -172,6 +173,7 @@ class PhotoStreamViewController: UICollectionViewController{
                     self.colView.reloadData()
                 })
                 */
+                self.colView.reloadData()
             }
             return nil;
         }

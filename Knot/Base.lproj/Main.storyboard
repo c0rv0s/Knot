@@ -495,13 +495,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Account" id="r77-Kq-mrs">
-                        <barButtonItem key="rightBarButtonItem" image="tool305" id="SJY-tE-qzY">
-                            <connections>
-                                <segue destination="lr9-qa-Shr" kind="show" id="dMT-QZ-J7v"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Account" id="r77-Kq-mrs"/>
                     <connections>
                         <outlet property="Name" destination="geJ-zz-sjA" id="nxg-qg-qk8"/>
                         <outlet property="emial" destination="BMy-g0-WNV" id="h0I-RX-4yq"/>
@@ -523,7 +517,7 @@
                         <viewControllerLayoutGuide type="bottom" id="gub-JM-4BN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6oa-D0-2S2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your BTC wallet ID: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbt-Ua-ZtJ">
@@ -557,7 +551,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kIl-3D-qQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559.5" y="3724.5"/>
+            <point key="canvasLocation" x="1548.5" y="3715.5"/>
         </scene>
         <!--Messaging-->
         <scene sceneID="fRB-S2-MH5">
@@ -723,7 +717,6 @@
         <image name="flag27" width="32" height="32"/>
         <image name="home" width="23" height="24"/>
         <image name="plus" width="24" height="24"/>
-        <image name="tool305" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yTs-ay-f60"/>

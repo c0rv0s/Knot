@@ -30,8 +30,7 @@ PODS:
     - AWSCore (= 2.3.4)
   - AWSSQS (2.3.4):
     - AWSCore (= 2.3.4)
-  - Instabug (5.0.0)
-  - SendBirdSDK (2.0.14)
+  - Instabug (5.0.1)
 
 DEPENDENCIES:
   - AWSAutoScaling
@@ -51,7 +50,6 @@ DEPENDENCIES:
   - AWSSNS
   - AWSSQS
   - Instabug
-  - SendBirdSDK
 
 SPEC CHECKSUMS:
   AWSAutoScaling: 58757e3fae42c8ba72ca742863c7bf7db879352d
@@ -70,7 +68,6 @@ SPEC CHECKSUMS:
   AWSSimpleDB: 4fe05ca1f857d7b7e9c03504f1140ff7c713ce5c
   AWSSNS: f00c29631df2c3a37653f9f1d3d0f736daf95133
   AWSSQS: 96d02b4c65dc518af539dff0e751e595d48ee904
-  Instabug: 7475ae8fd6fa449e857c662185d63a30f6e2b5e9
-  SendBirdSDK: eb4a6ca33cb56df312207ddfb6bf3c55af82ca9e
+  Instabug: 5682e4aa9a7adf01e6f59cfa5d54b920d66b7874
 
 COCOAPODS: 0.39.0
