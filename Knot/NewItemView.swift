@@ -138,6 +138,8 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         /***CONVERT FROM NSDate to String ****/
         print(timeHoursInt)
         let currentDate = NSDate()
+        //get over hours
+        self.calcTimeHoursInt()
         var overDate = NSCalendar.currentCalendar().dateByAddingUnit(NSCalendarUnit.Hour, value: timeHoursInt, toDate: currentDate, options: NSCalendarOptions.init(rawValue: 0))
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
@@ -181,6 +183,35 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
         return BFTask(forCompletionOfAllTasks: [task])
     }
     
+    func calcTimeHoursInt() {
+        //[1,3,5,12,24,72,120,168]
+        if lengthField.text == lengthOption[0] {
+            self.timeHoursInt = hours[0]
+        }
+        if lengthField.text == lengthOption[1] {
+            self.timeHoursInt = hours[1]
+        }
+        if lengthField.text == lengthOption[2] {
+            self.timeHoursInt = hours[2]
+        }
+        if lengthField.text == lengthOption[3] {
+            self.timeHoursInt = hours[3]
+        }
+        if lengthField.text == lengthOption[4] {
+            self.timeHoursInt = hours[4]
+        }
+        if lengthField.text == lengthOption[5] {
+            self.timeHoursInt = hours[5]
+        }
+        if lengthField.text == lengthOption[6] {
+            self.timeHoursInt = hours[6]
+        }
+        if lengthField.text == lengthOption[7] {
+            self.timeHoursInt = hours[7]
+        }
+        print(timeHoursInt)
+    }
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -200,8 +231,8 @@ UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, U
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 0 {
-            print(row)
-            timeHoursInt = hours[row]
+            //print(row)
+            //timeHoursInt = hours[row]
             return lengthOption[row]
         }
         if pickerView.tag == 1 {
